@@ -1,3 +1,0 @@
-INDEX VERSION 1.131+C:\Users\Enzo\Documents\GitHub\TPE-AyDS\.metadata\.plugins\org.eclipse.jdt.core
-3561026771.index
-3682990573.index
