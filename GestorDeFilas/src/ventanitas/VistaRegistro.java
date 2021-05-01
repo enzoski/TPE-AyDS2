@@ -10,24 +10,47 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
+import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.CompoundBorder;
 import java.awt.Color;
-import java.awt.SystemColor;
-import javax.swing.UIManager;
-import javax.swing.SwingConstants;
 
 public class VistaRegistro extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField_dni;
+	private JPanel panelNorte;
+	private JPanel panelCentral;
+	private JPanel panelBienvenida;
+	private JLabel lblBienvenida;
+	private JPanel panelLabelDNI;
+	private JPanel panelDNI;
+	private JPanel panelRegistrar;
+	private JLabel lblDNI;
+	private JPanel panelVacio3;
+	private JTextField textFieldDNI;
+	private JPanel panelVacio4;
+	private JPanel panelBotonRegistrar;
+	private JButton btnRegistrar;
+	private JPanel panelVacio5;
+	private JPanel panelVacio6;
+	private JPanel panelSur;
+	private JPanel panelDigitos;
+	private JButton btn1;
+	private JButton btn2;
+	private JButton btn3;
+	private JButton btn4;
+	private JButton btn5;
+	private JButton btn6;
+	private JButton btn7;
+	private JButton btn8;
+	private JButton btn9;
+	private JPanel panelVacio1;
+	private JButton btn0;
+	private JPanel panelVacio2;
+	private JPanel panelVacio7;
+	private JPanel panelVacio8;
+	private JPanel panelVacio9;
+	private JPanel panelVacio10;
 
 	/**
 	 * Launch the application.
@@ -52,152 +75,128 @@ public class VistaRegistro extends JFrame {
 		setTitle("Registro");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		this.contentPane = new JPanel();
+		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(this.contentPane);
 		
-		JPanel panelCentral = new JPanel();
-		panelCentral.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		contentPane.add(panelCentral, BorderLayout.CENTER);
-		panelCentral.setLayout(new BorderLayout(10, 0));
+		this.panelNorte = new JPanel();
+		this.panelNorte.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.contentPane.add(this.panelNorte, BorderLayout.NORTH);
 		
-		JPanel panel_texto_dni = new JPanel();
-		panelCentral.add(panel_texto_dni, BorderLayout.WEST);
-		panel_texto_dni.setLayout(new GridLayout(3, 1, 0, 0));
+		this.panelBienvenida = new JPanel();
+		this.panelNorte.add(this.panelBienvenida);
 		
-		JPanel panel_3 = new JPanel();
-		panel_texto_dni.add(panel_3);
+		this.lblBienvenida = new JLabel("\u00A1 BIENVENIDO !");
+		this.lblBienvenida.setFont(new Font("Tahoma", Font.BOLD, 14));
+		this.panelBienvenida.add(this.lblBienvenida);
 		
-		JLabel lblNewLabel = new JLabel("    Ingrese su DNI:    ");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		panel_texto_dni.add(lblNewLabel);
+		this.panelCentral = new JPanel();
+		this.panelCentral.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.contentPane.add(this.panelCentral, BorderLayout.CENTER);
+		this.panelCentral.setLayout(new GridLayout(1, 3, 10, 0));
 		
-		JPanel panel_ingreso_dni = new JPanel();
-		panelCentral.add(panel_ingreso_dni, BorderLayout.CENTER);
-		panel_ingreso_dni.setLayout(new GridLayout(3, 1, 0, 0));
+		this.panelLabelDNI = new JPanel();
+		this.panelCentral.add(this.panelLabelDNI);
+		this.panelLabelDNI.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JPanel panel = new JPanel();
-		panel_ingreso_dni.add(panel);
+		this.lblDNI = new JLabel("Ingrese su DNI:");
+		this.lblDNI.setFont(new Font("Tahoma", Font.BOLD, 12));
+		this.lblDNI.setHorizontalAlignment(SwingConstants.CENTER);
+		this.panelLabelDNI.add(this.lblDNI);
 		
-		JPanel panel_1 = new JPanel();
-		panel_ingreso_dni.add(panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
+		this.panelDNI = new JPanel();
+		this.panelCentral.add(this.panelDNI);
+		this.panelDNI.setLayout(new GridLayout(3, 1, 0, 0));
 		
-		textField_dni = new JTextField();
-		textField_dni.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		textField_dni.setHorizontalAlignment(SwingConstants.CENTER);
-		textField_dni.setText("12.345.678");
-		textField_dni.setEditable(false);
-		panel_1.add(textField_dni);
-		textField_dni.setColumns(20);
+		this.panelVacio3 = new JPanel();
+		this.panelDNI.add(this.panelVacio3);
 		
-		JPanel panel_boton_registrar = new JPanel();
-		panelCentral.add(panel_boton_registrar, BorderLayout.EAST);
-		panel_boton_registrar.setLayout(new GridLayout(3, 1, 0, 0));
+		this.textFieldDNI = new JTextField();
+		this.textFieldDNI.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		this.textFieldDNI.setEditable(false);
+		this.panelDNI.add(this.textFieldDNI);
+		this.textFieldDNI.setColumns(10);
 		
-		JPanel panel_2 = new JPanel();
-		panel_boton_registrar.add(panel_2);
+		this.panelRegistrar = new JPanel();
+		this.panelCentral.add(this.panelRegistrar);
+		this.panelRegistrar.setLayout(new GridLayout(3, 1, 0, 0));
 		
-		JPanel panel_4 = new JPanel();
-		panel_boton_registrar.add(panel_4);
-		panel_4.setLayout(new BorderLayout(5, 5));
+		this.panelVacio4 = new JPanel();
+		this.panelRegistrar.add(this.panelVacio4);
 		
-		JButton boton_registrar = new JButton("Registrar");
-		boton_registrar.setForeground(new Color(0, 0, 128));
-		boton_registrar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		boton_registrar.setBackground(new Color(30, 144, 255));
-		panel_4.add(boton_registrar);
+		this.panelBotonRegistrar = new JPanel();
+		this.panelRegistrar.add(this.panelBotonRegistrar);
+		this.panelBotonRegistrar.setLayout(new BorderLayout(5, 5));
 		
-		JPanel panel_5 = new JPanel();
-		panel_4.add(panel_5, BorderLayout.WEST);
+		this.btnRegistrar = new JButton("Registrar");
+		this.btnRegistrar.setForeground(new Color(0, 0, 128));
+		this.btnRegistrar.setBackground(new Color(30, 144, 255));
+		this.btnRegistrar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.panelBotonRegistrar.add(this.btnRegistrar);
 		
-		JPanel panel_6 = new JPanel();
-		panel_4.add(panel_6, BorderLayout.EAST);
+		this.panelVacio5 = new JPanel();
+		this.panelBotonRegistrar.add(this.panelVacio5, BorderLayout.WEST);
 		
-		JPanel panelNorte = new JPanel();
-		panelNorte.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		contentPane.add(panelNorte, BorderLayout.NORTH);
-		panelNorte.setLayout(new BorderLayout(0, 0));
+		this.panelVacio6 = new JPanel();
+		this.panelBotonRegistrar.add(this.panelVacio6, BorderLayout.EAST);
 		
-		JPanel panelBienvenida = new JPanel();
-		panelNorte.add(panelBienvenida, BorderLayout.CENTER);
+		this.panelSur = new JPanel();
+		this.panelSur.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.contentPane.add(this.panelSur, BorderLayout.SOUTH);
+		this.panelSur.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblBienvenido = new JLabel("\u00A1 BIENVENIDO !");
-		lblBienvenido.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panelBienvenida.add(lblBienvenido);
+		this.panelDigitos = new JPanel();
+		this.panelSur.add(this.panelDigitos);
+		this.panelDigitos.setLayout(new GridLayout(4, 3, 15, 5));
 		
-		JPanel panelSur = new JPanel();
-		panelSur.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		contentPane.add(panelSur, BorderLayout.SOUTH);
-		panelSur.setLayout(new GridLayout(4, 3, 0, 0));
+		this.btn1 = new JButton("1");
+		this.panelDigitos.add(this.btn1);
 		
-		JPanel panel_num1 = new JPanel();
-		panelSur.add(panel_num1);
+		this.btn2 = new JButton("2");
+		this.panelDigitos.add(this.btn2);
 		
-		JButton boton_num1 = new JButton("1");
-		panel_num1.add(boton_num1);
+		this.btn3 = new JButton("3");
+		this.panelDigitos.add(this.btn3);
 		
-		JPanel panel_num2 = new JPanel();
-		panelSur.add(panel_num2);
+		this.btn4 = new JButton("4");
+		this.panelDigitos.add(this.btn4);
 		
-		JButton boton_num2 = new JButton("2");
-		panel_num2.add(boton_num2);
+		this.btn5 = new JButton("5");
+		this.panelDigitos.add(this.btn5);
 		
-		JPanel panel_num3 = new JPanel();
-		panelSur.add(panel_num3);
+		this.btn6 = new JButton("6");
+		this.panelDigitos.add(this.btn6);
 		
-		JButton boton_num3 = new JButton("3");
-		panel_num3.add(boton_num3);
+		this.btn7 = new JButton("7");
+		this.panelDigitos.add(this.btn7);
 		
-		JPanel panel_num4 = new JPanel();
-		panelSur.add(panel_num4);
+		this.btn8 = new JButton("8");
+		this.panelDigitos.add(this.btn8);
 		
-		JButton boton_num4 = new JButton("4");
-		panel_num4.add(boton_num4);
+		this.btn9 = new JButton("9");
+		this.panelDigitos.add(this.btn9);
 		
-		JPanel panel_num5 = new JPanel();
-		panelSur.add(panel_num5);
+		this.panelVacio1 = new JPanel();
+		this.panelDigitos.add(this.panelVacio1);
 		
-		JButton boton_num5 = new JButton("5");
-		panel_num5.add(boton_num5);
+		this.btn0 = new JButton("0");
+		this.panelDigitos.add(this.btn0);
 		
-		JPanel panel_num6 = new JPanel();
-		panelSur.add(panel_num6);
+		this.panelVacio2 = new JPanel();
+		this.panelDigitos.add(this.panelVacio2);
 		
-		JButton boton_num6 = new JButton("6");
-		panel_num6.add(boton_num6);
+		this.panelVacio7 = new JPanel();
+		this.panelSur.add(this.panelVacio7, BorderLayout.NORTH);
 		
-		JPanel panel_num7 = new JPanel();
-		panelSur.add(panel_num7);
+		this.panelVacio8 = new JPanel();
+		this.panelSur.add(this.panelVacio8, BorderLayout.SOUTH);
 		
-		JButton boton_num7 = new JButton("7");
-		panel_num7.add(boton_num7);
+		this.panelVacio9 = new JPanel();
+		this.panelSur.add(this.panelVacio9, BorderLayout.EAST);
 		
-		JPanel panel_num8 = new JPanel();
-		panelSur.add(panel_num8);
-		
-		JButton boton_num8 = new JButton("8");
-		panel_num8.add(boton_num8);
-		
-		JPanel panel_num9 = new JPanel();
-		panelSur.add(panel_num9);
-		
-		JButton boton_num9 = new JButton("9");
-		panel_num9.add(boton_num9);
-		
-		JPanel panel_vacio1 = new JPanel();
-		panelSur.add(panel_vacio1);
-		
-		JPanel panel_num0 = new JPanel();
-		panelSur.add(panel_num0);
-		
-		JButton boton_num0 = new JButton("0");
-		panel_num0.add(boton_num0);
-		
-		JPanel panel_vacio2 = new JPanel();
-		panelSur.add(panel_vacio2);
+		this.panelVacio10 = new JPanel();
+		this.panelSur.add(this.panelVacio10, BorderLayout.WEST);
 	}
 
 }

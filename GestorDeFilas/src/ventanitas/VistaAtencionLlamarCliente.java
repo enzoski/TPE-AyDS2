@@ -6,15 +6,23 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
 import javax.swing.JButton;
-import javax.swing.BoxLayout;
-import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import java.awt.Dimension;
 import java.awt.Color;
+import java.awt.Font;
 
 public class VistaAtencionLlamarCliente extends JFrame {
 
 	private JPanel contentPane;
+	private JPanel panelCentral;
+	private JPanel panelSur;
+	private JPanel panelLlamar;
+	private JPanel panelDesconectar;
+	private JButton btnLlamarCliente;
+	private JButton btnDesconectar;
+	private JPanel panelNorteVacio;
 
 	/**
 	 * Launch the application.
@@ -38,47 +46,40 @@ public class VistaAtencionLlamarCliente extends JFrame {
 	public VistaAtencionLlamarCliente() {
 		setTitle("Atenci\u00F3n: llamar cliente");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(20, 20));
-		setContentPane(contentPane);
+		setBounds(100, 100, 450, 200);
+		this.contentPane = new JPanel();
+		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(this.contentPane);
 		
-		JPanel panel_central = new JPanel();
-		contentPane.add(panel_central, BorderLayout.CENTER);
-		panel_central.setLayout(new BorderLayout(0, 0));
+		this.panelCentral = new JPanel();
+		this.contentPane.add(this.panelCentral, BorderLayout.CENTER);
+		this.panelCentral.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JPanel panel_llamar = new JPanel();
-		panel_central.add(panel_llamar);
-		panel_llamar.setLayout(new BorderLayout(0, 0));
+		this.panelLlamar = new JPanel();
+		this.panelCentral.add(this.panelLlamar);
 		
-		JButton boton_llamar = new JButton("Llamar al siguiente Cliente");
-		boton_llamar.setForeground(new Color(0, 128, 0));
-		boton_llamar.setBackground(new Color(0, 255, 0));
-		boton_llamar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		panel_llamar.add(boton_llamar);
+		this.btnLlamarCliente = new JButton("Llamar al siguiente Cliente");
+		this.btnLlamarCliente.setForeground(new Color(0, 128, 0));
+		this.btnLlamarCliente.setFont(new Font("Tahoma", Font.BOLD, 12));
+		this.btnLlamarCliente.setBackground(new Color(0, 255, 0));
+		this.btnLlamarCliente.setPreferredSize(new Dimension(250, 55));
+		this.panelLlamar.add(this.btnLlamarCliente);
 		
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.WEST);
+		this.panelSur = new JPanel();
+		this.contentPane.add(this.panelSur, BorderLayout.SOUTH);
 		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.EAST);
+		this.panelDesconectar = new JPanel();
+		this.panelSur.add(this.panelDesconectar);
 		
-		JPanel panel_2 = new JPanel();
-		contentPane.add(panel_2, BorderLayout.NORTH);
+		this.btnDesconectar = new JButton("Desconectar");
+		this.btnDesconectar.setForeground(new Color(220, 20, 60));
+		this.btnDesconectar.setBackground(new Color(255, 0, 0));
+		this.btnDesconectar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		this.panelDesconectar.add(this.btnDesconectar);
 		
-		JPanel panel_sur = new JPanel();
-		contentPane.add(panel_sur, BorderLayout.SOUTH);
-		
-		JPanel panel_desconectar = new JPanel();
-		panel_sur.add(panel_desconectar);
-		panel_desconectar.setLayout(new BorderLayout(0, 0));
-		
-		JButton boton_desconectar = new JButton("Desconectar");
-		boton_desconectar.setForeground(new Color(220, 20, 60));
-		boton_desconectar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		boton_desconectar.setBackground(Color.RED);
-		panel_desconectar.add(boton_desconectar, BorderLayout.CENTER);
+		this.panelNorteVacio = new JPanel();
+		this.contentPane.add(this.panelNorteVacio, BorderLayout.NORTH);
 	}
 
 }

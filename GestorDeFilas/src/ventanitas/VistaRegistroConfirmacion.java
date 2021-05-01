@@ -6,22 +6,38 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
+import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import java.awt.GridLayout;
-import javax.swing.SwingConstants;
+import javax.swing.JTextPane;
 import java.awt.Font;
-import java.awt.SystemColor;
+import javax.swing.BoxLayout;
+import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.CardLayout;
+import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
 
 public class VistaRegistroConfirmacion extends JFrame {
 
 	private JPanel contentPane;
+	private JPanel panelCentral;
+	private JPanel panelSur;
+	private JPanel panelModificar;
+	private JPanel panelConfirmar;
+	private JButton btnModificar;
+	private JButton btnConfirmar;
+	private JPanel panelVacio;
+	private JPanel panelMuestra;
+	private JPanel panelLabelDNI;
+	private JLabel lblDNI;
+	private JPanel panelDNI;
+	private JTextArea txtAreaDNI;
 
 	/**
 	 * Launch the application.
@@ -43,63 +59,63 @@ public class VistaRegistroConfirmacion extends JFrame {
 	 * Create the frame.
 	 */
 	public VistaRegistroConfirmacion() {
-		setMaximumSize(new Dimension(450, 300));
 		setMinimumSize(new Dimension(350, 200));
 		setTitle("Confirmaci\u00F3n Registro");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		setBounds(100, 100, 350, 200);
+		this.contentPane = new JPanel();
+		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(this.contentPane);
 		
-		JPanel panelCentral = new JPanel();
-		contentPane.add(panelCentral, BorderLayout.CENTER);
-		panelCentral.setLayout(new GridLayout(3, 1, 0, 0));
+		this.panelCentral = new JPanel();
+		this.contentPane.add(this.panelCentral, BorderLayout.CENTER);
+		this.panelCentral.setLayout(new GridLayout(3, 1, 0, 0));
 		
-		JPanel panel = new JPanel();
-		panelCentral.add(panel);
+		this.panelVacio = new JPanel();
+		this.panelCentral.add(this.panelVacio);
 		
-		JPanel panel_1 = new JPanel();
-		panelCentral.add(panel_1);
-		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+		this.panelMuestra = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) this.panelMuestra.getLayout();
+		flowLayout.setHgap(0);
+		flowLayout.setVgap(0);
+		this.panelCentral.add(this.panelMuestra);
 		
-		JPanel panel_texto_dni = new JPanel();
-		panel_1.add(panel_texto_dni);
-		panel_texto_dni.setLayout(new BorderLayout(0, 0));
+		this.panelLabelDNI = new JPanel();
+		this.panelMuestra.add(this.panelLabelDNI);
 		
-		JLabel label_texto_dni = new JLabel("DNI:");
-		label_texto_dni.setHorizontalAlignment(SwingConstants.CENTER);
-		label_texto_dni.setFont(new Font("Tahoma", Font.BOLD, 13));
-		panel_texto_dni.add(label_texto_dni, BorderLayout.CENTER);
+		this.lblDNI = new JLabel("DNI:");
+		this.lblDNI.setFont(new Font("Tahoma", Font.BOLD, 13));
+		this.panelLabelDNI.add(this.lblDNI);
 		
-		JPanel panel_campo_dni = new JPanel();
-		panel_1.add(panel_campo_dni);
-		panel_campo_dni.setLayout(new BorderLayout(0, 0));
+		this.panelDNI = new JPanel();
+		this.panelMuestra.add(this.panelDNI);
 		
-		JLabel label_dni = new JLabel("12.345.678");
-		label_dni.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		label_dni.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_campo_dni.add(label_dni, BorderLayout.CENTER);
+		this.txtAreaDNI = new JTextArea();
+		this.txtAreaDNI.setEditable(false);
+		this.txtAreaDNI.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		this.txtAreaDNI.setBackground(UIManager.getColor("Panel.background"));
+		this.txtAreaDNI.setText("aca iria el dni");
+		this.panelDNI.add(this.txtAreaDNI);
 		
-		JPanel panelSur = new JPanel();
-		contentPane.add(panelSur, BorderLayout.SOUTH);
+		this.panelSur = new JPanel();
+		this.contentPane.add(this.panelSur, BorderLayout.SOUTH);
 		
-		JPanel panel_modificar = new JPanel();
-		panelSur.add(panel_modificar);
+		this.panelModificar = new JPanel();
+		this.panelSur.add(this.panelModificar);
 		
-		JButton boton_modificar = new JButton("Modificar");
-		boton_modificar.setForeground(new Color(128, 0, 0));
-		boton_modificar.setBackground(new Color(250, 128, 114));
-		panel_modificar.add(boton_modificar);
+		this.btnModificar = new JButton("Modificar");
+		this.btnModificar.setForeground(new Color(128, 0, 0));
+		this.btnModificar.setBackground(new Color(250, 128, 114));
+		this.panelModificar.add(this.btnModificar);
 		
-		JPanel panel_confirmar = new JPanel();
-		panelSur.add(panel_confirmar);
+		this.panelConfirmar = new JPanel();
+		this.panelSur.add(this.panelConfirmar);
 		
-		JButton boton_confirmar = new JButton("Confirmar");
-		boton_confirmar.setForeground(new Color(0, 0, 128));
-		boton_confirmar.setBackground(new Color(30, 144, 255));
-		panel_confirmar.add(boton_confirmar);
+		this.btnConfirmar = new JButton("Confirmar");
+		this.btnConfirmar.setBackground(new Color(30, 144, 255));
+		this.btnConfirmar.setForeground(new Color(0, 0, 128));
+		this.panelConfirmar.add(this.btnConfirmar);
 	}
 
 }

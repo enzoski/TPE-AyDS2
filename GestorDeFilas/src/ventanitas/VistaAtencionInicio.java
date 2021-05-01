@@ -6,17 +6,26 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import java.awt.Color;
 
 public class VistaAtencionInicio extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JPanel panelNorte;
+	private JPanel panelCentral;
+	private JPanel panelLabel;
+	private JLabel lblBox;
+	private JPanel panelBox;
+	private JPanel panelConectar;
+	private JTextField textFieldBox;
+	private JButton btnConectar;
 
 	/**
 	 * Launch the application.
@@ -40,41 +49,43 @@ public class VistaAtencionInicio extends JFrame {
 	public VistaAtencionInicio() {
 		setTitle("Atenci\u00F3n: ingreso");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		setBounds(100, 100, 370, 200);
+		this.contentPane = new JPanel();
+		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(this.contentPane);
 		
-		JPanel panel_norte = new JPanel();
-		contentPane.add(panel_norte, BorderLayout.NORTH);
+		this.panelNorte = new JPanel();
+		this.contentPane.add(this.panelNorte, BorderLayout.NORTH);
+		this.panelNorte.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JPanel panel_texto_ingreso = new JPanel();
-		panel_norte.add(panel_texto_ingreso);
+		this.panelLabel = new JPanel();
+		this.panelNorte.add(this.panelLabel);
 		
-		JLabel lblIngreseSuNmero = new JLabel("Ingrese su n\u00FAmero de BOX");
-		lblIngreseSuNmero.setFont(new Font("Tahoma", Font.BOLD, 13));
-		panel_texto_ingreso.add(lblIngreseSuNmero);
+		this.lblBox = new JLabel("Ingrese su n\u00FAmero de BOX");
+		this.lblBox.setFont(new Font("Tahoma", Font.BOLD, 13));
+		this.panelLabel.add(this.lblBox);
 		
-		JPanel panel_central = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) panel_central.getLayout();
-		flowLayout.setVgap(20);
-		contentPane.add(panel_central, BorderLayout.CENTER);
+		this.panelCentral = new JPanel();
+		this.contentPane.add(this.panelCentral, BorderLayout.CENTER);
+		this.panelCentral.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 20));
 		
-		JPanel panel_box = new JPanel();
-		panel_central.add(panel_box);
+		this.panelBox = new JPanel();
+		FlowLayout flowLayout_1 = (FlowLayout) this.panelBox.getLayout();
+		this.panelCentral.add(this.panelBox);
 		
-		textField = new JTextField();
-		panel_box.add(textField);
-		textField.setColumns(10);
+		this.textFieldBox = new JTextField();
+		this.panelBox.add(this.textFieldBox);
+		this.textFieldBox.setColumns(10);
 		
-		JPanel panel_ingresar = new JPanel();
-		panel_central.add(panel_ingresar);
+		this.panelConectar = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) this.panelConectar.getLayout();
+		this.panelCentral.add(this.panelConectar);
 		
-		JButton boton_conectar = new JButton("Conectar");
-		boton_conectar.setForeground(new Color(0, 0, 128));
-		boton_conectar.setBackground(new Color(30, 144, 255));
-		panel_ingresar.add(boton_conectar);
+		this.btnConectar = new JButton("Conectar");
+		this.btnConectar.setForeground(new Color(0, 0, 128));
+		this.btnConectar.setBackground(new Color(30, 144, 255));
+		this.panelConectar.add(this.btnConectar);
 	}
 
 }

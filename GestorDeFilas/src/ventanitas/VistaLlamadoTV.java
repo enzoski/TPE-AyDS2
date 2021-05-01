@@ -8,20 +8,39 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.border.EtchedBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
-import javax.swing.border.MatteBorder;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.TitledBorder;
 
 public class VistaLlamadoTV extends JFrame {
 
 	private JPanel contentPane;
+	private JPanel panelNorte;
+	private JPanel panelCentral;
+	private JPanel panelDNI;
+	private JPanel panelBox;
+	private JLabel lblDNI;
+	private JLabel lblBox;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JPanel panel_2;
+	private JPanel panel_3;
+	private JPanel panel_4;
+	private JPanel panel_5;
+	private JPanel panel_6;
+	private JPanel panel_7;
+	private JPanel panel_8;
+	private JPanel panel_9;
+	private JPanel panel_10;
+	private JPanel panel_11;
+	private JPanel panel_12;
+	private JPanel panel_13;
+	private JPanel panel_14;
+	private JPanel panel_15;
+	private JPanel panel_16;
+	private JPanel panel_17;
+	private JPanel panel_18;
+	private JPanel panel_19;
 
 	/**
 	 * Launch the application.
@@ -46,118 +65,114 @@ public class VistaLlamadoTV extends JFrame {
 		setTitle("Llamados");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		this.contentPane = new JPanel();
+		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(this.contentPane);
 		
-		JPanel panelNorte = new JPanel();
-		contentPane.add(panelNorte, BorderLayout.NORTH);
-		panelNorte.setLayout(new GridLayout(1, 2, 0, 0));
+		this.panelNorte = new JPanel();
+		this.contentPane.add(this.panelNorte, BorderLayout.NORTH);
+		this.panelNorte.setLayout(new GridLayout(1, 2, 0, 0));
 		
-		JPanel panel_texto_dni = new JPanel();
-		panel_texto_dni.setBackground(new Color(173, 216, 230));
-		panel_texto_dni.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelNorte.add(panel_texto_dni);
+		this.panelDNI = new JPanel();
+		this.panelDNI.setBackground(new Color(173, 216, 230));
+		this.panelNorte.add(this.panelDNI);
 		
-		JLabel label_dni = new JLabel("DNI");
-		label_dni.setFont(new Font("Tahoma", Font.BOLD, 14));
-		label_dni.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_texto_dni.add(label_dni);
+		this.lblDNI = new JLabel("DNI");
+		this.lblDNI.setFont(new Font("Tahoma", Font.BOLD, 14));
+		this.panelDNI.add(this.lblDNI);
 		
-		JPanel panel_texto_box = new JPanel();
-		panel_texto_box.setBackground(new Color(173, 216, 230));
-		panel_texto_box.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelNorte.add(panel_texto_box);
+		this.panelBox = new JPanel();
+		this.panelBox.setBackground(new Color(173, 216, 230));
+		this.panelNorte.add(this.panelBox);
 		
-		JLabel label_box = new JLabel("BOX");
-		label_box.setHorizontalAlignment(SwingConstants.CENTER);
-		label_box.setFont(new Font("Tahoma", Font.BOLD, 14));
-		panel_texto_box.add(label_box);
+		this.lblBox = new JLabel("BOX");
+		this.lblBox.setFont(new Font("Tahoma", Font.BOLD, 14));
+		this.panelBox.add(this.lblBox);
 		
-		JPanel panelCentral = new JPanel();
-		contentPane.add(panelCentral, BorderLayout.CENTER);
-		panelCentral.setLayout(new GridLayout(10, 2, 0, 0));
+		this.panelCentral = new JPanel();
+		this.contentPane.add(this.panelCentral, BorderLayout.CENTER);
+		this.panelCentral.setLayout(new GridLayout(10, 2, 0, 0));
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel);
+		this.panel = new JPanel();
+		this.panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel_1);
+		this.panel_1 = new JPanel();
+		this.panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel_1);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel_2);
+		this.panel_2 = new JPanel();
+		this.panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel_2);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel_3);
+		this.panel_3 = new JPanel();
+		this.panel_3.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel_3);
 		
-		JPanel panel_4 = new JPanel();
-		panel_4.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel_4);
+		this.panel_4 = new JPanel();
+		this.panel_4.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel_4);
 		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel_5);
+		this.panel_5 = new JPanel();
+		this.panel_5.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel_5);
 		
-		JPanel panel_6 = new JPanel();
-		panel_6.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel_6);
+		this.panel_6 = new JPanel();
+		this.panel_6.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel_6);
 		
-		JPanel panel_7 = new JPanel();
-		panel_7.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel_7);
+		this.panel_7 = new JPanel();
+		this.panel_7.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel_7);
 		
-		JPanel panel_8 = new JPanel();
-		panel_8.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel_8);
+		this.panel_8 = new JPanel();
+		this.panel_8.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel_8);
 		
-		JPanel panel_9 = new JPanel();
-		panel_9.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel_9);
+		this.panel_9 = new JPanel();
+		this.panel_9.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel_9);
 		
-		JPanel panel_10 = new JPanel();
-		panel_10.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel_10);
+		this.panel_10 = new JPanel();
+		this.panel_10.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel_10);
 		
-		JPanel panel_11 = new JPanel();
-		panel_11.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel_11);
+		this.panel_11 = new JPanel();
+		this.panel_11.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel_11);
 		
-		JPanel panel_12 = new JPanel();
-		panel_12.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel_12);
+		this.panel_12 = new JPanel();
+		this.panel_12.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel_12);
 		
-		JPanel panel_13 = new JPanel();
-		panel_13.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel_13);
+		this.panel_13 = new JPanel();
+		this.panel_13.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel_13);
 		
-		JPanel panel_14 = new JPanel();
-		panel_14.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel_14);
+		this.panel_14 = new JPanel();
+		this.panel_14.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel_14);
 		
-		JPanel panel_15 = new JPanel();
-		panel_15.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel_15);
+		this.panel_15 = new JPanel();
+		this.panel_15.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel_15);
 		
-		JPanel panel_16 = new JPanel();
-		panel_16.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel_16);
+		this.panel_16 = new JPanel();
+		this.panel_16.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel_16);
 		
-		JPanel panel_17 = new JPanel();
-		panel_17.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel_17);
+		this.panel_17 = new JPanel();
+		this.panel_17.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel_17);
 		
-		JPanel panel_18 = new JPanel();
-		panel_18.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel_18);
+		this.panel_18 = new JPanel();
+		this.panel_18.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel_18);
 		
-		JPanel panel_19 = new JPanel();
-		panel_19.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelCentral.add(panel_19);
+		this.panel_19 = new JPanel();
+		this.panel_19.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panel_19);
 	}
 
 }
