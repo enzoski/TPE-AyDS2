@@ -176,5 +176,15 @@ public class VistaLlamadoTV extends JFrame {
 		this.panel_19.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		this.panelCentral.add(this.panel_19);
 	}
+	
+	public void eliminarUltimoLlamado(String box) {
+		 int num_box = Integer.parseInt(box);
+		 //eliminar el untimo llamado de num box de la lista que se muestra en pantalla
+	}
+	
+	public void mostrar(String dni, String box){
+		
+	}
+	
 
 }
