@@ -9,8 +9,8 @@ import java.net.Socket;
 public class ControladorLlamado {
 	
 	private VistaLlamadoTV vistaLlamados;
-	private static int PORT_1= 110; //puerto para hacer llamados
-	private static int PORT_2= 120; //puerto para eliminar un box que se desconecto
+	private static final int PORT_1= 110; //puerto para hacer llamados
+	private static final int PORT_2= 120; //puerto para eliminar un box que se desconecto
 	
 	public ControladorLlamado(VistaLlamadoTV vistaLlamados) {
 		this.vistaLlamados = vistaLlamados;
