@@ -1,20 +1,24 @@
-package atencion;
+package atencion.vista_atencion;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Font;
 
-public class VistaAtencionLlamarCliente extends JFrame {
+public class VistaAtencionLlamarCliente extends JFrame implements I_VistaAtencion {
 
+	private ActionListener controlador;
+	
 	private JPanel contentPane;
 	private JPanel panelCentral;
 	private JPanel panelSur;
@@ -49,6 +53,7 @@ public class VistaAtencionLlamarCliente extends JFrame {
 		setTitle("Atenci\u00F3n: llamar cliente");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 200);
+		setLocationRelativeTo(null);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.contentPane.setLayout(new BorderLayout(0, 0));
@@ -62,6 +67,7 @@ public class VistaAtencionLlamarCliente extends JFrame {
 		this.panelCentral.add(this.panelLlamar);
 		
 		this.btnLlamarCliente = new JButton("Llamar al siguiente Cliente");
+		this.btnLlamarCliente.setActionCommand(AC_LLAMAR);
 		this.btnLlamarCliente.setForeground(new Color(0, 128, 0));
 		this.btnLlamarCliente.setFont(new Font("Tahoma", Font.BOLD, 12));
 		this.btnLlamarCliente.setBackground(new Color(0, 255, 0));
@@ -75,6 +81,7 @@ public class VistaAtencionLlamarCliente extends JFrame {
 		this.panelSur.add(this.panelDesconectar);
 		
 		this.btnDesconectar = new JButton("Desconectar");
+		this.btnDesconectar.setActionCommand(AC_DESCONECTAR);
 		this.btnDesconectar.setForeground(new Color(220, 20, 60));
 		this.btnDesconectar.setBackground(new Color(255, 0, 0));
 		this.btnDesconectar.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -82,6 +89,31 @@ public class VistaAtencionLlamarCliente extends JFrame {
 		
 		this.panelNorteVacio = new JPanel();
 		this.contentPane.add(this.panelNorteVacio, BorderLayout.NORTH);
+	}
+
+	public void errorConexion() {
+		JOptionPane.showMessageDialog(this, "Hubo un error de conexión.",
+				"Error de Conexión", JOptionPane.WARNING_MESSAGE);
+	}
+	
+	@Override
+	public void abrirVentana() {
+		this.setVisible(true);
+		
+	}
+
+	@Override
+	public void cerrarVentana() {
+		this.setVisible(false);
+		
+	}
+
+	@Override
+	public void setControlador(ActionListener c) {
+		this.controlador = c;
+		this.btnDesconectar.addActionListener(this.controlador);
+		this.btnLlamarCliente.addActionListener(this.controlador);
+		
 	}
 
 }

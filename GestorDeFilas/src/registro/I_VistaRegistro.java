@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 
 public interface I_VistaRegistro {
 	
-	// Action Commands [VistaAtencionInicio]
+	// Action Commands [VistaRegistroInicio]
 	// (definen los strings que se obtendran al producirse un evento, en este caso al pulsar los botones)
 	public static final String AC_REGISTRAR = "registrarDNI";
 	public static final String AC_NUM_0 = "0";

@@ -1,4 +1,4 @@
-package atencion;
+package atencion.vista_atencion;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -7,7 +7,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -15,8 +19,10 @@ import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import java.awt.Color;
 
-public class VistaAtencionInicio extends JFrame {
+public class VistaAtencionInicio extends JFrame implements I_VistaAtencion {
 
+	private ActionListener controlador;
+	
 	private JPanel contentPane;
 	private JPanel panelNorte;
 	private JPanel panelCentral;
@@ -52,6 +58,7 @@ public class VistaAtencionInicio extends JFrame {
 		setTitle("Atenci\u00F3n: ingreso");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 370, 200);
+		setLocationRelativeTo(null);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.contentPane.setLayout(new BorderLayout(0, 0));
@@ -77,6 +84,7 @@ public class VistaAtencionInicio extends JFrame {
 		this.panelCentral.add(this.panelBox);
 		
 		this.textFieldBox = new JTextField();
+		this.textFieldBox.setText("");
 		this.panelBox.add(this.textFieldBox);
 		this.textFieldBox.setColumns(10);
 		
@@ -85,13 +93,44 @@ public class VistaAtencionInicio extends JFrame {
 		this.panelCentral.add(this.panelConectar);
 		
 		this.btnConectar = new JButton("Conectar");
+		this.btnConectar.setActionCommand(AC_HABILITAR);
 		this.btnConectar.setForeground(new Color(0, 0, 128));
 		this.btnConectar.setBackground(new Color(30, 144, 255));
 		this.panelConectar.add(this.btnConectar);
 	}
 	
+	public String getBoxIngresado() {
+		
+		return this.textFieldBox.getText();
+	}
+	
+	public void limpiarCampoBox() {
+		this.textFieldBox.setText("");
+		
+	}
+	
 	public void errorBox() {
-		// implementar mensajito error.
+		JOptionPane.showMessageDialog(this, "El número de Box ingresado no es válido. Por favor, modifíquelo.",
+				"Error en el número de Box", JOptionPane.WARNING_MESSAGE);
+	}
+
+	@Override
+	public void abrirVentana() {
+		this.setVisible(true);
+		
+	}
+
+	@Override
+	public void cerrarVentana() {
+		this.setVisible(false);
+		
+	}
+
+	@Override
+	public void setControlador(ActionListener c) {
+		this.controlador = c;
+		this.btnConectar.addActionListener(this.controlador);
+		
 	}
 
 }
