@@ -7,16 +7,23 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
+
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class VistaRegistro extends JFrame {
-
+public class VistaRegistro extends JFrame implements I_VistaRegistro {
+	
+	private ActionListener controlador; //el controlador va a estar "escuchando" los eventos que ocurran en la vista
+	
 	private JPanel contentPane;
 	private JPanel panelNorte;
 	private JPanel panelCentral;
@@ -46,11 +53,11 @@ public class VistaRegistro extends JFrame {
 	private JButton btn9;
 	private JPanel panelVacio1;
 	private JButton btn0;
-	private JPanel panelVacio2;
 	private JPanel panelVacio7;
 	private JPanel panelVacio8;
 	private JPanel panelVacio9;
 	private JPanel panelVacio10;
+	private JButton btnBorrar;
 
 	/**
 	 * Launch the application.
@@ -75,8 +82,9 @@ public class VistaRegistro extends JFrame {
 	 */
 	public VistaRegistro() {
 		setTitle("Registro");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //significa que se cerraran todas las ventanas de la aplicación y terminará la ejecución
 		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null); // para que la ventana aparezca en el centro de nuestra pantalla
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.contentPane.setLayout(new BorderLayout(0, 0));
@@ -115,6 +123,8 @@ public class VistaRegistro extends JFrame {
 		this.panelDNI.add(this.panelVacio3);
 		
 		this.textFieldDNI = new JTextField();
+		this.textFieldDNI.setHorizontalAlignment(SwingConstants.CENTER); //así el texto aparece centrado
+		this.textFieldDNI.setText(""); //lo inicializó como un string vació por si llegará a estar por defencto en 'null'
 		this.textFieldDNI.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		this.textFieldDNI.setEditable(false);
 		this.panelDNI.add(this.textFieldDNI);
@@ -132,6 +142,7 @@ public class VistaRegistro extends JFrame {
 		this.panelBotonRegistrar.setLayout(new BorderLayout(5, 5));
 		
 		this.btnRegistrar = new JButton("Registrar");
+		this.btnRegistrar.setActionCommand(AC_REGISTRAR);
 		this.btnRegistrar.setForeground(new Color(0, 0, 128));
 		this.btnRegistrar.setBackground(new Color(30, 144, 255));
 		this.btnRegistrar.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -153,40 +164,52 @@ public class VistaRegistro extends JFrame {
 		this.panelDigitos.setLayout(new GridLayout(4, 3, 15, 5));
 		
 		this.btn1 = new JButton("1");
+		this.btn1.setActionCommand(AC_NUM_1);
 		this.panelDigitos.add(this.btn1);
 		
 		this.btn2 = new JButton("2");
+		this.btn2.setActionCommand(AC_NUM_2);
 		this.panelDigitos.add(this.btn2);
 		
 		this.btn3 = new JButton("3");
+		this.btn3.setActionCommand(AC_NUM_3);
 		this.panelDigitos.add(this.btn3);
 		
 		this.btn4 = new JButton("4");
+		this.btn4.setActionCommand(AC_NUM_4);
 		this.panelDigitos.add(this.btn4);
 		
 		this.btn5 = new JButton("5");
+		this.btn5.setActionCommand(AC_NUM_5);
 		this.panelDigitos.add(this.btn5);
 		
 		this.btn6 = new JButton("6");
+		this.btn6.setActionCommand(AC_NUM_6);
 		this.panelDigitos.add(this.btn6);
 		
 		this.btn7 = new JButton("7");
+		this.btn7.setActionCommand(AC_NUM_7);
 		this.panelDigitos.add(this.btn7);
 		
 		this.btn8 = new JButton("8");
+		this.btn8.setActionCommand(AC_NUM_8);
 		this.panelDigitos.add(this.btn8);
 		
 		this.btn9 = new JButton("9");
+		this.btn9.setActionCommand(AC_NUM_9);
 		this.panelDigitos.add(this.btn9);
 		
 		this.panelVacio1 = new JPanel();
 		this.panelDigitos.add(this.panelVacio1);
 		
 		this.btn0 = new JButton("0");
+		this.btn0.setActionCommand(AC_NUM_0);
 		this.panelDigitos.add(this.btn0);
 		
-		this.panelVacio2 = new JPanel();
-		this.panelDigitos.add(this.panelVacio2);
+		this.btnBorrar = new JButton("<");
+		this.btnBorrar.setActionCommand(AC_BORRAR);
+		this.btnBorrar.setBackground(Color.LIGHT_GRAY);
+		this.panelDigitos.add(this.btnBorrar);
 		
 		this.panelVacio7 = new JPanel();
 		this.panelSur.add(this.panelVacio7, BorderLayout.NORTH);
@@ -201,8 +224,54 @@ public class VistaRegistro extends JFrame {
 		this.panelSur.add(this.panelVacio10, BorderLayout.WEST);
 	}
 	
+	public void mostrarDigito(String digito) {
+		String digitos = this.textFieldDNI.getText();
+		digitos += digito;
+		this.textFieldDNI.setText(digitos);
+	}
+	
+	public void borrarUltimoDigito() {
+		String digitos = this.textFieldDNI.getText();
+		if(!digitos.isEmpty()) {
+			digitos = digitos.substring(0, digitos.length()-1);
+			this.textFieldDNI.setText(digitos);
+		}
+	}
+	
+	public String getDniIngresado() {
+		return this.textFieldDNI.getText();
+	}
+	
 	public void errorDNI() {
-		// implementar mostrar el mensajito.
+		JOptionPane.showMessageDialog(this, "El DNI ingresado no es válido. Por favor, modifíquelo.",
+				"Error en el DNI", JOptionPane.WARNING_MESSAGE); // o bien JOptionPane.ERROR_MESSAGE
+	}
+
+	@Override
+	public void abrirVentana() {
+		this.setVisible(true);
+	}
+
+	@Override
+	public void cerrarVentana() {
+		this.setVisible(false);
+	}
+
+	@Override
+	public void setControlador(ActionListener c) { //indicamos para cada botón, quién estará pendiente de que lo presionen (el controlador)
+		this.controlador = c; //si no llegamos a usar nunca esta referencia, despues la sacamos
+		this.btnRegistrar.addActionListener(this.controlador);
+		this.btn0.addActionListener(this.controlador);
+		this.btn1.addActionListener(this.controlador);
+		this.btn2.addActionListener(this.controlador);
+		this.btn3.addActionListener(this.controlador);
+		this.btn4.addActionListener(this.controlador);
+		this.btn5.addActionListener(this.controlador);
+		this.btn6.addActionListener(this.controlador);
+		this.btn7.addActionListener(this.controlador);
+		this.btn8.addActionListener(this.controlador);
+		this.btn9.addActionListener(this.controlador);
+		this.btnBorrar.addActionListener(this.controlador);
 	}
 
 }

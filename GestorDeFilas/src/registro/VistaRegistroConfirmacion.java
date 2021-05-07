@@ -16,6 +16,7 @@ import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 import java.awt.CardLayout;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -23,8 +24,10 @@ import java.awt.Dimension;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
-public class VistaRegistroConfirmacion extends JFrame {
+public class VistaRegistroConfirmacion extends JFrame implements I_VistaRegistro {
 
+	private ActionListener controlador; //el controlador va a estar "escuchando" los eventos que ocurran en la vista
+	
 	private JPanel contentPane;
 	private JPanel panelCentral;
 	private JPanel panelSur;
@@ -42,6 +45,7 @@ public class VistaRegistroConfirmacion extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -54,15 +58,16 @@ public class VistaRegistroConfirmacion extends JFrame {
 			}
 		});
 	}
+	*/
 
 	/**
 	 * Create the frame.
 	 */
-	public VistaRegistroConfirmacion() {
+	public VistaRegistroConfirmacion() { //por defecto, al cerrar la ventana con la 'X', solo se ocultará, no terminará la ejecución de todo el programa
 		setMinimumSize(new Dimension(350, 200));
 		setTitle("Confirmaci\u00F3n Registro");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 350, 200);
+		setLocationRelativeTo(null); // para que la ventana aparezca en el centro de nuestra pantalla
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.contentPane.setLayout(new BorderLayout(0, 0));
@@ -95,7 +100,7 @@ public class VistaRegistroConfirmacion extends JFrame {
 		this.txtAreaDNI.setEditable(false);
 		this.txtAreaDNI.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		this.txtAreaDNI.setBackground(UIManager.getColor("Panel.background"));
-		this.txtAreaDNI.setText("aca iria el dni");
+		this.txtAreaDNI.setText("");
 		this.panelDNI.add(this.txtAreaDNI);
 		
 		this.panelSur = new JPanel();
@@ -105,6 +110,7 @@ public class VistaRegistroConfirmacion extends JFrame {
 		this.panelSur.add(this.panelModificar);
 		
 		this.btnModificar = new JButton("Modificar");
+		this.btnModificar.setActionCommand(AC_MODIFICAR);
 		this.btnModificar.setForeground(new Color(128, 0, 0));
 		this.btnModificar.setBackground(new Color(250, 128, 114));
 		this.panelModificar.add(this.btnModificar);
@@ -113,9 +119,31 @@ public class VistaRegistroConfirmacion extends JFrame {
 		this.panelSur.add(this.panelConfirmar);
 		
 		this.btnConfirmar = new JButton("Confirmar");
+		this.btnConfirmar.setActionCommand(AC_CONFIRMAR);
 		this.btnConfirmar.setBackground(new Color(30, 144, 255));
 		this.btnConfirmar.setForeground(new Color(0, 0, 128));
 		this.panelConfirmar.add(this.btnConfirmar);
+	}
+	
+	public void mostrarDni(String dni) {
+		this.txtAreaDNI.setText(dni);
+	}
+
+	@Override
+	public void abrirVentana() {
+		this.setVisible(true);
+	}
+
+	@Override
+	public void cerrarVentana() {
+		this.setVisible(false);
+	}
+
+	@Override
+	public void setControlador(ActionListener c) { //indicamos para cada botón, quién estará pendiente de que lo presionen (el controlador)
+		this.controlador = c; //si no llegamos a usar nunca esta referencia, despues la sacamos
+		this.btnModificar.addActionListener(this.controlador);
+		this.btnConfirmar.addActionListener(this.controlador);
 	}
 
 }

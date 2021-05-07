@@ -4,8 +4,9 @@ public class LauncherRegistro {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		VistaRegistro vista = new VistaRegistro();
-		ControladorRegistro controlador = new ControladorRegistro(vista);
+		VistaRegistro vistaRegistro = new VistaRegistro();
+		VistaRegistroConfirmacion vistaConfirmacion = new VistaRegistroConfirmacion();
+		ControladorRegistro controlador = new ControladorRegistro(vistaRegistro, vistaConfirmacion);
 	}
 
 }
