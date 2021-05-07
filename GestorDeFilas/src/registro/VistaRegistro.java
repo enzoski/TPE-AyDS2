@@ -246,6 +246,11 @@ public class VistaRegistro extends JFrame implements I_VistaRegistro {
 		JOptionPane.showMessageDialog(this, "El DNI ingresado no es válido. Por favor, modifíquelo.",
 				"Error en el DNI", JOptionPane.WARNING_MESSAGE); // o bien JOptionPane.ERROR_MESSAGE
 	}
+	
+	public void errorConexion() {
+		JOptionPane.showMessageDialog(this, "Hubo un error de conexión.",
+				"Error de Conexión", JOptionPane.WARNING_MESSAGE);
+	}
 
 	@Override
 	public void abrirVentana() {

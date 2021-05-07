@@ -63,7 +63,8 @@ public class VistaRegistroConfirmacion extends JFrame implements I_VistaRegistro
 	/**
 	 * Create the frame.
 	 */
-	public VistaRegistroConfirmacion() { //por defecto, al cerrar la ventana con la 'X', solo se ocultará, no terminará la ejecución de todo el programa
+	public VistaRegistroConfirmacion() { //ver despues que hacer con esto
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //por defecto, al cerrar la ventana con la 'X', solo se ocultará, no terminará la ejecución de todo el programa
 		setMinimumSize(new Dimension(350, 200));
 		setTitle("Confirmaci\u00F3n Registro");
 		setBounds(100, 100, 350, 200);

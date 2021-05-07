@@ -20,7 +20,7 @@ public class ControladorRegistro implements ActionListener {
 		
 		this.vistaRegistro = vistaRegistro;
 		this.vistaRegistro.setControlador(this); //le indicamos a la vista que el controlador será su action listener
-		this.vistaRegistro.abrirVentana(); //revisar bien donde iria esto
+		this.vistaRegistro.abrirVentana();
 		
 		this.vistaConfirmacion = vistaConfirmacion;
 		this.vistaConfirmacion.setControlador(this);
@@ -46,7 +46,7 @@ public class ControladorRegistro implements ActionListener {
 			if(arg0.getActionCommand().equals(I_VistaRegistro.AC_REGISTRAR)) {
 				String dni = this.vistaRegistro.getDniIngresado();
 				//this.vistaRegistro.cerrarVentana();
-				this.vistaRegistro.setEnabled(false); //ver si hacemos esto, o la cerramos, o la dejamos activa
+				this.vistaRegistro.setEnabled(false);
 				this.vistaConfirmacion.mostrarDni(dni);
 				this.vistaConfirmacion.abrirVentana();
 			}
@@ -61,24 +61,19 @@ public class ControladorRegistro implements ActionListener {
 					if(arg0.getActionCommand().equals(I_VistaRegistro.AC_CONFIRMAR)) {
 						String dni = this.vistaRegistro.getDniIngresado();
 						this.enviarDNI(dni);
+						this.vistaRegistro.setEnabled(true);
+						this.vistaConfirmacion.cerrarVentana();
 						//la ventana no llama como tal a este método, mas bien es algo indirecto; es la que origina/provoca que se active
 						//habria que ver si es coherente con el diagrama de secuencia, pero así se aplicaría el patron MVC.
 					}
 	}
 	
 	private void enviarDNI(String dni) {
-		boolean valido = this.verificarDNI(dni);
-		if(valido)
+		int longDNI = dni.length();
+		if(longDNI == 7 || longDNI == 8)
 			this.registrarDNI(dni);
 		else
-			this.vistaRegistro.errorDNI(); //decidir si le pasamos por parámetro qué mensaje mostrar, o si lo escribimos en el codigo de la ventana.
-	}
-	
-	// no verificamos que se ingresen solo numeros del 0 al 9, ya que por cómo está diseñada la vista, no hay manera de que se ingrese otra cosa
-	private boolean verificarDNI(String dni) {
-		int longDNI = dni.length();
-		boolean longitudValida = longDNI == 7 || longDNI == 8; // ver si sacamos la condicion del 7.
-		return longitudValida;
+			this.vistaRegistro.errorDNI();
 	}
 	
 	private void registrarDNI(String dni) {
@@ -91,7 +86,8 @@ public class ControladorRegistro implements ActionListener {
 			socket.close();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			this.vistaRegistro.errorConexion();
 		}
 
 	}
