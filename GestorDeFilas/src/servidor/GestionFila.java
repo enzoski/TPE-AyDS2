@@ -11,10 +11,11 @@ import java.util.Queue;
 
 public class GestionFila {
 	private Queue<String> clientes = new LinkedList<String>();
-	private static final int PORT_1 = 80;
+	private static final int PORT_1 = 2080;
 	
 	public GestionFila() {
-		//aca se iniciaria el socket? 
+		//activamos el 'server socket'
+		this.registro();
 	}
 	
 	public void registro() {
@@ -27,6 +28,7 @@ public class GestionFila {
 			InputStreamReader(socket.getInputStream()));
 			String msg = in.readLine();
 			this.clientes.add(msg);
+			System.out.println(msg);
 			socket.close();
 			}
 		}

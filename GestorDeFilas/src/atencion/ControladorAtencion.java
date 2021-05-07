@@ -13,9 +13,9 @@ import registro.I_VistaRegistro;
 
 public class ControladorAtencion implements ActionListener {
 	
-	private static final String IP = "192.168.0.7"; // inicializarla bien cuando lo sepamos
-	private static final int PORT_1 = 90; // puerto para deshabilitar box
-	private static final int PORT_2 = 100; // puerto para llamar prox cliente
+	private static final String IP = "192.168.0.158"; // inicializarla bien cuando lo sepamos
+	private static final int PORT_1 = 2090; // puerto para deshabilitar box
+	private static final int PORT_2 = 2100; // puerto para llamar prox cliente
 	
 	private VistaAtencionInicio vistaInicio;
 	private VistaAtencionLlamarCliente vistaLlamarCliente;

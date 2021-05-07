@@ -13,12 +13,19 @@ public class Comunicacion {
 	//si no hay clientes le avisa a atencion que no hay clientes (que aparezca msj en pantalla de atencion)
 	// si hay proximocliente-> toma el nro box y ese dni y lo manda a llamado (socket cliente)
 	
-	private static final int PORT_1 = 90; //de aca viene el aviso de deshabilitacion
-	private static final int PORT_2 = 120; //aca va el aviso de deshabilitacion
-	private static final int PORT_3 = 100; // puerto donde viene llamar prox cliente
-	private static final int PORT_4= 110; //puerto para hacer llamados a prox cliente
-	private static final String IP_llamado = "168.2.0.1";
-	private GestionFila gestorFila = new GestionFila(); //no se si esto va aca o se deberia pasar en el contructor.
+	private static final int PORT_1 = 2090; //de aca viene el aviso de deshabilitacion
+	private static final int PORT_2 = 2120; //aca va el aviso de deshabilitacion
+	private static final int PORT_3 = 2100; // puerto donde viene llamar prox cliente
+	private static final int PORT_4= 2110; //puerto para hacer llamados a prox cliente
+	private static final String IP_llamado = "192.168.0.158";
+	private GestionFila gestorFila; //no se si esto va aca o se deberia pasar en el contructor.
+	
+	public Comunicacion(GestionFila gestorFila) {
+		this.gestorFila = gestorFila;
+		//activamos los 'server socket'
+		this.deshabilitarBox();
+		this.pedidoLlamado();
+	}
 	
 	public void deshabilitarBox() { //viene el msj desde controladorAtencion
 		try {
