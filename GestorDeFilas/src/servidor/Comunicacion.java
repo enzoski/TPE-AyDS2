@@ -23,29 +23,29 @@ public class Comunicacion {
 	private static final String IP_llamado = "192.168.0.158";
 	private GestionFila gestorFila; //no se si esto va aca o se deberia pasar en el contructor.
 	
-	private DeshabilitadorBox hilo_1; // hilo para deshabilitar box's
-	private RecibidorLlamados hilo_2; // hilo para recibir pedidos de llamados
+	//private DeshabilitadorBox hilo_1; // hilo para deshabilitar box's
+	//private RecibidorLlamados hilo_2; // hilo para recibir pedidos de llamados
 	
 	public Comunicacion(GestionFila gestorFila) {
 		this.gestorFila = gestorFila;
 		// instanciamos y activamos los hilos de los 'server socket'
 		//this.hilo_1 = new DeshabilitadorBox(this);
-		this.hilo_2 = new RecibidorLlamados(this);
+		//this.hilo_2 = new RecibidorLlamados(this);
 		//this.hilo_1.start();
-		this.hilo_2.start();
+		//this.hilo_2.start();
 	}
 	
 	public synchronized void deshabilitarBox() { //viene el msj desde controladorAtencion
 		try {
 			ServerSocket serverSocket = new ServerSocket(PORT_1);
 			while (true) {
-			Socket socket = serverSocket.accept();
-			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-			BufferedReader in = new BufferedReader(new
-			InputStreamReader(socket.getInputStream()));
-			String box = in.readLine();
-			this.avisoDeshabilitacion(box);
-			socket.close();
+				Socket socket = serverSocket.accept();
+				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+				BufferedReader in = new BufferedReader(new
+				InputStreamReader(socket.getInputStream()));
+				String box = in.readLine();
+				this.avisoDeshabilitacion(box);
+				socket.close();
 			}
 		}
 		catch (Exception e) {

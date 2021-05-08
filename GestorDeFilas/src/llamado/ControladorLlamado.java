@@ -12,16 +12,16 @@ public class ControladorLlamado {
 	private static final int PORT_1= 2110; //puerto para hacer llamados
 	private static final int PORT_2= 2120; //puerto para eliminar un box que se desconectó
 	
-	private AtendedorLlamados hilo_1; // hilo para hacer llamados
-	private EliminadorLlamados hilo_2; // hilo para eliminar un box que se desconectó
+	//private AtendedorLlamados hilo_1; // hilo para hacer llamados
+	//private EliminadorLlamados hilo_2; // hilo para eliminar un box que se desconectó
 	
 	public ControladorLlamado(VistaLlamadoTV vistaLlamados) {
 		this.vistaLlamados = vistaLlamados;
 		this.vistaLlamados.abrirVentana();
 		// instanciamos y activamos los hilos de los 'server socket'
-		this.hilo_1 = new AtendedorLlamados(this);
+		//this.hilo_1 = new AtendedorLlamados(this);
 		//this.hilo_2 = new EliminadorLlamados(this);
-		this.hilo_1.start();
+		//this.hilo_1.start();
 		//this.hilo_2.start();
 	}
 	
