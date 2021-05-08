@@ -2,9 +2,10 @@ package servidor;
 
 public class RecibidorLlamados extends Thread {
 	
-	Comunicacion comunicacion;
 	
-	public RecibidorLlamados(Comunicacion comunicacion) {
+	 private ComunicacionLlamados comunicacion;
+	 
+	 public RecibidorLlamados(ComunicacionLlamados comunicacion) {
 		this.comunicacion = comunicacion;
 	}
 	
@@ -12,5 +13,6 @@ public class RecibidorLlamados extends Thread {
 	public void run() {
 		this.comunicacion.pedidoLlamado();
 	}
+	
 
 }

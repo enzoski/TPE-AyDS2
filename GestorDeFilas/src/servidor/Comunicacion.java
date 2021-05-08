@@ -20,7 +20,7 @@ public class Comunicacion {
 	private static final int PORT_2 = 2120; //aca va el aviso de deshabilitacion
 	private static final int PORT_3 = 2100; // puerto donde viene llamar prox cliente
 	private static final int PORT_4= 2110; //puerto para hacer llamados a prox cliente
-	private static final String IP_llamado = "192.168.0.158";
+	private static final String IP_llamado = "192.168.1.75";
 	private GestionFila gestorFila; //no se si esto va aca o se deberia pasar en el contructor.
 	
 	//private DeshabilitadorBox hilo_1; // hilo para deshabilitar box's

@@ -2,9 +2,9 @@ package servidor;
 
 public class DeshabilitadorBox extends Thread {
 	
-	Comunicacion comunicacion;
+	private ComunicacionDeshabilitacion comunicacion;
 	
-	public DeshabilitadorBox(Comunicacion comunicacion) {
+	public DeshabilitadorBox(ComunicacionDeshabilitacion comunicacion) {
 		this.comunicacion = comunicacion;
 	}
 	
@@ -12,5 +12,6 @@ public class DeshabilitadorBox extends Thread {
 	public void run() {
 		this.comunicacion.deshabilitarBox();
 	}
+
 
 }

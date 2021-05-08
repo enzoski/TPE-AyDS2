@@ -9,7 +9,7 @@ import java.net.Socket;
 
 public class ControladorRegistro implements ActionListener {
 	
-	private static final String IP = "192.168.0.158"; // inicializarla bien cuando lo sepamos
+	private static final String IP = "192.168.1.75"; // inicializarla bien cuando lo sepamos
 	private static final int PORT = 2080; //podriamos poner un puerto distinto para cada 'subsistema'
 	
 	// el controlador tiene la referencia de todas las ventanas que "controla"

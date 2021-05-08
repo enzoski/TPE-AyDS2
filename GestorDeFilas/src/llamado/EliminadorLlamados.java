@@ -2,9 +2,9 @@ package llamado;
 
 public class EliminadorLlamados extends Thread {
 	
-	ControladorLlamado controlador;
+	ControladorEliminacion controlador;
 	
-	public EliminadorLlamados(ControladorLlamado controlador) {
+	public EliminadorLlamados(ControladorEliminacion controlador) {
 		this.controlador = controlador;
 	}
 	
