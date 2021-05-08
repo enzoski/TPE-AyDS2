@@ -6,6 +6,9 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import llamado.AtendedorLlamados;
+import llamado.EliminadorLlamados;
+
 public class Comunicacion {
 
 	//recibe pedidos de llamados de atencion con un nro de box.
@@ -20,14 +23,19 @@ public class Comunicacion {
 	private static final String IP_llamado = "192.168.0.158";
 	private GestionFila gestorFila; //no se si esto va aca o se deberia pasar en el contructor.
 	
+	private DeshabilitadorBox hilo_1; // hilo para deshabilitar box's
+	private RecibidorLlamados hilo_2; // hilo para recibir pedidos de llamados
+	
 	public Comunicacion(GestionFila gestorFila) {
 		this.gestorFila = gestorFila;
-		//activamos los 'server socket'
-		this.deshabilitarBox();
-		this.pedidoLlamado();
+		// instanciamos y activamos los hilos de los 'server socket'
+		//this.hilo_1 = new DeshabilitadorBox(this);
+		this.hilo_2 = new RecibidorLlamados(this);
+		//this.hilo_1.start();
+		this.hilo_2.start();
 	}
 	
-	public void deshabilitarBox() { //viene el msj desde controladorAtencion
+	public synchronized void deshabilitarBox() { //viene el msj desde controladorAtencion
 		try {
 			ServerSocket serverSocket = new ServerSocket(PORT_1);
 			while (true) {
@@ -59,21 +67,23 @@ public class Comunicacion {
 		}
 	}
 	
-	public void pedidoLlamado() { //viene el msj desde controladorAtencion
+	public synchronized void pedidoLlamado() { //viene el msj desde controladorAtencion
 		try {
 			ServerSocket serverSocket = new ServerSocket(PORT_3);
 			while (true) {
-			Socket socket = serverSocket.accept();
-			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-			BufferedReader in = new BufferedReader(new
-			InputStreamReader(socket.getInputStream()));
-			String box = in.readLine();
-			String dni = this.gestorFila.proximoCliente();
-			if(dni != null)
-				this.realizarLlamado(box,dni);
-			else 
-				//avisar error a atencion.
-			socket.close();
+				Socket socket = serverSocket.accept();
+				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+				BufferedReader in = new BufferedReader(new
+				InputStreamReader(socket.getInputStream()));
+				String box = in.readLine();
+				String dni = this.gestorFila.proximoCliente();
+				System.out.println(box + "|" + dni);
+				if(dni != null) {
+					this.realizarLlamado(box,dni);
+					//System.out.println(box + "|" + dni);
+				}
+				// ver que pasa si el dni es null
+				socket.close();
 			}
 		}
 		catch (Exception e) {
@@ -83,7 +93,7 @@ public class Comunicacion {
 	
 	public void realizarLlamado(String box,String dni) { //va el msj a ControladorLlamado
 		try {
-			Socket socket = new Socket(IP_llamado,PORT_2);
+			Socket socket = new Socket(IP_llamado,PORT_4);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String msj = box + '#' + dni;

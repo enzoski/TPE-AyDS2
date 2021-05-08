@@ -13,23 +13,26 @@ public class GestionFila {
 	private Queue<String> clientes = new LinkedList<String>();
 	private static final int PORT_1 = 2080;
 	
+	private RegistradorDNI hilo_1; // hilo para registrar los DNIs
+	
 	public GestionFila() {
-		//activamos el 'server socket'
-		this.registro();
+		// instanciamos y activamos el hilo del 'server socket'
+		this.hilo_1 = new RegistradorDNI(this);
+		this.hilo_1.start();
 	}
 	
 	public void registro() {
 		try {
 			ServerSocket serverSocket = new ServerSocket(PORT_1);
 			while (true) {
-			Socket socket = serverSocket.accept();
-			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-			BufferedReader in = new BufferedReader(new
-			InputStreamReader(socket.getInputStream()));
-			String msg = in.readLine();
-			this.clientes.add(msg);
-			System.out.println(msg);
-			socket.close();
+				Socket socket = serverSocket.accept();
+				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+				BufferedReader in = new BufferedReader(new
+				InputStreamReader(socket.getInputStream()));
+				String msg = in.readLine();
+				this.clientes.add(msg);
+				System.out.println(msg);
+				socket.close();
 			}
 		}
 		catch (Exception e) {

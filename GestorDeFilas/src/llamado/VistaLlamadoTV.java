@@ -119,9 +119,11 @@ public class VistaLlamadoTV extends JFrame {
 	public void eliminarUltimoLlamado(String box) {
 		// eliminar el ultimo llamado de num box de la lista que se muestra en pantalla (la fila dni-box deseada)
 		int indice = this.modeloListaBox.indexOf(box);
-		this.modeloListaBox.remove(indice);
-		this.modeloListaDNI.remove(indice);
-		this.repaint();
+		if(indice >= 0) { // por si no hay un llamado previo del mismo box
+			this.modeloListaBox.remove(indice);
+			this.modeloListaDNI.remove(indice);
+			this.repaint();
+		}
 	}
 	
 	public void mostrarLlamado(String dni, String box) {
