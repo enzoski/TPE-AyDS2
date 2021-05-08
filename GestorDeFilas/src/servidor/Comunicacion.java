@@ -86,7 +86,7 @@ public class Comunicacion {
 			Socket socket = new Socket(IP_llamado,PORT_2);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			String msj = box + dni;
+			String msj = box + '#' + dni;
 			out.println(msj);
 			out.close();
 			socket.close();

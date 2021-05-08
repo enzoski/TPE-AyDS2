@@ -3,6 +3,7 @@ package llamado;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -11,6 +12,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
+import javax.swing.JList;
+import javax.swing.border.BevelBorder;
 
 public class VistaLlamadoTV extends JFrame {
 
@@ -21,26 +24,14 @@ public class VistaLlamadoTV extends JFrame {
 	private JPanel panelBox;
 	private JLabel lblDNI;
 	private JLabel lblBox;
-	private JPanel panel;
-	private JPanel panel_1;
-	private JPanel panel_2;
-	private JPanel panel_3;
-	private JPanel panel_4;
-	private JPanel panel_5;
-	private JPanel panel_6;
-	private JPanel panel_7;
-	private JPanel panel_8;
-	private JPanel panel_9;
-	private JPanel panel_10;
-	private JPanel panel_11;
-	private JPanel panel_12;
-	private JPanel panel_13;
-	private JPanel panel_14;
-	private JPanel panel_15;
-	private JPanel panel_16;
-	private JPanel panel_17;
-	private JPanel panel_18;
-	private JPanel panel_19;
+	private JPanel panelListaDNI;
+	private JPanel panelListaBox;
+	// tendremos 2 listas visuales que muestren String's
+	private JList<String> listDNI;
+	private JList<String> listBox;
+	// dichas listas visuales mostraran automaticamente lo que haya dentro de un DefaultListModel asociado
+	private DefaultListModel<String> modeloListaDNI;
+	private DefaultListModel<String> modeloListaBox;
 
 	/**
 	 * Launch the application.
@@ -73,6 +64,7 @@ public class VistaLlamadoTV extends JFrame {
 		setContentPane(this.contentPane);
 		
 		this.panelNorte = new JPanel();
+		this.panelNorte.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		this.contentPane.add(this.panelNorte, BorderLayout.NORTH);
 		this.panelNorte.setLayout(new GridLayout(1, 2, 0, 0));
 		
@@ -81,7 +73,7 @@ public class VistaLlamadoTV extends JFrame {
 		this.panelNorte.add(this.panelDNI);
 		
 		this.lblDNI = new JLabel("DNI");
-		this.lblDNI.setFont(new Font("Tahoma", Font.BOLD, 14));
+		this.lblDNI.setFont(new Font("Tahoma", Font.BOLD, 18));
 		this.panelDNI.add(this.lblDNI);
 		
 		this.panelBox = new JPanel();
@@ -89,101 +81,58 @@ public class VistaLlamadoTV extends JFrame {
 		this.panelNorte.add(this.panelBox);
 		
 		this.lblBox = new JLabel("BOX");
-		this.lblBox.setFont(new Font("Tahoma", Font.BOLD, 14));
+		this.lblBox.setFont(new Font("Tahoma", Font.BOLD, 18));
 		this.panelBox.add(this.lblBox);
 		
 		this.panelCentral = new JPanel();
 		this.contentPane.add(this.panelCentral, BorderLayout.CENTER);
-		this.panelCentral.setLayout(new GridLayout(10, 2, 0, 0));
+		this.panelCentral.setLayout(new GridLayout(1, 2, 0, 0));
 		
-		this.panel = new JPanel();
-		this.panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel);
+		this.panelListaDNI = new JPanel();
+		this.panelListaDNI.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panelListaDNI);
+		this.panelListaDNI.setLayout(new BorderLayout(0, 0));
 		
-		this.panel_1 = new JPanel();
-		this.panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel_1);
+		this.listDNI = new JList<String>();
+		this.listDNI.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		this.listDNI.setVisibleRowCount(20);
+		this.panelListaDNI.add(this.listDNI, BorderLayout.CENTER);
 		
-		this.panel_2 = new JPanel();
-		this.panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel_2);
+		this.panelListaBox = new JPanel();
+		this.panelListaBox.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panelListaBox);
+		this.panelListaBox.setLayout(new BorderLayout(0, 0));
 		
-		this.panel_3 = new JPanel();
-		this.panel_3.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel_3);
+		this.listBox = new JList<String>();
+		this.listBox.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		this.listBox.setVisibleRowCount(20);
+		this.panelListaBox.add(this.listBox, BorderLayout.CENTER);
 		
-		this.panel_4 = new JPanel();
-		this.panel_4.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel_4);
+		// instanciamos y asociamos los modelos de lista a las listas visuales
+		this.modeloListaDNI = new DefaultListModel<String>();
+		this.modeloListaBox = new DefaultListModel<String>();
 		
-		this.panel_5 = new JPanel();
-		this.panel_5.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel_5);
-		
-		this.panel_6 = new JPanel();
-		this.panel_6.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel_6);
-		
-		this.panel_7 = new JPanel();
-		this.panel_7.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel_7);
-		
-		this.panel_8 = new JPanel();
-		this.panel_8.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel_8);
-		
-		this.panel_9 = new JPanel();
-		this.panel_9.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel_9);
-		
-		this.panel_10 = new JPanel();
-		this.panel_10.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel_10);
-		
-		this.panel_11 = new JPanel();
-		this.panel_11.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel_11);
-		
-		this.panel_12 = new JPanel();
-		this.panel_12.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel_12);
-		
-		this.panel_13 = new JPanel();
-		this.panel_13.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel_13);
-		
-		this.panel_14 = new JPanel();
-		this.panel_14.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel_14);
-		
-		this.panel_15 = new JPanel();
-		this.panel_15.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel_15);
-		
-		this.panel_16 = new JPanel();
-		this.panel_16.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel_16);
-		
-		this.panel_17 = new JPanel();
-		this.panel_17.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel_17);
-		
-		this.panel_18 = new JPanel();
-		this.panel_18.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel_18);
-		
-		this.panel_19 = new JPanel();
-		this.panel_19.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panel_19);
+		this.listDNI.setModel(this.modeloListaDNI);
+		this.listBox.setModel(this.modeloListaBox);
 	}
 	
 	public void eliminarUltimoLlamado(String box) {
-		 int num_box = Integer.parseInt(box);
-		 //eliminar el untimo llamado de num box de la lista que se muestra en pantalla
+		// eliminar el ultimo llamado de num box de la lista que se muestra en pantalla (la fila dni-box deseada)
+		int indice = this.modeloListaBox.indexOf(box);
+		this.modeloListaBox.remove(indice);
+		this.modeloListaDNI.remove(indice);
+		this.repaint();
 	}
 	
-	public void mostrar(String dni, String box){
+	public void mostrarLlamado(String dni, String box) {
+		this.modeloListaDNI.add(0, dni); // agrega al principio de la lista el dni a mostrar
+		this.modeloListaBox.add(0, box); // agrega al principio de la lista el box a mostrar
+		this.repaint(); // por las dudas redibujamos la ventana
 		
+	}
+	
+	public void abrirVentana() {
+		this.setVisible(true);
 	}
 	
 

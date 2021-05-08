@@ -14,22 +14,29 @@ public class ControladorLlamado {
 	
 	public ControladorLlamado(VistaLlamadoTV vistaLlamados) {
 		this.vistaLlamados = vistaLlamados;
-		this.vistaLlamados.setVisible(true);
+		this.vistaLlamados.abrirVentana();
+		//activamos los 'server socket'
+		this.hacerLlamado();
+		this.eliminarBox();
 	}
 	
 	public void hacerLlamado() {
 		try {
 			ServerSocket serverSocket = new ServerSocket(PORT_1);
 			while (true) {
-			Socket socket = serverSocket.accept();
-			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-			BufferedReader in = new BufferedReader(new
-			InputStreamReader(socket.getInputStream()));
-			String msg = in.readLine();
-			System.out.println(msg + "\n"); //ver como parsear esto, o si mandamos objetos.
-			// this.vistaLlamados.eliminarUltimoLlamado(box);
-			// this.vistaLlamados.mostrar(dni,box);
-			socket.close();
+				Socket socket = serverSocket.accept();
+				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+				BufferedReader in = new BufferedReader(new
+				InputStreamReader(socket.getInputStream()));
+				String msg = in.readLine();
+				//parseo del num de box y dni recibido del servidor
+				String[] arreglo = msg.split("#");
+				String box = arreglo[0];
+				String dni = arreglo[1];
+				//eliminar ultimo llamado del box para agregar el nuevo
+				this.vistaLlamados.eliminarUltimoLlamado(box);
+				this.vistaLlamados.mostrarLlamado(dni,box);
+				socket.close();
 			}
 		}
 		catch (Exception e) {
@@ -41,13 +48,13 @@ public class ControladorLlamado {
 		try {
 			ServerSocket serverSocket = new ServerSocket(PORT_2);
 			while (true) {
-			Socket socket = serverSocket.accept();
-			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-			BufferedReader in = new BufferedReader(new
-			InputStreamReader(socket.getInputStream()));
-			String msg = in.readLine();
-			this.vistaLlamados.eliminarUltimoLlamado(msg);
-			socket.close();
+				Socket socket = serverSocket.accept();
+				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+				BufferedReader in = new BufferedReader(new
+				InputStreamReader(socket.getInputStream()));
+				String msg = in.readLine();
+				this.vistaLlamados.eliminarUltimoLlamado(msg);
+				socket.close();
 			}
 		}
 		catch (Exception e) {
