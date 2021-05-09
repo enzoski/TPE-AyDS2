@@ -1,4 +1,4 @@
-package llamado;
+package llamado.controlador_llamado;
 
 public class EliminadorLlamados extends Thread {
 	

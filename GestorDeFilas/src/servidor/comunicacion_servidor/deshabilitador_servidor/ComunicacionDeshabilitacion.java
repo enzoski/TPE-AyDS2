@@ -1,4 +1,4 @@
-package servidor;
+package servidor.comunicacion_servidor.deshabilitador_servidor;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,10 +11,11 @@ public class ComunicacionDeshabilitacion {
 	
 	private static final int PORT_1 = 2090; //de aca viene el aviso de deshabilitacion
 	private static final int PORT_2 = 2120; //aca va el aviso de deshabilitacion
-	private static final String IP_llamado = "192.168.0.158";
+	private String ipLlamado; // la ip de la mini-PC
 	private DeshabilitadorBox hilo;
 	
-	public ComunicacionDeshabilitacion() {
+	public ComunicacionDeshabilitacion(String ipLlamado) {
+		this.ipLlamado = ipLlamado;
 		// instanciamos y activamos los hilos de los 'server socket'
 		this.hilo = new DeshabilitadorBox(this);
 		this.hilo.start();
@@ -40,7 +41,7 @@ public class ComunicacionDeshabilitacion {
 	
 	public void avisoDeshabilitacion(String box) { //va el msj a ControladorLlamado
 		try {
-			Socket socket = new Socket(IP_llamado,PORT_2);
+			Socket socket = new Socket(this.ipLlamado, PORT_2);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out.println(box);

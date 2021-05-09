@@ -1,4 +1,4 @@
-package registro;
+package registro.controlador_registro;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,16 +7,22 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import registro.vista_registro.I_VistaRegistro;
+import registro.vista_registro.VistaRegistro;
+import registro.vista_registro.VistaRegistroConfirmacion;
+
 public class ControladorRegistro implements ActionListener {
 	
-	private static final String IP = "192.168.0.158"; // inicializarla bien cuando lo sepamos
+	private String ipServidor; // IP del servidor
 	private static final int PORT = 2080; //podriamos poner un puerto distinto para cada 'subsistema'
 	
 	// el controlador tiene la referencia de todas las ventanas que "controla"
 	private VistaRegistro vistaRegistro;
 	private VistaRegistroConfirmacion vistaConfirmacion;
 	
-	public ControladorRegistro(VistaRegistro vistaRegistro, VistaRegistroConfirmacion vistaConfirmacion) {
+	public ControladorRegistro(VistaRegistro vistaRegistro, VistaRegistroConfirmacion vistaConfirmacion, String ipServidor) {
+		
+		this.ipServidor = ipServidor;
 		
 		this.vistaRegistro = vistaRegistro;
 		this.vistaRegistro.setControlador(this); //le indicamos a la vista que el controlador será su action listener
@@ -80,7 +86,7 @@ public class ControladorRegistro implements ActionListener {
 	
 	private void registrarDNI(String dni) {
 		try {
-			Socket socket = new Socket(IP,PORT);
+			Socket socket = new Socket(this.ipServidor, PORT);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out.println(dni);

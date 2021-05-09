@@ -1,4 +1,4 @@
-package servidor;
+package servidor.comunicacion_servidor.llamados_servidor;
 
 public class RecibidorLlamados extends Thread {
 	

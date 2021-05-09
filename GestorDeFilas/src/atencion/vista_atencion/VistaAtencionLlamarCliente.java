@@ -15,6 +15,8 @@ import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class VistaAtencionLlamarCliente extends JFrame implements I_VistaAtencion {
 
@@ -28,7 +30,9 @@ public class VistaAtencionLlamarCliente extends JFrame implements I_VistaAtencio
 	private JButton btnLlamarCliente;
 	private JButton btnDesconectar;
 	private JPanel panelNorte;
-	private JLabel lblNumBox;
+	private JPanel panelLabelBox;
+	private JLabel lblBox;
+	private JTextField textFieldBox;
 
 	/**
 	 * Launch the application.
@@ -94,18 +98,33 @@ public class VistaAtencionLlamarCliente extends JFrame implements I_VistaAtencio
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		this.contentPane.add(this.panelNorte, BorderLayout.NORTH);
 		
-		this.lblNumBox = new JLabel("");
-		this.panelNorte.add(this.lblNumBox);
+		this.panelLabelBox = new JPanel();
+		this.panelNorte.add(this.panelLabelBox);
+		
+		this.lblBox = new JLabel("Box:");
+		this.panelLabelBox.add(this.lblBox);
+		
+		this.textFieldBox = new JTextField();
+		this.textFieldBox.setEditable(false);
+		this.textFieldBox.setHorizontalAlignment(SwingConstants.CENTER);
+		this.panelLabelBox.add(this.textFieldBox);
+		this.textFieldBox.setColumns(2);
 	}
 
 	public void mostrarNumBoxHabilitado(String box) {
-		this.lblNumBox.setText("Box " + box);
+		this.textFieldBox.setText(box);
+	}
+	
+	/*
+	public void mostrarDNIProximoCliente(String dni) {
+		this.textFieldDNI.setText(dni);
 	}
 	
 	public void errorProxCliente() {
 		JOptionPane.showMessageDialog(this, "No hay más clientes esperando a ser atendidos.",
 				"Error de Llamado", JOptionPane.WARNING_MESSAGE);
 	}
+	*/
 	
 	public void errorConexion() {
 		JOptionPane.showMessageDialog(this, "Hubo un error de conexión. Inténtelo en otro momento.",

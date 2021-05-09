@@ -1,4 +1,4 @@
-package llamado;
+package llamado.vista_llamado;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

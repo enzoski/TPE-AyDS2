@@ -1,4 +1,4 @@
-package servidor;
+package servidor.fila_servidor;
 
 public class RegistradorDNI extends Thread {
 	

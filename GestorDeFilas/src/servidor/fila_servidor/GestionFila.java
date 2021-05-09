@@ -1,4 +1,4 @@
-package servidor;
+package servidor.fila_servidor;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -31,7 +31,6 @@ public class GestionFila {
 				InputStreamReader(socket.getInputStream()));
 				String msg = in.readLine();
 				this.clientes.add(msg);
-				System.out.println(msg);
 				socket.close();
 			}
 		}

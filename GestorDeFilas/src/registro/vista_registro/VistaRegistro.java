@@ -1,4 +1,4 @@
-package registro;
+package registro.vista_registro;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

@@ -1,4 +1,4 @@
-package atencion;
+package atencion.controlador_atencion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +12,7 @@ import atencion.vista_atencion.VistaAtencionLlamarCliente;
 
 public class ControladorAtencion implements ActionListener {
 	
-	private static final String IP = "192.168.0.158"; // inicializarla bien cuando lo sepamos
+	private String ipServidor; // IP del servidor
 	private static final int PORT_1 = 2090; // puerto para deshabilitar box
 	private static final int PORT_2 = 2100; // puerto para llamar prox cliente
 	
@@ -20,7 +20,9 @@ public class ControladorAtencion implements ActionListener {
 	private VistaAtencionLlamarCliente vistaLlamarCliente;
 	private int boxActual = -1;
 	
-	public ControladorAtencion(VistaAtencionInicio vistaInicio, VistaAtencionLlamarCliente vistaLlamarCliente) {
+	public ControladorAtencion(VistaAtencionInicio vistaInicio, VistaAtencionLlamarCliente vistaLlamarCliente, String ipServidor) {
+		
+		this.ipServidor = ipServidor;
 		
 		this.vistaInicio = vistaInicio;
 		this.vistaInicio.setControlador(this);
@@ -76,7 +78,7 @@ public class ControladorAtencion implements ActionListener {
 	
 	private void avisoDeshabilitacion(int box) {
 		try {
-			Socket socket = new Socket(IP,PORT_1);
+			Socket socket = new Socket(this.ipServidor, PORT_1);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out.println(box);
@@ -91,21 +93,11 @@ public class ControladorAtencion implements ActionListener {
 	
 	private void llamarProximoCliente() {
 		try {
-			Socket socket = new Socket(IP,PORT_2);
+			Socket socket = new Socket(this.ipServidor, PORT_2);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out.println(this.boxActual);
 			out.close();
-			/*
-			try {
-				String respuestaDNI = in.readLine();
-				if(respuestaDNI.equals("null"))
-					this.vistaLlamarCliente.errorProxCliente();
-			}
-			catch (Exception e) {
-				// si no hay nada que leer, es que el server no nos mando un aviso por no haber próximo cliente.
-			}
-			*/
 			socket.close();
 		}
 		catch (Exception e) {

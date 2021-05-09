@@ -1,10 +1,12 @@
-package llamado;
+package llamado.controlador_llamado;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import llamado.vista_llamado.VistaLlamadoTV;
 
 public class ControladorLlamado {
 	

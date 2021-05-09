@@ -1,4 +1,4 @@
-package registro;
+package registro.vista_registro;
 
 import java.awt.event.ActionListener;
 
