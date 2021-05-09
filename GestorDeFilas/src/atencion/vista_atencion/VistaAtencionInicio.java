@@ -95,7 +95,7 @@ public class VistaAtencionInicio extends JFrame implements I_VistaAtencion {
 		this.btnConectar = new JButton("Conectar");
 		this.btnConectar.setActionCommand(AC_HABILITAR);
 		this.btnConectar.setForeground(new Color(0, 0, 128));
-		this.btnConectar.setBackground(new Color(30, 144, 255));
+		this.btnConectar.setBackground(new Color(176, 224, 230));
 		this.panelConectar.add(this.btnConectar);
 	}
 	
@@ -110,7 +110,7 @@ public class VistaAtencionInicio extends JFrame implements I_VistaAtencion {
 	}
 	
 	public void errorBox() {
-		JOptionPane.showMessageDialog(this, "El número de Box ingresado no es válido. Por favor, modifíquelo.",
+		JOptionPane.showMessageDialog(this, "El número de box ingresado no es válido. Por favor, modifíquelo.",
 				"Error en el número de Box", JOptionPane.WARNING_MESSAGE);
 	}
 

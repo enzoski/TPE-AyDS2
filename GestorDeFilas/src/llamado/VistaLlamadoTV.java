@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.border.EtchedBorder;
@@ -58,6 +60,7 @@ public class VistaLlamadoTV extends JFrame {
 		setTitle("Llamados");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.contentPane.setLayout(new BorderLayout(0, 0));
@@ -130,6 +133,7 @@ public class VistaLlamadoTV extends JFrame {
 		this.modeloListaDNI.add(0, dni); // agrega al principio de la lista el dni a mostrar
 		this.modeloListaBox.add(0, box); // agrega al principio de la lista el box a mostrar
 		this.repaint(); // por las dudas redibujamos la ventana
+		Toolkit.getDefaultToolkit().beep(); // emitimos un sonido ('beep' del sistema)
 		
 	}
 	

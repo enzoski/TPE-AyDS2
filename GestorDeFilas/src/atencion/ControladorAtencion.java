@@ -9,11 +9,10 @@ import java.net.Socket;
 
 import atencion.vista_atencion.VistaAtencionInicio;
 import atencion.vista_atencion.VistaAtencionLlamarCliente;
-import registro.I_VistaRegistro;
 
 public class ControladorAtencion implements ActionListener {
 	
-	private static final String IP = "192.168.1.75"; // inicializarla bien cuando lo sepamos
+	private static final String IP = "192.168.0.158"; // inicializarla bien cuando lo sepamos
 	private static final int PORT_1 = 2090; // puerto para deshabilitar box
 	private static final int PORT_2 = 2100; // puerto para llamar prox cliente
 	
@@ -58,6 +57,7 @@ public class ControladorAtencion implements ActionListener {
 		if(num >= 0) {
 			this.boxActual = num;
 			this.vistaInicio.cerrarVentana();
+			this.vistaLlamarCliente.mostrarNumBoxHabilitado(String.valueOf(num));
 			this.vistaLlamarCliente.abrirVentana();
 		}
 		else {
@@ -96,6 +96,16 @@ public class ControladorAtencion implements ActionListener {
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out.println(this.boxActual);
 			out.close();
+			/*
+			try {
+				String respuestaDNI = in.readLine();
+				if(respuestaDNI.equals("null"))
+					this.vistaLlamarCliente.errorProxCliente();
+			}
+			catch (Exception e) {
+				// si no hay nada que leer, es que el server no nos mando un aviso por no haber próximo cliente.
+			}
+			*/
 			socket.close();
 		}
 		catch (Exception e) {

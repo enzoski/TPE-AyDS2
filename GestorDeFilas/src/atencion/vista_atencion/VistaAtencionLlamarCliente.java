@@ -14,6 +14,7 @@ import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JLabel;
 
 public class VistaAtencionLlamarCliente extends JFrame implements I_VistaAtencion {
 
@@ -26,7 +27,8 @@ public class VistaAtencionLlamarCliente extends JFrame implements I_VistaAtencio
 	private JPanel panelDesconectar;
 	private JButton btnLlamarCliente;
 	private JButton btnDesconectar;
-	private JPanel panelNorteVacio;
+	private JPanel panelNorte;
+	private JLabel lblNumBox;
 
 	/**
 	 * Launch the application.
@@ -70,7 +72,7 @@ public class VistaAtencionLlamarCliente extends JFrame implements I_VistaAtencio
 		this.btnLlamarCliente.setActionCommand(AC_LLAMAR);
 		this.btnLlamarCliente.setForeground(new Color(0, 128, 0));
 		this.btnLlamarCliente.setFont(new Font("Tahoma", Font.BOLD, 12));
-		this.btnLlamarCliente.setBackground(new Color(0, 255, 0));
+		this.btnLlamarCliente.setBackground(new Color(152, 251, 152));
 		this.btnLlamarCliente.setPreferredSize(new Dimension(250, 55));
 		this.panelLlamar.add(this.btnLlamarCliente);
 		
@@ -82,17 +84,31 @@ public class VistaAtencionLlamarCliente extends JFrame implements I_VistaAtencio
 		
 		this.btnDesconectar = new JButton("Desconectar");
 		this.btnDesconectar.setActionCommand(AC_DESCONECTAR);
-		this.btnDesconectar.setForeground(new Color(220, 20, 60));
-		this.btnDesconectar.setBackground(new Color(255, 0, 0));
+		this.btnDesconectar.setForeground(new Color(139, 0, 0));
+		this.btnDesconectar.setBackground(new Color(255, 160, 122));
 		this.btnDesconectar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		this.panelDesconectar.add(this.btnDesconectar);
 		
-		this.panelNorteVacio = new JPanel();
-		this.contentPane.add(this.panelNorteVacio, BorderLayout.NORTH);
+		this.panelNorte = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) this.panelNorte.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
+		this.contentPane.add(this.panelNorte, BorderLayout.NORTH);
+		
+		this.lblNumBox = new JLabel("");
+		this.panelNorte.add(this.lblNumBox);
 	}
 
+	public void mostrarNumBoxHabilitado(String box) {
+		this.lblNumBox.setText("Box " + box);
+	}
+	
+	public void errorProxCliente() {
+		JOptionPane.showMessageDialog(this, "No hay más clientes esperando a ser atendidos.",
+				"Error de Llamado", JOptionPane.WARNING_MESSAGE);
+	}
+	
 	public void errorConexion() {
-		JOptionPane.showMessageDialog(this, "Hubo un error de conexión.",
+		JOptionPane.showMessageDialog(this, "Hubo un error de conexión. Inténtelo en otro momento.",
 				"Error de Conexión", JOptionPane.WARNING_MESSAGE);
 	}
 	

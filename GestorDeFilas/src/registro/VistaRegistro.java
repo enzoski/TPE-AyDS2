@@ -144,7 +144,7 @@ public class VistaRegistro extends JFrame implements I_VistaRegistro {
 		this.btnRegistrar = new JButton("Registrar");
 		this.btnRegistrar.setActionCommand(AC_REGISTRAR);
 		this.btnRegistrar.setForeground(new Color(0, 0, 128));
-		this.btnRegistrar.setBackground(new Color(30, 144, 255));
+		this.btnRegistrar.setBackground(new Color(176, 224, 230));
 		this.btnRegistrar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		this.panelBotonRegistrar.add(this.btnRegistrar);
 		
@@ -242,13 +242,17 @@ public class VistaRegistro extends JFrame implements I_VistaRegistro {
 		return this.textFieldDNI.getText();
 	}
 	
+	public void limpiarCampoDNI() {
+		this.textFieldDNI.setText("");
+	}
+	
 	public void errorDNI() {
 		JOptionPane.showMessageDialog(this, "El DNI ingresado no es válido. Por favor, modifíquelo.",
 				"Error en el DNI", JOptionPane.WARNING_MESSAGE); // o bien JOptionPane.ERROR_MESSAGE
 	}
 	
 	public void errorConexion() {
-		JOptionPane.showMessageDialog(this, "Hubo un error de conexión.",
+		JOptionPane.showMessageDialog(this, "Hubo un error de conexión. Inténtelo en otro momento.",
 				"Error de Conexión", JOptionPane.WARNING_MESSAGE);
 	}
 

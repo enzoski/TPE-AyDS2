@@ -112,8 +112,8 @@ public class VistaRegistroConfirmacion extends JFrame implements I_VistaRegistro
 		
 		this.btnModificar = new JButton("Modificar");
 		this.btnModificar.setActionCommand(AC_MODIFICAR);
-		this.btnModificar.setForeground(new Color(128, 0, 0));
-		this.btnModificar.setBackground(new Color(250, 128, 114));
+		this.btnModificar.setForeground(new Color(139, 0, 0));
+		this.btnModificar.setBackground(new Color(255, 160, 122));
 		this.panelModificar.add(this.btnModificar);
 		
 		this.panelConfirmar = new JPanel();
@@ -121,7 +121,7 @@ public class VistaRegistroConfirmacion extends JFrame implements I_VistaRegistro
 		
 		this.btnConfirmar = new JButton("Confirmar");
 		this.btnConfirmar.setActionCommand(AC_CONFIRMAR);
-		this.btnConfirmar.setBackground(new Color(30, 144, 255));
+		this.btnConfirmar.setBackground(new Color(176, 224, 230));
 		this.btnConfirmar.setForeground(new Color(0, 0, 128));
 		this.panelConfirmar.add(this.btnConfirmar);
 	}

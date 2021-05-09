@@ -11,7 +11,7 @@ public class ComunicacionLlamados {
 	
 	private static final int PORT_3 = 2100; // puerto donde viene llamar prox cliente
 	private static final int PORT_4= 2110; //puerto para hacer llamados a prox cliente
-	private static final String IP_llamado = "192.168.1.75";
+	private static final String IP_llamado = "192.168.0.158";
 	private GestionFila gestorFila; //no se si esto va aca o se deberia pasar en el contructor.
 	private RecibidorLlamados hilo; // hilo para recibir pedidos de llamados
 	
@@ -36,6 +36,12 @@ public class ComunicacionLlamados {
 					this.realizarLlamado(box,dni);
 					//System.out.println(box + "|" + dni);
 				}
+				/*
+				else {
+					out.println("null");
+					out.close();
+				}
+				*/
 				// ver que pasa si el dni es null
 				socket.close();
 			}

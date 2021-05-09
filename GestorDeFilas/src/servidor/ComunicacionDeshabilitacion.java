@@ -11,7 +11,7 @@ public class ComunicacionDeshabilitacion {
 	
 	private static final int PORT_1 = 2090; //de aca viene el aviso de deshabilitacion
 	private static final int PORT_2 = 2120; //aca va el aviso de deshabilitacion
-	private static final String IP_llamado = "192.168.1.75";
+	private static final String IP_llamado = "192.168.0.158";
 	private DeshabilitadorBox hilo;
 	
 	public ComunicacionDeshabilitacion() {
