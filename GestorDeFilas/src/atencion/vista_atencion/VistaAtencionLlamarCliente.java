@@ -1,14 +1,12 @@
 package atencion.vista_atencion;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
@@ -19,8 +17,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class VistaAtencionLlamarCliente extends JFrame implements I_VistaAtencion {
-
-	private ActionListener controlador;
 	
 	private JPanel contentPane;
 	private JPanel panelCentral;
@@ -145,9 +141,8 @@ public class VistaAtencionLlamarCliente extends JFrame implements I_VistaAtencio
 
 	@Override
 	public void setControlador(ActionListener c) {
-		this.controlador = c;
-		this.btnDesconectar.addActionListener(this.controlador);
-		this.btnLlamarCliente.addActionListener(this.controlador);
+		this.btnDesconectar.addActionListener(c);
+		this.btnLlamarCliente.addActionListener(c);
 		
 	}
 

@@ -1,7 +1,6 @@
 package llamado.vista_llamado;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
@@ -15,7 +14,6 @@ import java.awt.Font;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import javax.swing.JList;
-import javax.swing.border.BevelBorder;
 
 public class VistaLlamadoTV extends JFrame {
 

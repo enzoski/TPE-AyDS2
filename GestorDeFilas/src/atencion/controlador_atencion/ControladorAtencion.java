@@ -10,12 +10,18 @@ import java.net.Socket;
 import atencion.vista_atencion.VistaAtencionInicio;
 import atencion.vista_atencion.VistaAtencionLlamarCliente;
 
+/**
+ * Clase que hace de intermediario entre la interfaz de usuario y el servidor del sistema.
+ * Controla los eventos que ocurren en la vista del puesto de atención (box), y cuando sea oportuno,
+ * le informa al servidor que se quiere llamar al próximo cliente o bien que se quiere desconectar el box.
+ *
+ */
 public class ControladorAtencion implements ActionListener {
 	
-	private String ipServidor; // IP del servidor
 	private static final int PORT_1 = 2090; // puerto para deshabilitar box
 	private static final int PORT_2 = 2100; // puerto para llamar prox cliente
 	
+	private String ipServidor; // IP del servidor
 	private VistaAtencionInicio vistaInicio;
 	private VistaAtencionLlamarCliente vistaLlamarCliente;
 	private int boxActual = -1;
@@ -49,7 +55,7 @@ public class ControladorAtencion implements ActionListener {
 		else
 			if(arg0.getActionCommand().equals(atencion.vista_atencion.I_VistaAtencion.AC_LLAMAR))
 				this.llamarProximoCliente();
-			else //fijarse si hay un evento de 'cerrar ventana con la cruz'.
+			else // FIJARSE SI HAY UN EVENTO DE 'CERRAR VENTANA CON LA CRUZ'.
 				if(arg0.getActionCommand().equals(atencion.vista_atencion.I_VistaAtencion.AC_DESCONECTAR))
 					this.deshabilitarBox();
 		
@@ -76,12 +82,12 @@ public class ControladorAtencion implements ActionListener {
 		this.vistaInicio.abrirVentana();
 	}
 	
-	private void avisoDeshabilitacion(int box) {
+	private void avisoDeshabilitacion(int box) { // va el mensaje a ComunicacionDeshabilitacion (servidor)
 		try {
 			Socket socket = new Socket(this.ipServidor, PORT_1);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			out.println(box);
+			out.println(box); // PARA SEGUIR LA LOGICA DE MANDAR STRING'S, QUIZAS LO PODRIAMOS PARSEAR, O NO, IGUAL ANDA
 			out.close();
 			socket.close();
 		}
@@ -91,12 +97,12 @@ public class ControladorAtencion implements ActionListener {
 		}
 	}
 	
-	private void llamarProximoCliente() {
+	private void llamarProximoCliente() { // va el mensaje a ComunicacionLlamados (servidor)
 		try {
 			Socket socket = new Socket(this.ipServidor, PORT_2);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			out.println(this.boxActual);
+			out.println(this.boxActual); // ACÁ LO MISMO
 			out.close();
 			socket.close();
 		}
@@ -106,4 +112,5 @@ public class ControladorAtencion implements ActionListener {
 		}
 	}
 
+	
 }

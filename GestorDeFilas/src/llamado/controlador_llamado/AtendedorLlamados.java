@@ -2,7 +2,7 @@ package llamado.controlador_llamado;
 
 public class AtendedorLlamados extends Thread {
 
-	ControladorLlamado controlador;
+	private ControladorLlamado controlador;
 	
 	public AtendedorLlamados(ControladorLlamado controlador) {
 		this.controlador = controlador;
@@ -13,4 +13,5 @@ public class AtendedorLlamados extends Thread {
 		this.controlador.hacerLlamado();
 	}
 
+	
 }

@@ -1,23 +1,15 @@
 package registro.vista_registro;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import java.awt.Font;
-import javax.swing.BoxLayout;
 import java.awt.GridLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.event.ActionListener;
-import java.awt.CardLayout;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -25,8 +17,6 @@ import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
 public class VistaRegistroConfirmacion extends JFrame implements I_VistaRegistro {
-
-	private ActionListener controlador; //el controlador va a estar "escuchando" los eventos que ocurran en la vista
 	
 	private JPanel contentPane;
 	private JPanel panelCentral;
@@ -141,10 +131,11 @@ public class VistaRegistroConfirmacion extends JFrame implements I_VistaRegistro
 	}
 
 	@Override
-	public void setControlador(ActionListener c) { //indicamos para cada botón, quién estará pendiente de que lo presionen (el controlador)
-		this.controlador = c; //si no llegamos a usar nunca esta referencia, despues la sacamos
-		this.btnModificar.addActionListener(this.controlador);
-		this.btnConfirmar.addActionListener(this.controlador);
+	public void setControlador(ActionListener c) {
+		// indicamos para cada botón, quién estará pendiente de que lo presionen (el controlador)
+		// el controlador va a estar "escuchando" los eventos que ocurran en la vista
+		this.btnModificar.addActionListener(c);
+		this.btnConfirmar.addActionListener(c);
 	}
 
 }

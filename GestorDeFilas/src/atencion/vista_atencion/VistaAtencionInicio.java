@@ -1,12 +1,10 @@
 package atencion.vista_atencion;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
@@ -15,13 +13,10 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
 import java.awt.Color;
 
 public class VistaAtencionInicio extends JFrame implements I_VistaAtencion {
-
-	private ActionListener controlador;
 	
 	private JPanel contentPane;
 	private JPanel panelNorte;
@@ -128,8 +123,7 @@ public class VistaAtencionInicio extends JFrame implements I_VistaAtencion {
 
 	@Override
 	public void setControlador(ActionListener c) {
-		this.controlador = c;
-		this.btnConectar.addActionListener(this.controlador);
+		this.btnConectar.addActionListener(c);
 		
 	}
 

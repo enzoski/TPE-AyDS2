@@ -1,7 +1,6 @@
 package registro.vista_registro;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,11 +17,8 @@ import javax.swing.border.EtchedBorder;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class VistaRegistro extends JFrame implements I_VistaRegistro {
-	
-	private ActionListener controlador; //el controlador va a estar "escuchando" los eventos que ocurran en la vista
 	
 	private JPanel contentPane;
 	private JPanel panelNorte;
@@ -267,20 +263,21 @@ public class VistaRegistro extends JFrame implements I_VistaRegistro {
 	}
 
 	@Override
-	public void setControlador(ActionListener c) { //indicamos para cada botón, quién estará pendiente de que lo presionen (el controlador)
-		this.controlador = c; //si no llegamos a usar nunca esta referencia, despues la sacamos
-		this.btnRegistrar.addActionListener(this.controlador);
-		this.btn0.addActionListener(this.controlador);
-		this.btn1.addActionListener(this.controlador);
-		this.btn2.addActionListener(this.controlador);
-		this.btn3.addActionListener(this.controlador);
-		this.btn4.addActionListener(this.controlador);
-		this.btn5.addActionListener(this.controlador);
-		this.btn6.addActionListener(this.controlador);
-		this.btn7.addActionListener(this.controlador);
-		this.btn8.addActionListener(this.controlador);
-		this.btn9.addActionListener(this.controlador);
-		this.btnBorrar.addActionListener(this.controlador);
+	public void setControlador(ActionListener c) {
+		// indicamos para cada botón, quién estará pendiente de que lo presionen (el controlador)
+		// el controlador va a estar "escuchando" los eventos que ocurran en la vista
+		this.btnRegistrar.addActionListener(c);
+		this.btn0.addActionListener(c);
+		this.btn1.addActionListener(c);
+		this.btn2.addActionListener(c);
+		this.btn3.addActionListener(c);
+		this.btn4.addActionListener(c);
+		this.btn5.addActionListener(c);
+		this.btn6.addActionListener(c);
+		this.btn7.addActionListener(c);
+		this.btn8.addActionListener(c);
+		this.btn9.addActionListener(c);
+		this.btnBorrar.addActionListener(c);
 	}
 
 }

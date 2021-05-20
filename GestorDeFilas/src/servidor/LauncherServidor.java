@@ -17,6 +17,8 @@ public class LauncherServidor {
 		sc.close();
 		System.out.print("Servidor escuchando...");
 		
+		// El servidor consta de 2 sub-componentes:
+		// uno que gestiona la fila de clientes, y otro que gestiona la comunicación entre todo el sistema.
 		GestionFila gestionFila = new GestionFila();
 		ComunicacionDeshabilitacion comunicacionD = new ComunicacionDeshabilitacion(ipLlamado);
 		ComunicacionLlamados comunicacionL = new ComunicacionLlamados(gestionFila, ipLlamado);

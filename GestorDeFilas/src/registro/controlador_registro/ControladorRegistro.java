@@ -11,10 +11,16 @@ import registro.vista_registro.I_VistaRegistro;
 import registro.vista_registro.VistaRegistro;
 import registro.vista_registro.VistaRegistroConfirmacion;
 
+/**
+ * Clase que hace de intermediario entre la interfaz de usuario y el servidor del sistema.
+ * Controla los eventos que ocurren en la vista de registro de clientes, y cuando sea oportuno,
+ * le informa al componente que gestiona la fila de clientes, el DNI de un cliente que se quiso registrar.
+ *
+ */
 public class ControladorRegistro implements ActionListener {
 	
+	private static final int PORT = 2080; // puerto para realizar el registro de clientes (DNIs)
 	private String ipServidor; // IP del servidor
-	private static final int PORT = 2080; //podriamos poner un puerto distinto para cada 'subsistema'
 	
 	// el controlador tiene la referencia de todas las ventanas que "controla"
 	private VistaRegistro vistaRegistro;
@@ -84,7 +90,7 @@ public class ControladorRegistro implements ActionListener {
 			this.vistaRegistro.errorDNI();
 	}
 	
-	private void registrarDNI(String dni) {
+	private void registrarDNI(String dni) { // va el mensaje a GestionFila (servidor)
 		try {
 			Socket socket = new Socket(this.ipServidor, PORT);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -100,4 +106,5 @@ public class ControladorRegistro implements ActionListener {
 
 	}
 
+	
 }

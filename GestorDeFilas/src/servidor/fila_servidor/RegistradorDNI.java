@@ -2,7 +2,7 @@ package servidor.fila_servidor;
 
 public class RegistradorDNI extends Thread {
 	
-	GestionFila gestionFila;
+	private GestionFila gestionFila;
 	
 	public RegistradorDNI(GestionFila gestionFila) {
 		this.gestionFila = gestionFila;
@@ -13,4 +13,5 @@ public class RegistradorDNI extends Thread {
 		this.gestionFila.registro();
 	}
 
+	
 }
