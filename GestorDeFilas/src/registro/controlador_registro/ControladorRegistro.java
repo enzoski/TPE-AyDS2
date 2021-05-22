@@ -26,6 +26,8 @@ public class ControladorRegistro implements ActionListener {
 	private VistaRegistro vistaRegistro;
 	private VistaRegistroConfirmacion vistaConfirmacion;
 	
+	//private static int numTotem = 0; *
+	
 	public ControladorRegistro(VistaRegistro vistaRegistro, VistaRegistroConfirmacion vistaConfirmacion, String ipServidor) {
 		
 		this.ipServidor = ipServidor;
@@ -37,6 +39,10 @@ public class ControladorRegistro implements ActionListener {
 		this.vistaConfirmacion = vistaConfirmacion;
 		this.vistaConfirmacion.setControlador(this);
 		// por defecto las ventanas permanecen ocultas, por eso no 'cerramos' esta
+		
+		// POR AHORA QUEDA EN VEREMOS LO DEL NUMERO DE TOTEM *
+		//numTotem++;
+		//this.vistaRegistro.mostrarNumTotem(String.valueOf(numTotem));
 		
 	}
 	
@@ -72,9 +78,9 @@ public class ControladorRegistro implements ActionListener {
 				else
 					if(arg0.getActionCommand().equals(I_VistaRegistro.AC_CONFIRMAR)) {
 						String dni = this.vistaRegistro.getDniIngresado();
-						this.enviarDNI(dni);
 						this.vistaRegistro.setEnabled(true);
 						this.vistaConfirmacion.cerrarVentana();
+						this.enviarDNI(dni);
 						//la ventana no llama como tal a este método, mas bien es algo indirecto; es la que origina/provoca que se active
 						//habria que ver si es coherente con el diagrama de secuencia, pero así se aplicaría el patron MVC.
 					}
@@ -98,6 +104,9 @@ public class ControladorRegistro implements ActionListener {
 			out.println(dni);
 			out.close();
 			socket.close();
+			// si llegamos hasta acá, la comunicación (sockets) salió bien, por lo que se agregó bien el dni a la fila
+			// ya que por el momento no hay algun caso particular en que GestionFila no agregue un dni
+			this.vistaRegistro.registroExitoso();
 		}
 		catch (Exception e) {
 			//e.printStackTrace();

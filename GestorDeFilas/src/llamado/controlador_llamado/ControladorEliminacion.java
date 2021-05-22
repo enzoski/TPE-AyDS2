@@ -37,7 +37,7 @@ public class ControladorEliminacion { // LE AGREGARIA EL 'LLAMADO' AL FINAL DEL 
 				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				String box = in.readLine();
-				this.vistaLlamados.eliminarUltimoLlamado(box);
+				this.vistaLlamados.eliminarLlamados(box);
 				socket.close();
 			}
 		}

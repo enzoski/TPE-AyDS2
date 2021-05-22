@@ -78,6 +78,7 @@ public class ControladorAtencion implements ActionListener {
 		// avisar al server el nro de box
 		this.avisoDeshabilitacion(this.boxActual);
 		this.boxActual = -1;
+		this.vistaLlamarCliente.limpiarCampoProxDNI();
 		this.vistaLlamarCliente.cerrarVentana();
 		this.vistaInicio.abrirVentana();
 	}
@@ -87,7 +88,7 @@ public class ControladorAtencion implements ActionListener {
 			Socket socket = new Socket(this.ipServidor, PORT_1);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			out.println(box); // PARA SEGUIR LA LOGICA DE MANDAR STRING'S, QUIZAS LO PODRIAMOS PARSEAR, O NO, IGUAL ANDA
+			out.println(box);
 			out.close();
 			socket.close();
 		}
@@ -102,7 +103,15 @@ public class ControladorAtencion implements ActionListener {
 			Socket socket = new Socket(this.ipServidor, PORT_2);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			out.println(this.boxActual); // ACÁ LO MISMO
+			out.println(this.boxActual);
+			// luego de mandarle al servidor el box actual, él nos devuelve el próximo DNI que va a ser llamado
+			String dni = in.readLine();
+			if(dni.equals("null")) { // no hay mas clientes (DNIs) esperando a ser atendidos
+				this.vistaLlamarCliente.errorProxCliente();
+				this.vistaLlamarCliente.mostrarDNIProximoCliente("");
+			}
+			else
+				this.vistaLlamarCliente.mostrarDNIProximoCliente(dni);
 			out.close();
 			socket.close();
 		}

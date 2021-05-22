@@ -29,6 +29,9 @@ public class VistaAtencionLlamarCliente extends JFrame implements I_VistaAtencio
 	private JPanel panelLabelBox;
 	private JLabel lblBox;
 	private JTextField textFieldBox;
+	private JPanel panelLabelDNI;
+	private JLabel lblDNI;
+	private JTextField textFieldProxDNI;
 
 	/**
 	 * Launch the application.
@@ -91,7 +94,7 @@ public class VistaAtencionLlamarCliente extends JFrame implements I_VistaAtencio
 		
 		this.panelNorte = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) this.panelNorte.getLayout();
-		flowLayout.setAlignment(FlowLayout.LEFT);
+		flowLayout.setHgap(40);
 		this.contentPane.add(this.panelNorte, BorderLayout.NORTH);
 		
 		this.panelLabelBox = new JPanel();
@@ -105,22 +108,36 @@ public class VistaAtencionLlamarCliente extends JFrame implements I_VistaAtencio
 		this.textFieldBox.setHorizontalAlignment(SwingConstants.CENTER);
 		this.panelLabelBox.add(this.textFieldBox);
 		this.textFieldBox.setColumns(2);
+		
+		this.panelLabelDNI = new JPanel();
+		this.panelNorte.add(this.panelLabelDNI);
+		
+		this.lblDNI = new JLabel("Cliente llamado:");
+		this.panelLabelDNI.add(this.lblDNI);
+		
+		this.textFieldProxDNI = new JTextField();
+		this.textFieldProxDNI.setHorizontalAlignment(SwingConstants.CENTER);
+		this.textFieldProxDNI.setEditable(false);
+		this.textFieldProxDNI.setColumns(8);
+		this.panelLabelDNI.add(this.textFieldProxDNI);
 	}
 
 	public void mostrarNumBoxHabilitado(String box) {
 		this.textFieldBox.setText(box);
 	}
 	
-	/*
 	public void mostrarDNIProximoCliente(String dni) {
-		this.textFieldDNI.setText(dni);
+		this.textFieldProxDNI.setText(dni);
+	}
+	
+	public void limpiarCampoProxDNI() {
+		this.textFieldProxDNI.setText("");
 	}
 	
 	public void errorProxCliente() {
 		JOptionPane.showMessageDialog(this, "No hay más clientes esperando a ser atendidos.",
 				"Error de Llamado", JOptionPane.WARNING_MESSAGE);
 	}
-	*/
 	
 	public void errorConexion() {
 		JOptionPane.showMessageDialog(this, "Hubo un error de conexión. Inténtelo en otro momento.",
@@ -145,5 +162,6 @@ public class VistaAtencionLlamarCliente extends JFrame implements I_VistaAtencio
 		this.btnLlamarCliente.addActionListener(c);
 		
 	}
+
 
 }

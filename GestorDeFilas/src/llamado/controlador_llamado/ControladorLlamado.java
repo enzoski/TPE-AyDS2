@@ -41,8 +41,6 @@ public class ControladorLlamado {
 				String[] arreglo = msg.split("#");
 				String box = arreglo[0];
 				String dni = arreglo[1];
-				//eliminar ultimo llamado del box para agregar el nuevo
-				this.vistaLlamados.eliminarUltimoLlamado(box);
 				this.vistaLlamados.mostrarLlamado(dni,box);
 				socket.close();
 			}

@@ -42,9 +42,11 @@ public class ComunicacionLlamados {
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				String box = in.readLine();
 				String dni = this.gestorFila.proximoCliente();
-				if(dni != null)
-					this.realizarLlamado(box,dni);
-				// a futuro ver que hacer con los dni nulls.
+				if(dni != null) // si fuera null, no haríamos la comunicacion con el componente 'llamado' y listo
+					this.realizarLlamado(box, dni);
+				// le respondemos al componente 'atencion', mandandole el próximo DNI, y él decidirá qué hacer si es null
+				out.println(dni);
+				out.close();
 				socket.close();
 			}
 		}

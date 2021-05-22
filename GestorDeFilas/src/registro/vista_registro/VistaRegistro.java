@@ -17,14 +17,13 @@ import javax.swing.border.EtchedBorder;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.awt.FlowLayout;
 
 public class VistaRegistro extends JFrame implements I_VistaRegistro {
 	
 	private JPanel contentPane;
 	private JPanel panelNorte;
 	private JPanel panelCentral;
-	private JPanel panelBienvenida;
-	private JLabel lblBienvenida;
 	private JPanel panelLabelDNI;
 	private JPanel panelDNI;
 	private JPanel panelRegistrar;
@@ -54,6 +53,8 @@ public class VistaRegistro extends JFrame implements I_VistaRegistro {
 	private JPanel panelVacio9;
 	private JPanel panelVacio10;
 	private JButton btnBorrar;
+	private JPanel panelBienvenida;
+	private JLabel lblBienvenida;
 
 	/**
 	 * Launch the application.
@@ -89,6 +90,7 @@ public class VistaRegistro extends JFrame implements I_VistaRegistro {
 		this.panelNorte = new JPanel();
 		this.panelNorte.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		this.contentPane.add(this.panelNorte, BorderLayout.NORTH);
+		this.panelNorte.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		this.panelBienvenida = new JPanel();
 		this.panelNorte.add(this.panelBienvenida);
@@ -220,6 +222,12 @@ public class VistaRegistro extends JFrame implements I_VistaRegistro {
 		this.panelSur.add(this.panelVacio10, BorderLayout.WEST);
 	}
 	
+	/*
+	public void mostrarNumTotem(String num) {
+		this.textFieldTotem.setText(num);
+	}
+	*/
+	
 	public void mostrarDigito(String digito) {
 		String digitos = this.textFieldDNI.getText();
 		digitos += digito;
@@ -240,6 +248,11 @@ public class VistaRegistro extends JFrame implements I_VistaRegistro {
 	
 	public void limpiarCampoDNI() {
 		this.textFieldDNI.setText("");
+	}
+	
+	public void registroExitoso() { // a futuro ver si podemos mostrar el texto por X tiempo y que luego desaparezca automaticamente
+		JOptionPane.showMessageDialog(this, "Se ha registrado con éxito!",
+				"Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	public void errorDNI() {
@@ -279,5 +292,6 @@ public class VistaRegistro extends JFrame implements I_VistaRegistro {
 		this.btn9.addActionListener(c);
 		this.btnBorrar.addActionListener(c);
 	}
+	
 
 }
