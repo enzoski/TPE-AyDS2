@@ -19,7 +19,7 @@ import registro.vista_registro.VistaRegistroConfirmacion;
  */
 public class ControladorRegistro implements ActionListener {
 	
-	private static final int PORT = 2080; // puerto para realizar el registro de clientes (DNIs)
+	private int PORT = 2080; // puerto para realizar el registro de clientes (DNIs)
 	private String ipServidor; // IP del servidor
 	
 	// el controlador tiene la referencia de todas las ventanas que "controla"
@@ -113,6 +113,12 @@ public class ControladorRegistro implements ActionListener {
 			this.vistaRegistro.errorConexion();
 		}
 
+	}
+	
+	private void cambiarServidor(String nuevaIP) {
+		this.ipServidor = nuevaIP;
+		this.PORT = 3080;
+		
 	}
 
 	

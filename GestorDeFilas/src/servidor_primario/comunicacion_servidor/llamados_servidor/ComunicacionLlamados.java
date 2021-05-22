@@ -1,4 +1,4 @@
-package servidor.comunicacion_servidor.llamados_servidor;
+package servidor_primario.comunicacion_servidor.llamados_servidor;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import servidor.fila_servidor.GestionFila;
+import servidor_primario.fila_servidor.GestionFila;
 
 /**
  * Clase que gestiona los pedidos de llamar al próximo cliente (por parte del componente de atención),

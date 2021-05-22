@@ -1,4 +1,4 @@
-package servidor.fila_servidor;
+package servidor_secundario.fila_servidor;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -14,7 +14,7 @@ import java.util.Queue;
  */
 public class GestionFila {
 	
-	private static final int PORT_1 = 2080; // puerto donde vienen los DNIs de los clientes
+	private static final int PORT_1 = 3080; // puerto donde vienen los DNIs de los clientes
 	
 	// Utilizamos una LinkedList ya que implementa la interfaz Queue que nos permite hacer '.poll()'.
 	private Queue<String> clientes = new LinkedList<String>(); // lista doblemente enlazada
@@ -46,6 +46,14 @@ public class GestionFila {
 	public String proximoCliente() {
 		// '.poll()' es una forma optimizada de devolver y eliminar la cabeza de la lista (primer elemento).
 		return this.clientes.poll(); // devuelve null si no hay mas clientes (DNIs)
+	}
+	
+	public void agregarCliente(String dni) {
+		this.clientes.add(dni);
+	}
+	
+	public void eliminarCliente() {
+		this.clientes.poll();
 	}
 	
 	

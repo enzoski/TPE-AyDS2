@@ -1,4 +1,4 @@
-package servidor.comunicacion_servidor.deshabilitador_servidor;
+package servidor_secundario.comunicacion_servidor.deshabilitador_servidor;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -13,8 +13,8 @@ import java.net.Socket;
  */
 public class ComunicacionDeshabilitacion {
 
-	private static final int PORT_1 = 2090; // de aca viene el aviso de deshabilitacion
-	private static final int PORT_2 = 2120; // aca va el aviso de deshabilitacion
+	private static final int PORT_1 = 3090; // de aca viene el aviso de deshabilitacion
+	private static final int PORT_2 = 3120; // aca va el aviso de deshabilitacion
 	
 	private String ipLlamado; // IP de la mini-PC
 	private DeshabilitadorBox hilo; // hilo para deshabilitar un box

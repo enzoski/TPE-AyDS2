@@ -18,8 +18,8 @@ import atencion.vista_atencion.VistaAtencionLlamarCliente;
  */
 public class ControladorAtencion implements ActionListener {
 	
-	private static final int PORT_1 = 2090; // puerto para deshabilitar box
-	private static final int PORT_2 = 2100; // puerto para llamar prox cliente
+	private int PORT_1 = 2090; // puerto para deshabilitar box
+	private int PORT_2 = 2100; // puerto para llamar prox cliente
 	
 	private String ipServidor; // IP del servidor
 	private VistaAtencionInicio vistaInicio;
@@ -119,6 +119,13 @@ public class ControladorAtencion implements ActionListener {
 			//e.printStackTrace();
 			this.vistaLlamarCliente.errorConexion();
 		}
+	}
+	
+	private void cambiarServidor(String nuevaIP) {
+		this.ipServidor = nuevaIP;
+		this.PORT_1 = 3090; // nuevoPuertoElim
+		this.PORT_2 = 3100; // nuevoPuertoLlamado
+		
 	}
 
 	

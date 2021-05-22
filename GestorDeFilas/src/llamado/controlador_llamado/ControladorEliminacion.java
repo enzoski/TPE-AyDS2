@@ -16,7 +16,7 @@ import llamado.vista_llamado.VistaLlamadoTV;
  */
 public class ControladorEliminacion { // LE AGREGARIA EL 'LLAMADO' AL FINAL DEL NOMBRE DE LA CLASE.
 
-	private static final int PORT_2 = 2120; // puerto para eliminar un box que se desconectó
+	private int PORT_2 = 2120; // puerto para eliminar un box que se desconectó
 	
 	private VistaLlamadoTV vistaLlamados;
 	private EliminadorLlamados hilo; // hilo para eliminar un box
@@ -44,6 +44,12 @@ public class ControladorEliminacion { // LE AGREGARIA EL 'LLAMADO' AL FINAL DEL 
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void cambiarServidor() { // despues ver si lo sacamos o no
+		this.PORT_2 = 3120;
+		this.hilo.stop(); // si hay problemas con esto, despues lo cambiamos (terminar el hilo en el while)
+		this.hilo.start(); // para que se empiece a escuchar el nuevo puerto
 	}
 
 	

@@ -1,4 +1,4 @@
-package servidor.comunicacion_servidor.deshabilitador_servidor;
+package servidor_primario.comunicacion_servidor.deshabilitador_servidor;
 
 public class DeshabilitadorBox extends Thread {
 	

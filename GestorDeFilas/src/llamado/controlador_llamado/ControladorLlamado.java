@@ -16,7 +16,7 @@ import llamado.vista_llamado.VistaLlamadoTV;
  */
 public class ControladorLlamado {
 	
-	private static final int PORT_1 = 2110; //puerto para hacer llamados
+	private int PORT_1 = 2110; //puerto para hacer llamados
 	
 	private VistaLlamadoTV vistaLlamados;
 	private AtendedorLlamados hilo; // hilo para hacer llamados
@@ -48,6 +48,12 @@ public class ControladorLlamado {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void cambiarServidor() { // despues ver si lo sacamos o no
+		this.PORT_1 = 3110;
+		this.hilo.stop(); // si hay problemas con esto, despues lo cambiamos (terminar el hilo en el while)
+		this.hilo.start(); // para que se empiece a escuchar el nuevo puerto
 	}
 	
 
