@@ -30,7 +30,7 @@ public class ComunicacionLlamados {
 		this.gestorFila = gestorFila;
 		// instanciamos y activamos el hilo del 'server socket'
 		this.hilo = new RecibidorLlamados(this);
-		this.hilo.start();
+		//this.hilo.start(); sacamos esto porque estamos en el server secundario y no debe empezar a escuchar de una.
 	}
 	
 	public synchronized void pedidoLlamado() { // viene el mensaje desde ControladorAtencion
@@ -69,6 +69,15 @@ public class ComunicacionLlamados {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	// disponibilidad
+	public void activarServer() {
+		this.hilo.start();
+	}
+		
+	public void desactivarServer() {
+		this.hilo.stop();
 	}
 	
 	

@@ -121,10 +121,15 @@ public class ControladorAtencion implements ActionListener {
 		}
 	}
 	
-	private void cambiarServidor(String nuevaIP) {
+	public void cambiarServidor(String nuevaIP) {
 		this.ipServidor = nuevaIP;
 		this.PORT_1 = 3090; // nuevoPuertoElim
 		this.PORT_2 = 3100; // nuevoPuertoLlamado
+		
+	}
+
+	public void llamadoInhabilitado() { // TO DO
+		// TODO Auto-generated method stub
 		
 	}
 

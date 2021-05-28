@@ -5,6 +5,8 @@ import java.util.Scanner;
 import servidor_secundario.comunicacion_servidor.deshabilitador_servidor.ComunicacionDeshabilitacion;
 import servidor_secundario.comunicacion_servidor.llamados_servidor.ComunicacionLlamados;
 import servidor_secundario.fila_servidor.GestionFila;
+import servidor_secundario.monitoreo.ManejadorErroresServ2;
+import servidor_secundario.monitoreo.MonitoreoServSec;
 import servidor_secundario.sincronizacion.Sincronizador;
 
 public class LauncherServidor {
@@ -23,7 +25,10 @@ public class LauncherServidor {
 		GestionFila gestionFila = new GestionFila();
 		ComunicacionDeshabilitacion comunicacionD = new ComunicacionDeshabilitacion(ipLlamado);
 		ComunicacionLlamados comunicacionL = new ComunicacionLlamados(gestionFila, ipLlamado);
+		// disponibilidad
 		Sincronizador sincronizador = new Sincronizador(gestionFila);
+		ManejadorErroresServ2 manejadorErroresServ2 = new ManejadorErroresServ2(comunicacionL, comunicacionD, gestionFila);
+		MonitoreoServSec monitoreoServSec = new MonitoreoServSec();
 	}
 
 }

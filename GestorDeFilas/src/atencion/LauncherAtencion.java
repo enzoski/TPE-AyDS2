@@ -3,6 +3,7 @@ package atencion;
 import java.util.Scanner;
 
 import atencion.controlador_atencion.ControladorAtencion;
+import atencion.monitoreo_atencion.ManejadorErroresAtencion;
 import atencion.vista_atencion.VistaAtencionInicio;
 import atencion.vista_atencion.VistaAtencionLlamarCliente;
 
@@ -19,6 +20,8 @@ public class LauncherAtencion {
 		VistaAtencionInicio vistaInicio = new VistaAtencionInicio();
 		VistaAtencionLlamarCliente vistaLlamarCliente = new VistaAtencionLlamarCliente();
 		ControladorAtencion controlador = new ControladorAtencion(vistaInicio, vistaLlamarCliente, ipServidor);
+		// disponibilidad
+		ManejadorErroresAtencion manejadorErroresAtencion = new ManejadorErroresAtencion(controlador);
 
 	}
 

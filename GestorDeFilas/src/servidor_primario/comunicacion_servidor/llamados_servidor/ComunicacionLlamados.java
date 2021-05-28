@@ -25,6 +25,9 @@ public class ComunicacionLlamados {
 	private GestionFila gestorFila; // referencia a la clase que gestiona la fila de clientes (DNIs)
 	private RecibidorLlamados hilo; // hilo para recibir pedidos de llamados
 	
+	// disponibilidad
+	private boolean flag = true;
+	
 	public ComunicacionLlamados(GestionFila gestorFila, String ipLlamado) {
 		this.ipLlamado = ipLlamado;
 		this.gestorFila = gestorFila;
@@ -44,8 +47,10 @@ public class ComunicacionLlamados {
 				String dni = this.gestorFila.proximoCliente();
 				if(dni != null) // si fuera null, no haríamos la comunicacion con el componente 'llamado' y listo
 					this.realizarLlamado(box, dni);
-				// le respondemos al componente 'atencion', mandandole el próximo DNI, y él decidirá qué hacer si es null
-				out.println(dni);
+				if(this.flag) // le respondemos al componente 'atencion', mandandole el próximo DNI, y él decidirá qué hacer si es null
+					out.println(dni);
+				else
+					System.out.println("No se alcanzó el TV [DNI: " + dni + "]"); // EN EL FUTURO PODEMOS MANDAR ESTO DEVUELTA A LA COLA.
 				out.close();
 				socket.close();
 			}
@@ -65,10 +70,16 @@ public class ComunicacionLlamados {
 			out.println(msj);
 			out.close();
 			socket.close();
+			this.flag = true;
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			this.flag = false;
 		}
+	}
+	
+	public void errorLlamado() {
+		this.flag = false;
 	}
 	
 	

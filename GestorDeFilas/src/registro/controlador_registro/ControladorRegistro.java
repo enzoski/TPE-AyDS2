@@ -115,7 +115,7 @@ public class ControladorRegistro implements ActionListener {
 
 	}
 	
-	private void cambiarServidor(String nuevaIP) {
+	public void cambiarServidor(String nuevaIP) {
 		this.ipServidor = nuevaIP;
 		this.PORT = 3080;
 		

@@ -2,9 +2,13 @@ package servidor_primario;
 
 import java.util.Scanner;
 
+import llamado.monitoreo_llamado.ManejadorErroresLlamado;
+import llamado.monitoreo_llamado.MonitoreoLlamado;
 import servidor_primario.comunicacion_servidor.deshabilitador_servidor.ComunicacionDeshabilitacion;
 import servidor_primario.comunicacion_servidor.llamados_servidor.ComunicacionLlamados;
 import servidor_primario.fila_servidor.GestionFila;
+import servidor_primario.monitoreo.ManejadorErroresServ1;
+import servidor_primario.monitoreo.MonitoreoServPri;
 
 public class LauncherServidor {
 
@@ -22,6 +26,9 @@ public class LauncherServidor {
 		GestionFila gestionFila = new GestionFila("192.168.0.159"); // DESPUES VER BIEN COMO PASARLE LA IP.
 		ComunicacionDeshabilitacion comunicacionD = new ComunicacionDeshabilitacion(ipLlamado);
 		ComunicacionLlamados comunicacionL = new ComunicacionLlamados(gestionFila, ipLlamado);
+		// disponibilidad
+		ManejadorErroresServ1 manejadorErroresServ1 = new ManejadorErroresServ1(comunicacionL);
+		MonitoreoServPri monitoreoServPri = new MonitoreoServPri();
 	}
 
 }

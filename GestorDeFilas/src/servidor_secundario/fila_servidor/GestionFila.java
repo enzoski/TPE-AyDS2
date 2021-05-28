@@ -23,7 +23,7 @@ public class GestionFila {
 	public GestionFila() {
 		// instanciamos y activamos el hilo del 'server socket'
 		this.hilo = new RegistradorDNI(this);
-		this.hilo.start();
+		//this.hilo.start(); sacamos esto porque estamos en el server secundario y no debe empezar a escuchar de una.
 	}
 	
 	public synchronized void registro() { // viene el mensaje desde ControladorRegistro
@@ -54,6 +54,15 @@ public class GestionFila {
 	
 	public void eliminarCliente() {
 		this.clientes.poll();
+	}
+	
+	// disponibilidad
+	public void activarServer() {
+		this.hilo.start();
+	}
+			
+	public void desactivarServer() {
+		this.hilo.stop();
 	}
 	
 	
