@@ -21,7 +21,6 @@ public class ControladorLlamado {
 	private VistaLlamadoTV vistaLlamados;
 	private AtendedorLlamados hilo; // hilo para hacer llamados
 	
-	private boolean hiloActivo = true;
 	
 	public ControladorLlamado(VistaLlamadoTV vistaLlamados) {
 		this.vistaLlamados = vistaLlamados;
@@ -34,7 +33,7 @@ public class ControladorLlamado {
 	public synchronized void hacerLlamado() { // viene el mensaje desde ComunicacionLlamados (servidor)
 		try {
 			ServerSocket serverSocket = new ServerSocket(PORT_1);
-			while (this.hiloActivo) {
+			while (true) {
 				Socket socket = serverSocket.accept();
 				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -46,22 +45,13 @@ public class ControladorLlamado {
 				this.vistaLlamados.mostrarLlamado(dni,box);
 				socket.close();
 			}
-			this.hilo.start();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void cambiarServidor(int numServerNuevo) { // despues ver si lo sacamos o no
-		if(numServerNuevo == 2)
-			this.PORT_1 = 3110;
-		else
-			this.PORT_1 = 2110;
-		//this.hilo.stop(); // si hay problemas con esto, despues lo cambiamos (terminar el hilo en el while)
-		this.hiloActivo = false;
-		//this.hilo.start(); // para que se empiece a escuchar el nuevo puerto
-	}
+	
 	
 
 }

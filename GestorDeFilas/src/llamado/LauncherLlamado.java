@@ -2,7 +2,6 @@ package llamado;
 
 import llamado.controlador_llamado.ControladorEliminacion;
 import llamado.controlador_llamado.ControladorLlamado;
-import llamado.monitoreo_llamado.ManejadorErroresLlamado;
 import llamado.monitoreo_llamado.MonitoreoLlamado;
 import llamado.vista_llamado.VistaLlamadoTV;
 
@@ -14,7 +13,6 @@ public class LauncherLlamado {
 		ControladorLlamado controladorL = new ControladorLlamado(vistaLlamados);
 		ControladorEliminacion controladorE = new ControladorEliminacion(vistaLlamados);
 		// disponibilidad
-		ManejadorErroresLlamado manejadorErroresLlamado = new ManejadorErroresLlamado(controladorL);
 		MonitoreoLlamado monitoreoLlamado = new MonitoreoLlamado();
 		
 	}

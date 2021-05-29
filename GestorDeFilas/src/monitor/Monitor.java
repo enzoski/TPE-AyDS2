@@ -15,7 +15,6 @@ public class Monitor {
 	private static final int PORT_5 = 3240; // puerto para informar errores al servidor primario
 	private static final int PORT_6 = 3250; // puerto para informar errores al servidor secundario
 	private static final int PORT_7 = 3260; // puerto para informar errores al componente Registro
-	private static final int PORT_8 = 3270; // puerto para informar errores al componente Llamado
 	private static final int PORT_9 = 3280; // puerto para avisar al servidor 2 que haga la resinronizacion.
 	
 	private String ipLlamado;
@@ -80,13 +79,11 @@ public class Monitor {
 				this.avisoaAServ2("serv1"); // para que el servidor secundario se active (empiece a escuchar)
 				this.avisoaAAtencion("serv1", this.ipServ2); // para que el componente atencion se empiece a comunicar con el servidor secundario
 				this.avisoaARegistro("serv1", this.ipServ2); // para que el componente registro se empiece a comunicar con el servidor secundario
-				this.avisoaALlamado("serv1"); // para que el componente llamado cambie el puerto que recibe llamados a mostrar por pantalla.
 				this.servidorActivo = 2;
 			}
 			else { //anduvo todo bien, primer servidor anda.
 				if(this.servidorActivo == 2) { //antes no andaba
 					this.avisoaAAtencion("serv2", ipServ1);
-					this.avisoaALlamado("serv2");
 					this.avisoaARegistro("serv2", ipServ1);
 					this.resincronizar();
 				}
@@ -103,7 +100,6 @@ public class Monitor {
 			this.avisoaAServ2("serv1");
 			this.avisoaAAtencion("serv1", this.ipServ2);
 			this.avisoaARegistro("serv1", this.ipServ2);
-			this.avisoaALlamado("serv1");
 			this.servidorActivo = 2;
 		}
 	}
@@ -149,21 +145,6 @@ public class Monitor {
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String msg = componente + "#" + ip; // para despues saber como parsear el mensaje.
 			out.println(msg);
-			out.close();
-			socket.close();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
-	private void avisoaALlamado(String componente) { // informar errores al componente 'llamado' (TV)
-		try {
-			Socket socket = new Socket(this.ipLlamado, PORT_8);
-			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			out.println(componente);
 			out.close();
 			socket.close();
 		}

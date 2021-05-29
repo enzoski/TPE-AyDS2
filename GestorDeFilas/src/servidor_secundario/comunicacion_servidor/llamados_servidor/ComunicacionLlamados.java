@@ -19,7 +19,7 @@ public class ComunicacionLlamados {
 	// a lo largo de la aplicación, que escuchen puertos diferentes para diferenciar los mensajes recibidos de Sockets Clientes.
 	// Cada ServerSocket será activado por un hilo, ya que sino sus ciclos 'while(true)' congelarían toda la aplicación.
 	private static final int PORT_3 = 3100; // puerto donde viene llamar prox cliente
-	private static final int PORT_4 = 3110; //puerto para hacer llamados a prox cliente
+	private static final int PORT_4 = 2110; //puerto para hacer llamados a prox cliente
 
 	// disponibilidad
 	private boolean flag = true;
