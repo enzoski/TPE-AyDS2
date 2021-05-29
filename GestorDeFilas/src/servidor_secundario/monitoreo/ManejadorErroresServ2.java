@@ -44,7 +44,9 @@ public class ManejadorErroresServ2 {
 					this.comunicacionLlamados.activarServer();
 					this.comunicacionDeshabilitacion.activarServer();
 					this.gestionFila.activarServer();
-				}
+				} else 
+					if(componente.equals("llamado"))
+						this.comunicacionLlamados.errorLlamado();
 				socket.close();
 			}
 		}

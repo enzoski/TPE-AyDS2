@@ -57,5 +57,9 @@ public class GestionFila {
 		return this.clientes.poll(); // devuelve null si no hay mas clientes (DNIs)
 	}
 	
+	public void agregarCliente(String dni) {
+		this.clientes.add(dni);
+	}
+	
 	
 }

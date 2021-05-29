@@ -24,7 +24,7 @@ public class Monitor {
 	private String ipAtencion;
 	private String ipRegistro;
 	private int servidorActivo = 1;
-	
+	private boolean llamadoEnLinea = true;
 	private HiloMonitor hilo;
 	
 	public Monitor(String ipLlamado, String ipAtencion, String ipRegistro, String ipServ1, String ipServ2) {
@@ -50,7 +50,12 @@ public class Monitor {
 				this.avisoaAAtencion("llamado", ""); // para que los puestos de atencion no sigan llamando clientes
 				this.avisoaAServ1("llamado"); // para que el servidor primario no mande llamados al TV
 				this.avisoaAServ2("llamado"); // para que el servidor primario no mande llamados al TV
-				
+				this.llamadoEnLinea = false;
+			}else {
+				if(!this.llamadoEnLinea) { //antes no andaba y ahora si. 
+					this.llamadoEnLinea = true;
+					this.avisoaAAtencion("llamadoACTIVO", "");
+				}
 			}
 			out.close();
 			socket.close();
@@ -60,6 +65,7 @@ public class Monitor {
 			this.avisoaAAtencion("llamado", "");
 			this.avisoaAServ1("llamado");
 			this.avisoaAServ2("llamado");
+			this.llamadoEnLinea = false;
 		}
 	}
 	
@@ -79,11 +85,15 @@ public class Monitor {
 			}
 			else { //anduvo todo bien, primer servidor anda.
 				if(this.servidorActivo == 2) { //antes no andaba
-					this.resincronizar();
 					this.avisoaAAtencion("serv2", ipServ1);
 					this.avisoaALlamado("serv2");
 					this.avisoaARegistro("serv2", ipServ1);
+					this.resincronizar();
 				}
+				/*
+				 * Puede ser que si las personas se siguen registrando mientras se hace la resincronizacion
+				 * se mezcle el orden de los clientes. (los nuevos clientes van a quedar en el medio de la cola.
+				 */
 			}
 			out.close();
 			socket.close();

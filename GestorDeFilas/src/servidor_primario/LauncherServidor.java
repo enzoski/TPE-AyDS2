@@ -7,6 +7,7 @@ import llamado.monitoreo_llamado.MonitoreoLlamado;
 import servidor_primario.comunicacion_servidor.deshabilitador_servidor.ComunicacionDeshabilitacion;
 import servidor_primario.comunicacion_servidor.llamados_servidor.ComunicacionLlamados;
 import servidor_primario.fila_servidor.GestionFila;
+import servidor_primario.fila_servidor.ResincronizaFila;
 import servidor_primario.monitoreo.ManejadorErroresServ1;
 import servidor_primario.monitoreo.MonitoreoServPri;
 
@@ -29,6 +30,7 @@ public class LauncherServidor {
 		// disponibilidad
 		ManejadorErroresServ1 manejadorErroresServ1 = new ManejadorErroresServ1(comunicacionL);
 		MonitoreoServPri monitoreoServPri = new MonitoreoServPri();
+		ResincronizaFila resincronizdor = new ResincronizaFila(gestionFila);
 	}
 
 }

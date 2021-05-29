@@ -19,7 +19,7 @@ public class ResincronizadorServ2 {
 	private String ipServ1;
 	private HiloResincronizacion hilo;
 	private static final int PORT_9 = 3280; // puerto para avisar al servidor 2 que haga la resinronizacion.
-	private static final int PORT_10 = 2080; // puerto para enviar clientes a servidor 1. -> ACA USO EL MISMO QUE USA PARA REGISTRAR CLIENTES DE FORMA NORMAL.
+	private static final int PORT_10 = 3300; // puerto para enviar clientes a servidor 1. -> ACA USO EL MISMO QUE USA PARA REGISTRAR CLIENTES DE FORMA NORMAL.
 	
 	
 	public ResincronizadorServ2(ComunicacionLlamados cl,ComunicacionDeshabilitacion cd, GestionFila gf,String ipServ1) {
@@ -55,7 +55,8 @@ public class ResincronizadorServ2 {
 		Queue<String> fila = this.gestionFila.getClientes();
 		String[] fila_vector = (String[]) fila.toArray();  //VER SI ESTO ESTA BIEN 
 		int i;
-		for(i=0;i< fila.size();i++) {
+		int cant = fila.size();
+		for(i=0;i< cant; i++) {
 			this.envioCliente(fila_vector[i]);
 		}
 	}

@@ -33,7 +33,7 @@ public class ManejadorErroresLlamado {
 				if(componente.equals("serv1"))
 					this.controladorLlamado.cambiarServidor(2);
 				else 
-					if(componente.equals("serv1"))
+					if(componente.equals("serv2"))
 						this.controladorLlamado.cambiarServidor(1);
 				socket.close();
 			}

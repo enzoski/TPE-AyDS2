@@ -138,6 +138,9 @@ public class ControladorAtencion implements ActionListener {
 		// TODO Auto-generated method stub
 		
 	}
-
+	public void llamadoHabilitado() { // TO DO
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
