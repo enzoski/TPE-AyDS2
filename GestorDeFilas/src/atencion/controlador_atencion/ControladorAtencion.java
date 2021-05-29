@@ -25,6 +25,8 @@ public class ControladorAtencion implements ActionListener {
 	private VistaAtencionInicio vistaInicio;
 	private VistaAtencionLlamarCliente vistaLlamarCliente;
 	private int boxActual = -1;
+	private int intentosLlamado = 2; //maxima cantidad de intentos para comunicarse con el servidor para hacer un llamado.
+	private int intentosDeshabilitacion = 2; //maxima cantidad de intentos para comunicarse con el servidor para deshabilitar un box.
 	
 	public ControladorAtencion(VistaAtencionInicio vistaInicio, VistaAtencionLlamarCliente vistaLlamarCliente, String ipServidor) {
 		
@@ -91,10 +93,16 @@ public class ControladorAtencion implements ActionListener {
 			out.println(box);
 			out.close();
 			socket.close();
+			this.intentosDeshabilitacion = 2;
 		}
 		catch (Exception e) {
 			//e.printStackTrace();
-			this.vistaLlamarCliente.errorConexion();
+			if(this.intentosDeshabilitacion > 0) 
+			{
+				this.avisoDeshabilitacion(box);
+				this.intentosDeshabilitacion--;
+			}else
+				this.vistaLlamarCliente.errorConexion();
 		}
 	}
 	
@@ -114,10 +122,16 @@ public class ControladorAtencion implements ActionListener {
 				this.vistaLlamarCliente.mostrarDNIProximoCliente(dni);
 			out.close();
 			socket.close();
+			this.intentosLlamado = 2;
 		}
 		catch (Exception e) {
 			//e.printStackTrace();
-			this.vistaLlamarCliente.errorConexion();
+			if(this.intentosLlamado > 0) {
+				this.intentosLlamado--;
+				this.llamarProximoCliente();
+			}
+			else
+				this.vistaLlamarCliente.errorConexion();
 		}
 	}
 	

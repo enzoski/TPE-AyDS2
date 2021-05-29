@@ -25,7 +25,7 @@ public class ControladorRegistro implements ActionListener {
 	// el controlador tiene la referencia de todas las ventanas que "controla"
 	private VistaRegistro vistaRegistro;
 	private VistaRegistroConfirmacion vistaConfirmacion;
-	
+	private int intentosRegistro = 2;
 	//private static int numTotem = 0; *
 	
 	public ControladorRegistro(VistaRegistro vistaRegistro, VistaRegistroConfirmacion vistaConfirmacion, String ipServidor) {
@@ -107,10 +107,15 @@ public class ControladorRegistro implements ActionListener {
 			// si llegamos hasta acá, la comunicación (sockets) salió bien, por lo que se agregó bien el dni a la fila
 			// ya que por el momento no hay algun caso particular en que GestionFila no agregue un dni
 			this.vistaRegistro.registroExitoso();
+			this.intentosRegistro = 2;
 		}
 		catch (Exception e) {
 			//e.printStackTrace();
-			this.vistaRegistro.errorConexion();
+			if(this.intentosRegistro > 0) {
+				this.registrarDNI(dni);
+				this.intentosRegistro--;
+			}else
+				this.vistaRegistro.errorConexion();
 		}
 
 	}
