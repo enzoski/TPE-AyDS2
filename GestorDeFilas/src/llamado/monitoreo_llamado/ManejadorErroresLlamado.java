@@ -31,7 +31,10 @@ public class ManejadorErroresLlamado {
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				String componente = in.readLine();
 				if(componente.equals("serv1"))
-					this.controladorLlamado.cambiarServidor();
+					this.controladorLlamado.cambiarServidor(2);
+				else 
+					if(componente.equals("serv1"))
+						this.controladorLlamado.cambiarServidor(1);
 				socket.close();
 			}
 		}

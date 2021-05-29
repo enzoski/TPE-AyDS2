@@ -78,8 +78,12 @@ public class Monitor {
 				this.servidorActivo = 2;
 			}
 			else { //anduvo todo bien, primer servidor anda.
-				if(this.servidorActivo == 2) //antes no andaba
+				if(this.servidorActivo == 2) { //antes no andaba
 					this.resincronizar();
+					this.avisoaAAtencion("serv2", ipServ1);
+					this.avisoaALlamado("serv2");
+					this.avisoaARegistro("serv2", ipServ1);
+				}
 			}
 			out.close();
 			socket.close();

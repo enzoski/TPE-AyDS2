@@ -50,8 +50,11 @@ public class ControladorLlamado {
 		}
 	}
 	
-	public void cambiarServidor() { // despues ver si lo sacamos o no
-		this.PORT_1 = 3110;
+	public void cambiarServidor(int numServerNuevo) { // despues ver si lo sacamos o no
+		if(numServerNuevo == 2)
+			this.PORT_1 = 3110;
+		else
+			this.PORT_1 = 2110;
 		this.hilo.stop(); // si hay problemas con esto, despues lo cambiamos (terminar el hilo en el while)
 		this.hilo.start(); // para que se empiece a escuchar el nuevo puerto
 	}

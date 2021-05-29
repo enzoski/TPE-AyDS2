@@ -115,9 +115,12 @@ public class ControladorRegistro implements ActionListener {
 
 	}
 	
-	public void cambiarServidor(String nuevaIP) {
+	public void cambiarServidor(String nuevaIP, int nuevoServer) {
 		this.ipServidor = nuevaIP;
-		this.PORT = 3080;
+		if(nuevoServer == 2)
+			this.PORT = 3080;
+		else 
+			this.PORT = 2080;
 		
 	}
 

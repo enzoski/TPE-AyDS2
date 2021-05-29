@@ -38,7 +38,10 @@ public class ManejadorErroresAtencion {
 					this.controladorAtencion.llamadoInhabilitado(); // TO DO
 				else
 					if(componente.equals("serv1"))
-						this.controladorAtencion.cambiarServidor(ip);
+						this.controladorAtencion.cambiarServidor(ip,2); //empiezo a usar el server 2
+					else
+						if(componente.equals("serv2"))
+							this.controladorAtencion.cambiarServidor(ip,1); //empiezo a usar el server 1
 				socket.close();
 			}
 		}
