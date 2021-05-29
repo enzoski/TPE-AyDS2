@@ -16,12 +16,14 @@ public class Monitor {
 	private static final int PORT_6 = 3250; // puerto para informar errores al servidor secundario
 	private static final int PORT_7 = 3260; // puerto para informar errores al componente Registro
 	private static final int PORT_8 = 3270; // puerto para informar errores al componente Llamado
+	private static final int PORT_9 = 3280; // puerto para avisar al servidor 2 que haga la resinronizacion.
 	
 	private String ipLlamado;
 	private String ipServ1;
 	private String ipServ2;
 	private String ipAtencion;
 	private String ipRegistro;
+	private int servidorActivo = 1;
 	
 	private HiloMonitor hilo;
 	
@@ -73,6 +75,11 @@ public class Monitor {
 				this.avisoaAAtencion("serv1", this.ipServ2); // para que el componente atencion se empiece a comunicar con el servidor secundario
 				this.avisoaARegistro("serv1", this.ipServ2); // para que el componente registro se empiece a comunicar con el servidor secundario
 				this.avisoaALlamado("serv1"); // para que el componente llamado cambie el puerto que recibe llamados a mostrar por pantalla.
+				this.servidorActivo = 2;
+			}
+			else { //anduvo todo bien, primer servidor anda.
+				if(this.servidorActivo == 2) //antes no andaba
+					this.resincronizar();
 			}
 			out.close();
 			socket.close();
@@ -83,6 +90,7 @@ public class Monitor {
 			this.avisoaAAtencion("serv1", this.ipServ2);
 			this.avisoaARegistro("serv1", this.ipServ2);
 			this.avisoaALlamado("serv1");
+			this.servidorActivo = 2;
 		}
 	}
 	
@@ -180,5 +188,21 @@ public class Monitor {
 		}
 		
 	}
+	
+	private void resincronizar() {
+		try {
+			Socket socket = new Socket(ipServ2, PORT_9);
+			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			out.println("res");
+			out.close();
+			socket.close();
+		}
+		catch (Exception e) {
+			//e.printStackTrace();
+			this.avisoaAServ1("serv2");
+		}
+	}
+	
 
 }

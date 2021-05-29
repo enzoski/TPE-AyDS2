@@ -56,6 +56,10 @@ public class GestionFila {
 		this.clientes.poll();
 	}
 	
+	public Queue<String> getClientes() {
+		return this.clientes;
+	}
+	
 	// disponibilidad
 	public void activarServer() {
 		this.hilo.start();
