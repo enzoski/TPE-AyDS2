@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Iterator;
 import java.util.Queue;
 
 import servidor_secundario.comunicacion_servidor.deshabilitador_servidor.ComunicacionDeshabilitacion;
@@ -53,11 +54,10 @@ public class ResincronizadorServ2 {
 	
 	private void envioFila() {
 		Queue<String> fila = this.gestionFila.getClientes();
-		String[] fila_vector = (String[]) fila.toArray();  //VER SI ESTO ESTA BIEN 
-		int i;
-		int cant = fila.size();
-		for(i=0;i< cant; i++) {
-			this.envioCliente(fila_vector[i]);
+		Iterator<String> it = fila.iterator();
+		while(it.hasNext()) {
+			String dni = it.next();
+			this.envioCliente(dni);
 		}
 	}
 	

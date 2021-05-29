@@ -86,6 +86,7 @@ public class Monitor {
 					this.avisoaAAtencion("serv2", ipServ1);
 					this.avisoaARegistro("serv2", ipServ1);
 					this.resincronizar();
+					this.servidorActivo = 1;
 				}
 				/*
 				 * Puede ser que si las personas se siguen registrando mientras se hace la resincronizacion
