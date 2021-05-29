@@ -10,6 +10,7 @@ import servidor_primario.fila_servidor.GestionFila;
 import servidor_primario.fila_servidor.ResincronizaFila;
 import servidor_primario.monitoreo.ManejadorErroresServ1;
 import servidor_primario.monitoreo.MonitoreoServPri;
+import servidor_primario.sincronizacion.Sincronizador;
 
 public class LauncherServidor {
 
@@ -28,6 +29,7 @@ public class LauncherServidor {
 		ComunicacionDeshabilitacion comunicacionD = new ComunicacionDeshabilitacion(ipLlamado);
 		ComunicacionLlamados comunicacionL = new ComunicacionLlamados(gestionFila, ipLlamado);
 		// disponibilidad
+		Sincronizador sincronizador = new Sincronizador("192.168.0.159"); // IP DEL SERVER SECUNDARIO
 		ManejadorErroresServ1 manejadorErroresServ1 = new ManejadorErroresServ1(comunicacionL);
 		MonitoreoServPri monitoreoServPri = new MonitoreoServPri();
 		ResincronizaFila resincronizdor = new ResincronizaFila(gestionFila);
