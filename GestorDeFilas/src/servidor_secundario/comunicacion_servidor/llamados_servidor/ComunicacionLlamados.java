@@ -32,7 +32,7 @@ public class ComunicacionLlamados {
 		this.ipLlamado = ipLlamado;
 		this.gestorFila = gestorFila;
 		// instanciamos y activamos el hilo del 'server socket'
-		this.hilo = new RecibidorLlamados(this);
+		//this.hilo = new RecibidorLlamados(this);
 		//this.hilo.start(); sacamos esto porque estamos en el server secundario y no debe empezar a escuchar de una.
 	}
 	
@@ -79,6 +79,7 @@ public class ComunicacionLlamados {
 	
 	// disponibilidad
 	public void activarServer() {
+		this.hilo = new RecibidorLlamados(this); // si lo inicializabamos en el constructor, no andaba
 		this.hilo.start();
 	}
 		

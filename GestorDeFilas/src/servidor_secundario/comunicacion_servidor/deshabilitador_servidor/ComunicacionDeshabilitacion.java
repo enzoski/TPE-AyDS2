@@ -22,7 +22,7 @@ public class ComunicacionDeshabilitacion {
 	public ComunicacionDeshabilitacion(String ipLlamado) {
 		this.ipLlamado = ipLlamado;
 		// instanciamos y activamos el hilo del 'server socket'
-		this.hilo = new DeshabilitadorBox(this);
+		//this.hilo = new DeshabilitadorBox(this);
 		//this.hilo.start(); sacamos esto porque estamos en el server secundario y no debe empezar a escuchar de una.
 	}
 	
@@ -59,6 +59,7 @@ public class ComunicacionDeshabilitacion {
 	
 	// disponibilidad
 	public void activarServer() {
+		this.hilo = new DeshabilitadorBox(this); // si lo inicializabamos en el constructor, no andaba
 		this.hilo.start();
 	}
 	
