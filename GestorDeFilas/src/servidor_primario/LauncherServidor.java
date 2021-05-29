@@ -21,7 +21,7 @@ public class LauncherServidor {
 		Scanner sc = new Scanner(System.in);
 		String ipLlamado = sc.nextLine();
 		sc.close();
-		System.out.print("Servidor escuchando...");
+		System.out.print("Servidor primario escuchando...");
 		
 		// El servidor consta de 2 sub-componentes:
 		// uno que gestiona la fila de clientes, y otro que gestiona la comunicación entre todo el sistema.

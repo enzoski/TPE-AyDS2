@@ -29,11 +29,7 @@ public class ManejadorErroresServ1 {
 				Socket socket = serverSocket.accept();
 				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-				String msg = in.readLine();
-				//parseo del componente e ip recibido del monitor
-				String[] arreglo = msg.split("#");
-				String componente = arreglo[0];
-				String ip = arreglo[1];
+				String componente = in.readLine();
 				if(componente.equals("llamado"))
 					this.comunicacionLlamados.errorLlamado();
 				else

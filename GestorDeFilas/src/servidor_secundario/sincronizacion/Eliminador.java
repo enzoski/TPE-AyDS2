@@ -2,9 +2,9 @@ package servidor_secundario.sincronizacion;
 
 public class Eliminador extends Thread {
 	
-	private Sincronizador sincronizador;
+	private SincronizadorEliminacion sincronizador;
 	
-	public Eliminador(Sincronizador sincronizador) {
+	public Eliminador(SincronizadorEliminacion sincronizador) {
 		this.sincronizador = sincronizador;
 	}
 	

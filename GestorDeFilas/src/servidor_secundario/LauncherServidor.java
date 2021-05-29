@@ -8,7 +8,8 @@ import servidor_secundario.fila_servidor.GestionFila;
 import servidor_secundario.monitoreo.ManejadorErroresServ2;
 import servidor_secundario.monitoreo.MonitoreoServSec;
 import servidor_secundario.monitoreo.ResincronizadorServ2;
-import servidor_secundario.sincronizacion.Sincronizador;
+import servidor_secundario.sincronizacion.SincronizadorAgregacion;
+import servidor_secundario.sincronizacion.SincronizadorEliminacion;
 
 public class LauncherServidor {
 
@@ -19,7 +20,7 @@ public class LauncherServidor {
 		Scanner sc = new Scanner(System.in);
 		String ipLlamado = sc.nextLine();
 		sc.close();
-		System.out.print("Servidor escuchando...");
+		System.out.print("Servidor secundario escuchando...");
 		
 		String ipServ1 ="192.168.0.159"; //ACA LA DEBERIA PEDIR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		// El servidor consta de 2 sub-componentes:
@@ -28,7 +29,8 @@ public class LauncherServidor {
 		ComunicacionDeshabilitacion comunicacionD = new ComunicacionDeshabilitacion(ipLlamado);
 		ComunicacionLlamados comunicacionL = new ComunicacionLlamados(gestionFila, ipLlamado);
 		// disponibilidad
-		Sincronizador sincronizador = new Sincronizador(gestionFila);
+		SincronizadorAgregacion sincronizadorA = new SincronizadorAgregacion(gestionFila);
+		SincronizadorEliminacion sincronizadorE = new SincronizadorEliminacion(gestionFila);
 		ManejadorErroresServ2 manejadorErroresServ2 = new ManejadorErroresServ2(comunicacionL, comunicacionD, gestionFila);
 		MonitoreoServSec monitoreoServSec = new MonitoreoServSec();
 		ResincronizadorServ2 resincronizador = new ResincronizadorServ2(comunicacionL,comunicacionD,gestionFila,ipServ1);

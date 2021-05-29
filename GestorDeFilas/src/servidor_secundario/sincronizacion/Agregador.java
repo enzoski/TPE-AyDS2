@@ -2,9 +2,9 @@ package servidor_secundario.sincronizacion;
 
 public class Agregador extends Thread {
 	
-	private Sincronizador sincronizador;
+	private SincronizadorAgregacion sincronizador;
 	
-	public Agregador(Sincronizador sincronizador) {
+	public Agregador(SincronizadorAgregacion sincronizador) {
 		this.sincronizador = sincronizador;
 	}
 	
