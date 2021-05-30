@@ -34,7 +34,7 @@ public class ManejadorErroresServ1 {
 					this.comunicacionLlamados.errorLlamado(); // lo podriamos obviar?
 				else
 					if(componente.equals("serv2"))
-						System.out.println("El servidor secundario no funciona.");
+						System.out.println("El servidor secundario no funciona."); // lo podriamos obviar y ponerlo en el Monitor o en el catch de Sincronizacion
 				socket.close();
 			}
 		}

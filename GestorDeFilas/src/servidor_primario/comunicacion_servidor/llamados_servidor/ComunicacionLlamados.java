@@ -54,7 +54,6 @@ public class ComunicacionLlamados {
 					this.gestorFila.reAgregarCliente(dni); // volvemos a colocar el dni al principio de la fila
 					System.out.println("No se alcanzó el TV [DNI: " + dni + "]"); // EN EL FUTURO PODEMOS MANDAR ESTO DEVUELTA A LA COLA.
 					// de esta forma, evitamos que 'atencion' realice llamados (sacar dni's de la fila) cuando la mini-pc de la TV no anda
-					// SI LO DEJAMOS ASÍ, HAY QUE HACER LOS MISMOS CAMBIOS EN EL SERVIDOR SECUNDARIO.
 				}
 				out.close();
 				socket.close();

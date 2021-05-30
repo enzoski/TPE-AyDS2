@@ -34,17 +34,11 @@ public class ManejadorErroresAtencion {
 				String[] arreglo = msg.split("#");
 				String componente = arreglo[0];
 				String ip = arreglo[1];
-				//if(componente.equals("llamado"))
-					//this.controladorAtencion.llamadoInhabilitado();
-				//else
-					if(componente.equals("serv1"))
-						this.controladorAtencion.cambiarServidor(ip,2); //empiezo a usar el server 2
-					else
-						if(componente.equals("serv2"))
-							this.controladorAtencion.cambiarServidor(ip,1); //empiezo a usar el server 1
-						//else 
-							//if(componente.equals("llamadoACTIVO"))
-								//this.controladorAtencion.llamadoHabilitado();
+				if(componente.equals("serv1"))
+					this.controladorAtencion.cambiarServidor(ip,2); //empiezo a usar el server 2
+				else
+					if(componente.equals("serv2"))
+						this.controladorAtencion.cambiarServidor(ip,1); //empiezo a usar el server 1
 				socket.close();
 			}
 		}

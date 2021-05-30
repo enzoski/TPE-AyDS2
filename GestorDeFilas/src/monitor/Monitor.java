@@ -52,14 +52,13 @@ public class Monitor {
 			out.println("ping");
 			String msg = in.readLine();
 			if(!msg.equals("ping")) { // error por recibir un mensaje no esperado
-				//this.avisoaAAtencion("llamado", "none"); // para que los puestos de atencion no sigan llamando clientes
 				this.avisoaAServ1("llamado"); // para que el servidor primario no mande llamados al TV
 				this.avisoaAServ2("llamado"); // para que el servidor primario no mande llamados al TV
 				this.llamadoEnLinea = false;
+				System.out.println("No hay conexión con la mini-pc.");
 			}else {
 				if(!this.llamadoEnLinea) { //antes no andaba y ahora si. 
 					this.llamadoEnLinea = true;
-					//this.avisoaAAtencion("llamadoACTIVO", "none");
 				}
 			}
 			out.close();
@@ -67,10 +66,10 @@ public class Monitor {
 		}
 		catch (Exception e) { // por error de conexión
 			//e.printStackTrace();
-			//this.avisoaAAtencion("llamado", "none"); //en estos casos que no requiere IP, ponemos cualquier cosa para que luego no haya errores.
 			this.avisoaAServ1("llamado");
 			this.avisoaAServ2("llamado");
 			this.llamadoEnLinea = false;
+			System.out.println("No hay conexión con la mini-pc.");
 		}
 	}
 	
@@ -93,6 +92,7 @@ public class Monitor {
 					this.avisoaARegistro("serv2", ipServ1);
 					this.resincronizar();
 					this.servidorActivo = 1;
+					System.out.println("No hay conexión con el servidor primario.");
 				}
 				/*
 				 * Puede ser que si las personas se siguen registrando mientras se hace la resincronizacion
@@ -108,6 +108,7 @@ public class Monitor {
 			this.avisoaAAtencion("serv1", this.ipServ2);
 			this.avisoaARegistro("serv1", this.ipServ2);
 			this.servidorActivo = 2;
+			System.out.println("No hay conexión con el servidor primario.");
 		}
 	}
 	
@@ -120,14 +121,17 @@ public class Monitor {
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out.println("ping");
 			String msg = in.readLine();
-			if(!msg.equals("ping")) // error por recibir un mensaje no esperado.
+			if(!msg.equals("ping")) { // error por recibir un mensaje no esperado.
 				this.avisoaAServ1("serv2"); // para que el servidor primario sepa que falló el servidor 2 y no le siga mandando dni's.
+				System.out.println("No hay conexión con el servidor secundario.");
+			}
 			out.close();
 			socket.close();
 		}
 		catch (Exception e) {
 			//e.printStackTrace();
 			this.avisoaAServ1("serv2");
+			System.out.println("No hay conexión con el servidor secundario.");
 		}
 	}
 	

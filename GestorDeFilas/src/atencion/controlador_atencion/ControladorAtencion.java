@@ -29,7 +29,6 @@ public class ControladorAtencion implements ActionListener {
 	// disponibilidad
 	private int intentosLlamado = 2; //maxima cantidad de intentos para comunicarse con el servidor para hacer un llamado.
 	private int intentosDeshabilitacion = 2; //maxima cantidad de intentos para comunicarse con el servidor para deshabilitar un box.
-	//private boolean llamadoHabilitado = true; // para evitar realizar llamados cuando la mini-pc de la TV no anda (pero el servidor sí).
 	
 	public ControladorAtencion(VistaAtencionInicio vistaInicio, VistaAtencionLlamarCliente vistaLlamarCliente, String ipServidor) {
 		
@@ -58,17 +57,11 @@ public class ControladorAtencion implements ActionListener {
 			}
 		}
 		else
-			if(arg0.getActionCommand().equals(atencion.vista_atencion.I_VistaAtencion.AC_LLAMAR)) {
-				//if(this.llamadoHabilitado)
+			if(arg0.getActionCommand().equals(atencion.vista_atencion.I_VistaAtencion.AC_LLAMAR))
 					this.llamarProximoCliente();
-				//else // no podremos llamar si el Monitor detecta que no hay conexión con la mini-pc (TV de llamados)
-					//this.vistaLlamarCliente.errorLlamadosTV();
-			}
 			else // FIJARSE SI HAY UN EVENTO DE 'CERRAR VENTANA CON LA CRUZ'.
 				if(arg0.getActionCommand().equals(atencion.vista_atencion.I_VistaAtencion.AC_DESCONECTAR))
 					this.deshabilitarBox();
-					// quizas tambien podriamos evitar que se haga la conexion con el servidor al desconectar un box
-					// de todas formas no es tan grave, no es que afecte en algo, solo nos muestra por consola el error de conexion.
 		
 	}
 	
@@ -163,16 +156,5 @@ public class ControladorAtencion implements ActionListener {
 		}
 		
 	}
-
-	/*
-	public void llamadoInhabilitado() {
-		this.llamadoHabilitado = false;
-		
-	}
-	public void llamadoHabilitado() {
-		this.llamadoHabilitado = true;
-		
-	}
-	*/
 	
 }

@@ -20,13 +20,13 @@ public class ComunicacionLlamados {
 	// Cada ServerSocket será activado por un hilo, ya que sino sus ciclos 'while(true)' congelarían toda la aplicación.
 	private static final int PORT_3 = 3100; // puerto donde viene llamar prox cliente
 	private static final int PORT_4 = 2110; //puerto para hacer llamados a prox cliente
-
-	// disponibilidad
-	private boolean flag = true;
 	
 	private String ipLlamado; // IP de la mini-PC
 	private GestionFila gestorFila; // referencia a la clase que gestiona la fila de clientes (DNIs)
 	private RecibidorLlamados hilo; // hilo para recibir pedidos de llamados
+	
+	// disponibilidad
+	private boolean flag = true;
 	
 	public ComunicacionLlamados(GestionFila gestorFila, String ipLlamado) {
 		this.ipLlamado = ipLlamado;
@@ -47,10 +47,14 @@ public class ComunicacionLlamados {
 				String dni = this.gestorFila.proximoCliente();
 				if(dni != null) // si fuera null, no haríamos la comunicacion con el componente 'llamado' y listo
 					this.realizarLlamado(box, dni);
-				if(this.flag) // le respondemos al componente 'atencion', mandandole el próximo DNI, y él decidirá qué hacer si es null
-					out.println(dni);
-				else
+				if(this.flag) // si hay conexión con la mini-pc de la TV de llamados
+					out.println(dni); // le respondemos al componente 'atencion', mandandole el próximo DNI, y él decidirá qué hacer si es null
+				else {
+					out.println("errorTV"); // le respondemos al componente 'atencion' que hubo un error al intentar comunicarse con la TV
+					this.gestorFila.reAgregarCliente(dni); // volvemos a colocar el dni al principio de la fila
 					System.out.println("No se alcanzó el TV [DNI: " + dni + "]"); // EN EL FUTURO PODEMOS MANDAR ESTO DEVUELTA A LA COLA.
+					// de esta forma, evitamos que 'atencion' realice llamados (sacar dni's de la fila) cuando la mini-pc de la TV no anda
+				}
 				out.close();
 				socket.close();
 			}
