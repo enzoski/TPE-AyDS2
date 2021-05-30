@@ -47,10 +47,15 @@ public class ComunicacionLlamados {
 				String dni = this.gestorFila.proximoCliente();
 				if(dni != null) // si fuera null, no haríamos la comunicacion con el componente 'llamado' y listo
 					this.realizarLlamado(box, dni);
-				if(this.flag) // le respondemos al componente 'atencion', mandandole el próximo DNI, y él decidirá qué hacer si es null
-					out.println(dni);
-				else
+				if(this.flag) // si hay conexión con la mini-pc de la TV de llamados
+					out.println(dni); // le respondemos al componente 'atencion', mandandole el próximo DNI, y él decidirá qué hacer si es null
+				else {
+					out.println("errorTV"); // le respondemos al componente 'atencion' que hubo un error al intentar comunicarse con la TV
+					this.gestorFila.reAgregarCliente(dni); // volvemos a colocar el dni al principio de la fila
 					System.out.println("No se alcanzó el TV [DNI: " + dni + "]"); // EN EL FUTURO PODEMOS MANDAR ESTO DEVUELTA A LA COLA.
+					// de esta forma, evitamos que 'atencion' realice llamados (sacar dni's de la fila) cuando la mini-pc de la TV no anda
+					// SI LO DEJAMOS ASÍ, HAY QUE HACER LOS MISMOS CAMBIOS EN EL SERVIDOR SECUNDARIO.
+				}
 				out.close();
 				socket.close();
 			}
@@ -78,6 +83,8 @@ public class ComunicacionLlamados {
 		}
 	}
 	
+	// pensandolo bien, es necesario que el monitor avise al server ante un fallo de 'llamado'?
+	// total eso se detecta en el socket de acá arriba. Si entra al catch, justamente no le pudo mandar nada a la TV.
 	public void errorLlamado() {
 		this.flag = false;
 	}

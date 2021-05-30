@@ -61,5 +61,8 @@ public class GestionFila {
 		this.clientes.add(dni);
 	}
 	
-	
+	public void reAgregarCliente(String dni) {
+		LinkedList<String> aux = (LinkedList<String>) this.clientes; //tuve que hacer el cast para usar el método addFirst()
+		aux.addFirst(dni); // agrega el DNI al principio de la fila
+	}
 }

@@ -31,7 +31,7 @@ public class ManejadorErroresServ1 {
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				String componente = in.readLine();
 				if(componente.equals("llamado"))
-					this.comunicacionLlamados.errorLlamado();
+					this.comunicacionLlamados.errorLlamado(); // lo podriamos obviar?
 				else
 					if(componente.equals("serv2"))
 						System.out.println("El servidor secundario no funciona.");

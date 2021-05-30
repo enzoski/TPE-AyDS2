@@ -27,7 +27,8 @@ public class Sincronizador {
 			socket.close();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("Error de sincronización de DNIs: el servidor secundario no funciona.");
 		}
 
 	}
@@ -42,7 +43,8 @@ public class Sincronizador {
 			socket.close();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("Error de sincronización de DNIs: el servidor secundario no funciona.");
 		}
 
 	}
