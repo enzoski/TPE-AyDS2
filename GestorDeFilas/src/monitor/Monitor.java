@@ -46,14 +46,14 @@ public class Monitor {
 			out.println("ping");
 			String msg = in.readLine();
 			if(!msg.equals("ping")) { // error por recibir un mensaje no esperado
-				this.avisoaAAtencion("llamado", ""); // para que los puestos de atencion no sigan llamando clientes
+				this.avisoaAAtencion("llamado", "none"); // para que los puestos de atencion no sigan llamando clientes
 				this.avisoaAServ1("llamado"); // para que el servidor primario no mande llamados al TV
 				this.avisoaAServ2("llamado"); // para que el servidor primario no mande llamados al TV
 				this.llamadoEnLinea = false;
 			}else {
 				if(!this.llamadoEnLinea) { //antes no andaba y ahora si. 
 					this.llamadoEnLinea = true;
-					this.avisoaAAtencion("llamadoACTIVO", "");
+					this.avisoaAAtencion("llamadoACTIVO", "none");
 				}
 			}
 			out.close();
@@ -61,7 +61,7 @@ public class Monitor {
 		}
 		catch (Exception e) { // por error de conexión
 			//e.printStackTrace();
-			this.avisoaAAtencion("llamado", "");
+			this.avisoaAAtencion("llamado", "none"); //en estos casos que no requiere IP, ponemos cualquier cosa para que luego no haya errores.
 			this.avisoaAServ1("llamado");
 			this.avisoaAServ2("llamado");
 			this.llamadoEnLinea = false;

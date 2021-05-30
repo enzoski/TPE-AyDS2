@@ -144,6 +144,11 @@ public class VistaAtencionLlamarCliente extends JFrame implements I_VistaAtencio
 				"Error de Conexión", JOptionPane.WARNING_MESSAGE);
 	}
 	
+	public void errorLlamadosTV() { // disponibilidad
+		JOptionPane.showMessageDialog(this, "Hubo un error al intentar mostrar el llamado a los clientes en la TV.\nInténtelo en otro momento.",
+				"Petición de llamado cancelada", JOptionPane.WARNING_MESSAGE);
+	}
+	
 	@Override
 	public void abrirVentana() {
 		this.setVisible(true);
