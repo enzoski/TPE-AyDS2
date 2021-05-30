@@ -85,6 +85,7 @@ public class Monitor {
 				this.avisoaAAtencion("serv1", this.ipServ2); // para que el componente atencion se empiece a comunicar con el servidor secundario
 				this.avisoaARegistro("serv1", this.ipServ2); // para que el componente registro se empiece a comunicar con el servidor secundario
 				this.servidorActivo = 2;
+				System.out.println("No hay conexión con el servidor primario.");
 			}
 			else { //anduvo todo bien, primer servidor anda.
 				if(this.servidorActivo == 2) { //antes no andaba
@@ -92,7 +93,7 @@ public class Monitor {
 					this.avisoaARegistro("serv2", ipServ1);
 					this.resincronizar();
 					this.servidorActivo = 1;
-					System.out.println("No hay conexión con el servidor primario.");
+					System.out.println("Volvio la conexion con el servidor primario.");
 				}
 				/*
 				 * Puede ser que si las personas se siguen registrando mientras se hace la resincronizacion
