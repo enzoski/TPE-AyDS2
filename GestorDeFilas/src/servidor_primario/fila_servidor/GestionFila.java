@@ -25,12 +25,26 @@ public class GestionFila {
 	// disponibilidad
 	private Sincronizador sincronizador;
 	
-	public GestionFila(String ipServ2) { // IP del servidor secundario
+	// aca pondriamos un atributo con la interfaz que gestiona el orden de llamados.
+	private I_OrdenLlamado algoritmoLlamado;
+	
+	public GestionFila(String ipServ2, String tipoOrdenLlamado) { // IP del servidor secundario
 		// instanciamos y activamos el hilo del 'server socket'
 		this.hilo = new RegistradorDNI(this);
 		this.hilo.start();
 		
 		this.sincronizador = new Sincronizador(ipServ2);
+		
+		// quizas aca se podria aplicar algun patron
+		if(tipoOrdenLlamado.equals("llegada"))
+			this.algoritmoLlamado = new OrdenLlamadoPorLlegada(this.clientes);
+		else
+			if(tipoOrdenLlamado.equals("categoria"))
+				this.algoritmoLlamado = new OrdenLlamadoPorCategoria(this.clientes);
+			else
+				if(tipoOrdenLlamado.equals("DNI"))
+					this.algoritmoLlamado = new OrdenLlamadoPorDNI(this.clientes);
+				
 	}
 	
 	public synchronized void registro() { // viene el mensaje desde ControladorRegistro
@@ -54,7 +68,10 @@ public class GestionFila {
 	public String proximoCliente() {
 		this.sincronizador.eliminar();
 		// '.poll()' es una forma optimizada de devolver y eliminar la cabeza de la lista (primer elemento).
-		return this.clientes.poll(); // devuelve null si no hay mas clientes (DNIs)
+		// return this.clientes.poll(); // devuelve null si no hay mas clientes (DNIs)
+		
+		// podriamos retornar Interfaz.proximoCliente()
+		return this.algoritmoLlamado.proximoCliente();
 	}
 	
 	public void agregarCliente(String dni) {

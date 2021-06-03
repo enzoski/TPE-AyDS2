@@ -88,5 +88,14 @@ public class ComunicacionLlamados {
 		this.flag = false;
 	}
 	
+	// REPOSITORIO CLIENTES
+	public void buscarNombreCliente(String dni) {
+		// armar bien el XML y luego implementar esto
+	}
+	
+	public void buscarCategoriaCliente(String dni) {
+		// armar bien el XML y luego implementar esto
+	}
+	
 	
 }

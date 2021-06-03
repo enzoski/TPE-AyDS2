@@ -42,7 +42,6 @@ public class LauncherServidor {
 		ComunicacionDeshabilitacion comunicacionD = new ComunicacionDeshabilitacion(ipLlamado);
 		ComunicacionLlamados comunicacionL = new ComunicacionLlamados(gestionFila, ipLlamado);
 		// disponibilidad
-		// Sincronizador sincronizador = new Sincronizador("192.168.0.159"); // NO HACE FALTA INSTANCIAR ESTO, YA LO HACE GestionFila
 		ManejadorErroresServ1 manejadorErroresServ1 = new ManejadorErroresServ1(comunicacionL);
 		MonitoreoServPri monitoreoServPri = new MonitoreoServPri();
 		ResincronizaFila resincronizdor = new ResincronizaFila(gestionFila);
