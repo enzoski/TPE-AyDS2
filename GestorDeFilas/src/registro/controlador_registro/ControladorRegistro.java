@@ -112,8 +112,20 @@ public class ControladorRegistro implements ActionListener {
 		catch (Exception e) {
 			//e.printStackTrace();
 			if(this.intentosRegistro > 0) {
+				this.intentosRegistro--; // quizas estaria bueno poner un sleep que abarque mas de los 30s de ping del monitor.
+				/*
+				try {
+					// lo ideal seria hacer esto en un hilo, pero bueno, aunque se frize toda la ventana, hay que esperar por la confirmación de exito o no.
+					Thread.sleep(17000); // 17s * 2 intentos mas = 34s
+				} catch (InterruptedException e1) { // DE QUEDAR ASÍ, AGREGAR TODo ESTO TAMBIÉN A atencion
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					// A VECES VA MEDIO MAL, MEPA QUE SE FRIZEA TODO ESTE HILO DE EJECUCION, Y CUANDO SE QUIERE HACER
+					// CAMBIO DE SERVER, SE DEMORA TAMBIEN. O SEA, LO ESTUVE PROBANDO AL CERRAR EL SERVER PRIMARIO Y
+					// ANTES DE QUE EL MONITOR AVISE EL CAMBIO DE SERVER, INTENTAR REGISTRAR UN DNI.
+				}
+				*/
 				this.registrarDNI(dni);
-				this.intentosRegistro--;
 			}else
 				this.vistaRegistro.errorConexion();
 		}

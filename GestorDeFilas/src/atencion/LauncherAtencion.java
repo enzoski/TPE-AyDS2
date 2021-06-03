@@ -1,5 +1,7 @@
 package atencion;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 import atencion.controlador_atencion.ControladorAtencion;
@@ -10,12 +12,23 @@ import atencion.vista_atencion.VistaAtencionLlamarCliente;
 public class LauncherAtencion {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
-		System.out.print("Ingrese la dirección IP del servidor: ");
+		// PARA PRUEBAS LOCALES
+		String ipLocal = "";
+		try {
+			ipLocal = InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String ipServidor = ipLocal;
+		
+		/*
 		Scanner sc = new Scanner(System.in);
+		System.out.print("Ingrese la dirección IP del servidor: ");
 		String ipServidor = sc.nextLine();
 		sc.close();
+		*/
 		
 		VistaAtencionInicio vistaInicio = new VistaAtencionInicio();
 		VistaAtencionLlamarCliente vistaLlamarCliente = new VistaAtencionLlamarCliente();

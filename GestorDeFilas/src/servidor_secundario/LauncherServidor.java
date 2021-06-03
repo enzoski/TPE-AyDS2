@@ -1,5 +1,7 @@
 package servidor_secundario;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 import servidor_secundario.comunicacion_servidor.deshabilitador_servidor.ComunicacionDeshabilitacion;
@@ -14,15 +16,27 @@ import servidor_secundario.sincronizacion.SincronizadorEliminacion;
 public class LauncherServidor {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
-		System.out.print("Ingrese la dirección IP de la mini-PC que mostrará los llamados: ");
+		// PARA PRUEBAS LOCALES
+		String ipLocal = "";
+		try {
+			ipLocal = InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String ipLlamado = ipLocal;
+		String ipServ1 = ipLocal;
+		
+		/*
 		Scanner sc = new Scanner(System.in);
+		System.out.print("Ingrese la dirección IP de la mini-PC que mostrará los llamados: ");
 		String ipLlamado = sc.nextLine();
+		System.out.print("Ingrese la dirección IP del servidor primario que será resincronizado cuando corresponda: ");
+		String ipServ1 = sc.nextLine();
 		sc.close();
-		System.out.print("Servidor secundario escuchando...");
+		*/
 		
-		String ipServ1 ="192.168.0.159"; //ACA LA DEBERIA PEDIR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		// El servidor consta de 2 sub-componentes:
 		// uno que gestiona la fila de clientes, y otro que gestiona la comunicación entre todo el sistema.
 		GestionFila gestionFila = new GestionFila();
@@ -34,6 +48,9 @@ public class LauncherServidor {
 		ManejadorErroresServ2 manejadorErroresServ2 = new ManejadorErroresServ2(comunicacionL, comunicacionD, gestionFila);
 		MonitoreoServSec monitoreoServSec = new MonitoreoServSec();
 		ResincronizadorServ2 resincronizador = new ResincronizadorServ2(comunicacionL,comunicacionD,gestionFila,ipServ1);
+		
+		System.out.println("Servidor secundario escuchando...");
+		
 	}
 
 }

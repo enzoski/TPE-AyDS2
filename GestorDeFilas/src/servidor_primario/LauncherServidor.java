@@ -1,5 +1,7 @@
 package servidor_primario;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 import servidor_primario.comunicacion_servidor.deshabilitador_servidor.ComunicacionDeshabilitacion;
@@ -13,24 +15,40 @@ import servidor_primario.sincronizacion.Sincronizador;
 public class LauncherServidor {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
-		System.out.print("Ingrese la dirección IP de la mini-PC que mostrará los llamados: ");
+		// PARA PRUEBAS LOCALES
+		String ipLocal = "";
+		try {
+			ipLocal = InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String ipLlamado = ipLocal;
+		String ipServ2 = ipLocal;
+		
+		/*
 		Scanner sc = new Scanner(System.in);
+		System.out.print("Ingrese la dirección IP de la mini-PC que mostrará los llamados: ");
 		String ipLlamado = sc.nextLine();
+		System.out.print("Ingrese la dirección IP del servidor secundario que estará sincronizado: ");
+		String ipServ2 = sc.nextLine();
 		sc.close();
-		System.out.print("Servidor primario escuchando...");
+		*/
 		
 		// El servidor consta de 2 sub-componentes:
 		// uno que gestiona la fila de clientes, y otro que gestiona la comunicación entre todo el sistema.
-		GestionFila gestionFila = new GestionFila("192.168.0.159"); // DESPUES VER BIEN COMO PASARLE LA IP.
+		GestionFila gestionFila = new GestionFila(ipServ2); // IP DEL SERVIDOR SECUNDARIO PARA QUE SE VAYA SINCRONIZANDO
 		ComunicacionDeshabilitacion comunicacionD = new ComunicacionDeshabilitacion(ipLlamado);
 		ComunicacionLlamados comunicacionL = new ComunicacionLlamados(gestionFila, ipLlamado);
 		// disponibilidad
-		Sincronizador sincronizador = new Sincronizador("192.168.0.159"); // IP DEL SERVER SECUNDARIO
+		// Sincronizador sincronizador = new Sincronizador("192.168.0.159"); // NO HACE FALTA INSTANCIAR ESTO, YA LO HACE GestionFila
 		ManejadorErroresServ1 manejadorErroresServ1 = new ManejadorErroresServ1(comunicacionL);
 		MonitoreoServPri monitoreoServPri = new MonitoreoServPri();
 		ResincronizaFila resincronizdor = new ResincronizaFila(gestionFila);
+		
+		System.out.println("Servidor primario escuchando...");
+		
 	}
 
 }

@@ -98,6 +98,9 @@ public class Monitor {
 				/*
 				 * Puede ser que si las personas se siguen registrando mientras se hace la resincronizacion
 				 * se mezcle el orden de los clientes. (los nuevos clientes van a quedar en el medio de la cola.
+				 * ---
+				 * PODRIAMOS LLEGAR A PREVENIR UN POCO MAS ESO SI PRIMERO MANDAMOS A RESINCRONIZAR Y LUEGO DAR LOS AVISOS DE CAMBIO DE SERVER
+				 * Y EN RESINCRONIZAR PRIMERO DESHABILITAR EL SERVER2 Y LUEGO MANDAR LA FILA (cosa de que les pueda tirar un error de conexión).
 				 */
 			}
 			out.close();

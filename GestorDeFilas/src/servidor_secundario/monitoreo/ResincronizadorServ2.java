@@ -43,6 +43,8 @@ public class ResincronizadorServ2 {
 				if(msg.equals("res")) {
 					this.envioFila();
 					this.deshabilitarServ2();
+					// YO ACA PRIMERO DESHABILITARIA EL SERVER2 Y LUEGO MANDARIA LA FILA
+					// COSA DE PREVENIR QUE JUSTO SE REGISTRE ALGUIEN O SE HAGA UN LLAMADO (les daria error de conexión)
 				}
 				socket.close();
 			}
@@ -79,6 +81,8 @@ public class ResincronizadorServ2 {
 		this.comunicacionLlamados.desactivarServer();
 		this.comunicacionDeshabilitacion.desactivarServer();
 		this.gestionFila.desactivarServer();
+		// a futuro probar si los 'hilo.stop()' realmente hacen que el server socket deje de escuchar
+		// o si habria que tener una referencia al socket para luego hacerle un 'socket.close()'
 	}
 	
 	
