@@ -1,4 +1,4 @@
-package servidor_primario.fila_servidor;
+package servidor_secundario.fila_servidor;
 
 import java.util.Iterator;
 import java.util.Queue;

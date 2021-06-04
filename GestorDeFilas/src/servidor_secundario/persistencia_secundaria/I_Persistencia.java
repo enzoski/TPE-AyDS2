@@ -1,4 +1,4 @@
-package servidor_primario.persistencia_primaria;
+package servidor_secundario.persistencia_secundaria;
 
 public interface I_Persistencia { // persistencia de 'logs' (clientes registrados y llamados realizados, 2 archivos diferentes)
 	

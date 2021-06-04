@@ -1,4 +1,4 @@
-package servidor_primario;
+package servidor_secundario;
 
 public class Cliente {
 	

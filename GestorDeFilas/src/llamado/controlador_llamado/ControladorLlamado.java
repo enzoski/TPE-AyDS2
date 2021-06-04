@@ -41,8 +41,8 @@ public class ControladorLlamado {
 				//parseo del num de box y dni recibido del servidor
 				String[] arreglo = msg.split("#");
 				String box = arreglo[0];
-				String dni = arreglo[1];
-				this.vistaLlamados.mostrarLlamado(dni,box);
+				String nombre = arreglo[1];
+				this.vistaLlamados.mostrarLlamado(nombre, box);
 				socket.close();
 			}
 		}

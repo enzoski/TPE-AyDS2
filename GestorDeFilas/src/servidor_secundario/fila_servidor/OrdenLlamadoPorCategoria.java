@@ -1,9 +1,9 @@
-package servidor_primario.fila_servidor;
+package servidor_secundario.fila_servidor;
 
 import java.util.Iterator;
 import java.util.Queue;
 
-import servidor_primario.RepositorioClientes;
+import servidor_secundario.RepositorioClientes;
 
 public class OrdenLlamadoPorCategoria implements I_OrdenLlamado {
 	

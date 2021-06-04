@@ -1,7 +1,6 @@
-package servidor_primario.persistencia_primaria;
+package servidor_secundario.persistencia_secundaria;
 
-import servidor_primario.Cliente;
-import servidor_primario.RepositorioClientes;
+import servidor_secundario.RepositorioClientes;
 
 public class PersistenciaXML implements I_Persistencia {
 

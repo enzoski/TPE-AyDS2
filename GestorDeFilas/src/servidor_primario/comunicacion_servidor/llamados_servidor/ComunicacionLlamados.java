@@ -6,7 +6,9 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import servidor_primario.RepositorioClientes;
 import servidor_primario.fila_servidor.GestionFila;
+import servidor_primario.persistencia_primaria.I_Persistencia;
 
 /**
  * Clase que gestiona los pedidos de llamar al próximo cliente (por parte del componente de atención),
@@ -28,9 +30,19 @@ public class ComunicacionLlamados {
 	// disponibilidad
 	private boolean flag = true;
 	
-	public ComunicacionLlamados(GestionFila gestorFila, String ipLlamado) {
+	// repositorio
+	private RepositorioClientes repositorioClientes;
+	
+	//persistencia (logs de llamados y registros de clientes)
+	private I_Persistencia persistencia;
+	
+	public ComunicacionLlamados(GestionFila gestorFila, String ipLlamado, RepositorioClientes repositorioClientes, I_Persistencia persistencia) {
 		this.ipLlamado = ipLlamado;
 		this.gestorFila = gestorFila;
+		
+		this.repositorioClientes = repositorioClientes;
+		this.persistencia = persistencia;
+		
 		// instanciamos y activamos el hilo del 'server socket'
 		this.hilo = new RecibidorLlamados(this);
 		this.hilo.start();
@@ -45,11 +57,16 @@ public class ComunicacionLlamados {
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				String box = in.readLine();
 				String dni = this.gestorFila.proximoCliente();
-				if(dni != null) // si fuera null, no haríamos la comunicacion con el componente 'llamado' y listo
-					this.realizarLlamado(box, dni);
-				if(this.flag) // si hay conexión con la mini-pc de la TV de llamados
+				if(dni != null) { // si fuera null, no haríamos la comunicacion con el componente 'llamado' y listo
+					String nombre = this.repositorioClientes.buscarNombreCliente(dni);
+					this.realizarLlamado(box, nombre);
+				}
+				if(this.flag) { // si hay conexión con la mini-pc de la TV de llamados
 					out.println(dni); // le respondemos al componente 'atencion', mandandole el próximo DNI, y él decidirá qué hacer si es null
-				else {
+					String fecha = ""; // PEDIRLE AL SISTEMA QUE NOS DE LA FECHA Y HORA ACTUAL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					this.persistencia.persistirLlamado(fecha, box, dni);
+				}
+					else {
 					out.println("errorTV"); // le respondemos al componente 'atencion' que hubo un error al intentar comunicarse con la TV
 					this.gestorFila.reAgregarCliente(dni); // volvemos a colocar el dni al principio de la fila
 					System.out.println("No se alcanzó el TV [DNI: " + dni + "]"); // EN EL FUTURO PODEMOS MANDAR ESTO DEVUELTA A LA COLA.
@@ -64,13 +81,13 @@ public class ComunicacionLlamados {
 		}
 	}
 
-	public void realizarLlamado(String box,String dni) { // va el mensaje a ControladorLlamado
+	public void realizarLlamado(String box, String nombre) { // va el mensaje a ControladorLlamado
 		try {
 			Socket socket = new Socket(ipLlamado, PORT_4);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			// mandamos la dupla box-dni con un 'token' entre medio para luego saber cómo parsear el mensaje
-			String msj = box + "#" + dni;
+			String msj = box + "#" + nombre;
 			out.println(msj);
 			out.close();
 			socket.close();
@@ -86,15 +103,6 @@ public class ComunicacionLlamados {
 	// total eso se detecta en el socket de acá arriba. Si entra al catch, justamente no le pudo mandar nada a la TV.
 	public void errorLlamado() {
 		this.flag = false;
-	}
-	
-	// REPOSITORIO CLIENTES
-	public void buscarNombreCliente(String dni) {
-		// armar bien el XML y luego implementar esto
-	}
-	
-	public void buscarCategoriaCliente(String dni) {
-		// armar bien el XML y luego implementar esto
 	}
 	
 	

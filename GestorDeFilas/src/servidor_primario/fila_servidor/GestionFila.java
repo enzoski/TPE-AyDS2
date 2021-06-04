@@ -8,6 +8,8 @@ import java.net.Socket;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import servidor_primario.RepositorioClientes;
+import servidor_primario.persistencia_primaria.I_Persistencia;
 import servidor_primario.sincronizacion.Sincronizador;
 
 /**
@@ -28,19 +30,28 @@ public class GestionFila {
 	// aca pondriamos un atributo con la interfaz que gestiona el orden de llamados.
 	private I_OrdenLlamado algoritmoLlamado;
 	
-	public GestionFila(String ipServ2, String tipoOrdenLlamado) { // IP del servidor secundario
+	//repositorio clientes
+	private RepositorioClientes repositorioClientes;
+	
+	//persistencia (logs de llamados y registros de clientes)
+	private I_Persistencia persistencia;
+	
+	public GestionFila(String ipServ2, String tipoOrdenLlamado, RepositorioClientes repositorioClientes, I_Persistencia persistencia) { // IP del servidor secundario
 		// instanciamos y activamos el hilo del 'server socket'
 		this.hilo = new RegistradorDNI(this);
 		this.hilo.start();
 		
 		this.sincronizador = new Sincronizador(ipServ2);
 		
+		this.repositorioClientes = repositorioClientes;
+		this.persistencia = persistencia;
+		
 		// quizas aca se podria aplicar algun patron
 		if(tipoOrdenLlamado.equals("llegada"))
 			this.algoritmoLlamado = new OrdenLlamadoPorLlegada(this.clientes);
 		else
 			if(tipoOrdenLlamado.equals("categoria"))
-				this.algoritmoLlamado = new OrdenLlamadoPorCategoria(this.clientes);
+				this.algoritmoLlamado = new OrdenLlamadoPorCategoria(this.clientes, this.repositorioClientes);
 			else
 				if(tipoOrdenLlamado.equals("DNI"))
 					this.algoritmoLlamado = new OrdenLlamadoPorDNI(this.clientes);
@@ -57,6 +68,8 @@ public class GestionFila {
 				String dni = in.readLine();
 				this.clientes.add(dni);
 				this.sincronizador.agregar(dni); //disponibilidad
+				String fecha = ""; // PEDIRLE AL SISTEMA QUE NOS DE LA FECHA Y HORA ACTUAL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				this.persistencia.persistirRegistro(fecha, dni);
 				socket.close();
 			}
 		}

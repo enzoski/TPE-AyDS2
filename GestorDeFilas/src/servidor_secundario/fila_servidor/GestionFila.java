@@ -8,6 +8,9 @@ import java.net.Socket;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import servidor_secundario.RepositorioClientes;
+import servidor_secundario.persistencia_secundaria.I_Persistencia;
+
 /**
  * Clase que gestiona el agregar o eliminar DNIs de la fila de clientes.
  * 
@@ -20,10 +23,30 @@ public class GestionFila {
 	private Queue<String> clientes = new LinkedList<String>(); // lista doblemente enlazada
 	private RegistradorDNI hilo; // hilo para registrar los DNIs
 	
-	public GestionFila() {
-		// instanciamos y activamos el hilo del 'server socket'
-		//this.hilo = new RegistradorDNI(this);
-		//this.hilo.start(); sacamos esto porque estamos en el server secundario y no debe empezar a escuchar de una.
+	// aca pondriamos un atributo con la interfaz que gestiona el orden de llamados.
+	private I_OrdenLlamado algoritmoLlamado;
+		
+	//repositorio clientes
+	private RepositorioClientes repositorioClientes;
+		
+	//persistencia (logs de llamados y registros de clientes)
+	private I_Persistencia persistencia;
+	
+	public GestionFila(String tipoOrdenLlamado, RepositorioClientes repositorioClientes, I_Persistencia persistencia) {
+		
+		this.repositorioClientes = repositorioClientes;
+		this.persistencia = persistencia;
+		
+		// quizas aca se podria aplicar algun patron
+		if(tipoOrdenLlamado.equals("llegada"))
+			this.algoritmoLlamado = new OrdenLlamadoPorLlegada(this.clientes);
+		else
+			if(tipoOrdenLlamado.equals("categoria"))
+				this.algoritmoLlamado = new OrdenLlamadoPorCategoria(this.clientes, this.repositorioClientes);
+			else
+				if(tipoOrdenLlamado.equals("DNI"))
+					this.algoritmoLlamado = new OrdenLlamadoPorDNI(this.clientes);
+		
 	}
 	
 	public synchronized void registro() { // viene el mensaje desde ControladorRegistro
@@ -35,6 +58,8 @@ public class GestionFila {
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				String dni = in.readLine();
 				this.clientes.add(dni);
+				String fecha = ""; // PEDIRLE AL SISTEMA QUE NOS DE LA FECHA Y HORA ACTUAL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				this.persistencia.persistirRegistro(fecha, dni);
 				socket.close();
 			}
 		}
@@ -44,8 +69,7 @@ public class GestionFila {
 	}
 	
 	public String proximoCliente() {
-		// '.poll()' es una forma optimizada de devolver y eliminar la cabeza de la lista (primer elemento).
-		return this.clientes.poll(); // devuelve null si no hay mas clientes (DNIs)
+		return this.algoritmoLlamado.proximoCliente(); // devuelve null si no hay mas clientes (DNIs)
 	}
 	
 	public void agregarCliente(String dni) {

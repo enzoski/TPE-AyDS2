@@ -10,6 +10,8 @@ import servidor_secundario.fila_servidor.GestionFila;
 import servidor_secundario.monitoreo.ManejadorErroresServ2;
 import servidor_secundario.monitoreo.MonitoreoServSec;
 import servidor_secundario.monitoreo.ResincronizadorServ2;
+import servidor_secundario.persistencia_secundaria.I_Persistencia;
+import servidor_secundario.persistencia_secundaria.PersistenciaXML;
 import servidor_secundario.sincronizacion.SincronizadorAgregacion;
 import servidor_secundario.sincronizacion.SincronizadorEliminacion;
 
@@ -39,9 +41,11 @@ public class LauncherServidor {
 		
 		// El servidor consta de 2 sub-componentes:
 		// uno que gestiona la fila de clientes, y otro que gestiona la comunicación entre todo el sistema.
-		GestionFila gestionFila = new GestionFila();
+		RepositorioClientes repositorioClientes = new RepositorioClientes();
+		I_Persistencia persistencia = new PersistenciaXML(repositorioClientes);
+		GestionFila gestionFila = new GestionFila("llegada", repositorioClientes, persistencia);
 		ComunicacionDeshabilitacion comunicacionD = new ComunicacionDeshabilitacion(ipLlamado);
-		ComunicacionLlamados comunicacionL = new ComunicacionLlamados(gestionFila, ipLlamado);
+		ComunicacionLlamados comunicacionL = new ComunicacionLlamados(gestionFila, ipLlamado, repositorioClientes, persistencia);
 		// disponibilidad
 		SincronizadorAgregacion sincronizadorA = new SincronizadorAgregacion(gestionFila);
 		SincronizadorEliminacion sincronizadorE = new SincronizadorEliminacion(gestionFila);

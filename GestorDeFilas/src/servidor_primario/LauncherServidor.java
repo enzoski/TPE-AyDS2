@@ -10,6 +10,8 @@ import servidor_primario.fila_servidor.GestionFila;
 import servidor_primario.fila_servidor.ResincronizaFila;
 import servidor_primario.monitoreo.ManejadorErroresServ1;
 import servidor_primario.monitoreo.MonitoreoServPri;
+import servidor_primario.persistencia_primaria.I_Persistencia;
+import servidor_primario.persistencia_primaria.PersistenciaXML;
 import servidor_primario.sincronizacion.Sincronizador;
 
 public class LauncherServidor {
@@ -38,9 +40,11 @@ public class LauncherServidor {
 		
 		// El servidor consta de 2 sub-componentes:
 		// uno que gestiona la fila de clientes, y otro que gestiona la comunicación entre todo el sistema.
-		GestionFila gestionFila = new GestionFila(ipServ2); // IP DEL SERVIDOR SECUNDARIO PARA QUE SE VAYA SINCRONIZANDO
+		RepositorioClientes repositorioClientes = new RepositorioClientes();
+		I_Persistencia persistencia = new PersistenciaXML(repositorioClientes);
+		GestionFila gestionFila = new GestionFila(ipServ2, "llegada", repositorioClientes, persistencia); // IP DEL SERVIDOR SECUNDARIO PARA QUE SE VAYA SINCRONIZANDO
 		ComunicacionDeshabilitacion comunicacionD = new ComunicacionDeshabilitacion(ipLlamado);
-		ComunicacionLlamados comunicacionL = new ComunicacionLlamados(gestionFila, ipLlamado);
+		ComunicacionLlamados comunicacionL = new ComunicacionLlamados(gestionFila, ipLlamado, repositorioClientes, persistencia);
 		// disponibilidad
 		ManejadorErroresServ1 manejadorErroresServ1 = new ManejadorErroresServ1(comunicacionL);
 		MonitoreoServPri monitoreoServPri = new MonitoreoServPri();

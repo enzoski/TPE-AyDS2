@@ -20,14 +20,14 @@ public class VistaLlamadoTV extends JFrame {
 	private JPanel contentPane;
 	private JPanel panelNorte;
 	private JPanel panelCentral;
-	private JPanel panelDNI;
+	private JPanel panelNombre;
 	private JPanel panelBox;
-	private JLabel lblDNI;
+	private JLabel lblNombre;
 	private JLabel lblBox;
-	private JPanel panelListaDNI;
+	private JPanel panelListaNombre;
 	private JPanel panelListaBox;
 	// tendremos 2 listas visuales que muestren String's
-	private JList<String> listDNI;
+	private JList<String> listNombre;
 	private JList<String> listBox;
 	// dichas listas visuales mostraran automaticamente lo que haya dentro de un DefaultListModel asociado
 	private DefaultListModel<String> modeloListaDNI;
@@ -69,13 +69,13 @@ public class VistaLlamadoTV extends JFrame {
 		this.contentPane.add(this.panelNorte, BorderLayout.NORTH);
 		this.panelNorte.setLayout(new GridLayout(1, 2, 0, 0));
 		
-		this.panelDNI = new JPanel();
-		this.panelDNI.setBackground(new Color(173, 216, 230));
-		this.panelNorte.add(this.panelDNI);
+		this.panelNombre = new JPanel();
+		this.panelNombre.setBackground(new Color(173, 216, 230));
+		this.panelNorte.add(this.panelNombre);
 		
-		this.lblDNI = new JLabel("DNI");
-		this.lblDNI.setFont(new Font("Tahoma", Font.BOLD, 18));
-		this.panelDNI.add(this.lblDNI);
+		this.lblNombre = new JLabel("NOMBRE");
+		this.lblNombre.setFont(new Font("Tahoma", Font.BOLD, 18));
+		this.panelNombre.add(this.lblNombre);
 		
 		this.panelBox = new JPanel();
 		this.panelBox.setBackground(new Color(173, 216, 230));
@@ -89,15 +89,15 @@ public class VistaLlamadoTV extends JFrame {
 		this.contentPane.add(this.panelCentral, BorderLayout.CENTER);
 		this.panelCentral.setLayout(new GridLayout(1, 2, 0, 0));
 		
-		this.panelListaDNI = new JPanel();
-		this.panelListaDNI.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		this.panelCentral.add(this.panelListaDNI);
-		this.panelListaDNI.setLayout(new BorderLayout(0, 0));
+		this.panelListaNombre = new JPanel();
+		this.panelListaNombre.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		this.panelCentral.add(this.panelListaNombre);
+		this.panelListaNombre.setLayout(new BorderLayout(0, 0));
 		
-		this.listDNI = new JList<String>();
-		this.listDNI.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		this.listDNI.setVisibleRowCount(20);
-		this.panelListaDNI.add(this.listDNI, BorderLayout.CENTER);
+		this.listNombre = new JList<String>();
+		this.listNombre.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		this.listNombre.setVisibleRowCount(20);
+		this.panelListaNombre.add(this.listNombre, BorderLayout.CENTER);
 		
 		this.panelListaBox = new JPanel();
 		this.panelListaBox.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -113,7 +113,7 @@ public class VistaLlamadoTV extends JFrame {
 		this.modeloListaDNI = new DefaultListModel<String>();
 		this.modeloListaBox = new DefaultListModel<String>();
 		
-		this.listDNI.setModel(this.modeloListaDNI);
+		this.listNombre.setModel(this.modeloListaDNI);
 		this.listBox.setModel(this.modeloListaBox);
 	}
 	
