@@ -32,6 +32,9 @@ public class GestionFila {
 	//persistencia (logs de llamados y registros de clientes)
 	private I_Persistencia persistencia;
 	
+	// para saber si el servidor secundario debe o no persistir el historial de llamados y registros [PERSISTENCIA]
+	private boolean servidorActivo = false;
+	
 	public GestionFila(String tipoOrdenLlamado, RepositorioClientes repositorioClientes, I_Persistencia persistencia) {
 		
 		this.repositorioClientes = repositorioClientes;
@@ -93,10 +96,16 @@ public class GestionFila {
 	public void activarServer() {
 		this.hilo = new RegistradorDNI(this); // si lo inicializabamos en el constructor, no andaba
 		this.hilo.start();
+		this.servidorActivo = true;
 	}
 			
 	public void desactivarServer() {
 		this.hilo.stop();
+		this.servidorActivo = false;
+	}
+	
+	public boolean isServidorActivo() {
+		return servidorActivo;
 	}
 	
 	

@@ -7,7 +7,6 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 
 public class PruebaCreacionRepositorioXML { // AL FINAL, BORRAR ESTA CLASE
 
@@ -21,6 +20,8 @@ public class PruebaCreacionRepositorioXML { // AL FINAL, BORRAR ESTA CLASE
 	
 	public static void main(String[] args) {
 		
+		// HAY PROBLEMAS SI QUEREMOS LEER EL REPOSITORIO DESDE EL SERVER SECUNDARIO, YA QUE LOS CLIENTES GRABADOS
+		// SON DE TIPO "servidor_primario.Cliente", o sea, otro paquete.
 		abrirArchivoEscritura(NOMBRE_ARCHIVO_REPOSITORIO);
 		escrituraXML(new Cliente("11111111", "Johnny Depp", "Premium"));
 		escrituraXML(new Cliente("22222222", "Tobey Maguire", "Plus"));

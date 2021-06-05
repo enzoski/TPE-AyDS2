@@ -52,12 +52,14 @@ public class LauncherServidor {
 		
 		System.out.println("Servidor primario escuchando...");
 		
-		System.out.println("Presione 'e' para salir.");
+		System.out.println("Presione 'e' cuando quiera apagar el servidor.");
 		Scanner sc = new Scanner(System.in);
 		String exit = sc.nextLine();
 		sc.close();
-		if(exit.equals("e"))
+		if(exit.equals("e")) {
+			persistencia.persistirDatos(); // se crean los archivos de historial de llamados y registros.
 			System.exit(0);
+		}
 		
 		
 	}
