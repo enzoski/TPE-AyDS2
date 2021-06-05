@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
-public class PruebaCreacionRepositorioXML {
+public class PruebaCreacionRepositorioXML { // AL FINAL, BORRAR ESTA CLASE
 
 	// Si llega a haber problemas con el pathname que se usa "por defecto", habria que especificarlo usando:
 	// https://docs.oracle.com/javase/7/docs/api/java/io/FileOutputStream.html#FileOutputStream(java.io.File,%20boolean)
@@ -21,14 +21,17 @@ public class PruebaCreacionRepositorioXML {
 	
 	public static void main(String[] args) {
 		
-		ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
-		listaClientes.add(new Cliente("11111111", "Johnny Depp", "Premium"));
-		listaClientes.add(new Cliente("22222222", "Tobey Maguire", "Plus"));
-		listaClientes.add(new Cliente("33333333", "Andrew Garfield", "Normal"));
-		listaClientes.add(new Cliente("44444444", "Tom Holland", "Basico"));
-		
 		abrirArchivoEscritura(NOMBRE_ARCHIVO_REPOSITORIO);
-		escrituraXML(listaClientes);
+		escrituraXML(new Cliente("11111111", "Johnny Depp", "Premium"));
+		escrituraXML(new Cliente("22222222", "Tobey Maguire", "Plus"));
+		escrituraXML(new Cliente("33333333", "Andrew Garfield", "Normal"));
+		escrituraXML(new Cliente("44444444", "Emma Watson", "Premium"));
+		escrituraXML(new Cliente("55555555", "Chris Evans", "Normal"));
+		escrituraXML(new Cliente("66666666", "Christian Bale", "Basico"));
+		escrituraXML(new Cliente("77777777", "Heath Ledger", "Basico"));
+		escrituraXML(new Cliente("88888888", "Elizabeth Olsen", "Plus"));
+		escrituraXML(new Cliente("99999999", "Gary Oldman", "Premium"));
+		escrituraXML(new Cliente("12345678", "David Thewlis", "Premium"));
 		cerrarArchivoEscritura();
 		// Estuve probando que si no hacemos el .close() del archivo, si quisieramos abrir el XML no veriamos nada.
 		// Entonces mientras el servidor este funcionando, no podriamos abrir los archivos de los logs (persistencia)
@@ -41,6 +44,15 @@ public class PruebaCreacionRepositorioXML {
 		// then append your new content to your object then write your object to the xml file
 		
 		abrirArchivoLectura(NOMBRE_ARCHIVO_REPOSITORIO);
+		lecturaXML();
+		lecturaXML();
+		lecturaXML();
+		lecturaXML();
+		lecturaXML();
+		lecturaXML();
+		lecturaXML();
+		lecturaXML();
+		lecturaXML();
 		lecturaXML();
 		cerrarArchivoLectura();
 
@@ -67,13 +79,13 @@ public class PruebaCreacionRepositorioXML {
 		}
 	}
 	
-	public static void escrituraXML(ArrayList<Cliente> listaClientes) {
-		encoder.writeObject(listaClientes);
+	public static void escrituraXML(Cliente cliente) {
+		encoder.writeObject(cliente);
 	}
 	
 	public static void lecturaXML() {
-		ArrayList<Cliente> listaClientes = (ArrayList<Cliente>) decoder.readObject();
-		System.out.println(listaClientes);
+		Cliente cliente = (Cliente) decoder.readObject();
+		System.out.println(cliente);
 	}
 	
 	public static void cerrarArchivoEscritura() {

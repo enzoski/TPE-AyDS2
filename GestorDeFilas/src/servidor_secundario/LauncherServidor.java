@@ -55,6 +55,13 @@ public class LauncherServidor {
 		
 		System.out.println("Servidor secundario escuchando...");
 		
+		System.out.println("Presione 'e' para salir.");
+		Scanner sc = new Scanner(System.in);
+		String exit = sc.nextLine();
+		sc.close();
+		if(exit.equals("e"))
+			System.exit(0);
+		
 	}
 
 }
