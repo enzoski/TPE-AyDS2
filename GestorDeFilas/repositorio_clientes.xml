@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="14.0.2" class="java.beans.XMLDecoder">
+ <object class="java.util.ArrayList">
+  <void method="add">
+   <object class="servidor_primario.Cliente">
+    <void property="categoria">
+     <string>Premium</string>
+    </void>
+    <void property="dni">
+     <string>11111111</string>
+    </void>
+    <void property="nombre">
+     <string>Johnny Depp</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="servidor_primario.Cliente">
+    <void property="categoria">
+     <string>Plus</string>
+    </void>
+    <void property="dni">
+     <string>22222222</string>
+    </void>
+    <void property="nombre">
+     <string>Tobey Maguire</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="servidor_primario.Cliente">
+    <void property="categoria">
+     <string>Normal</string>
+    </void>
+    <void property="dni">
+     <string>33333333</string>
+    </void>
+    <void property="nombre">
+     <string>Andrew Garfield</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="servidor_primario.Cliente">
+    <void property="categoria">
+     <string>Basico</string>
+    </void>
+    <void property="dni">
+     <string>44444444</string>
+    </void>
+    <void property="nombre">
+     <string>Tom Holland</string>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>
