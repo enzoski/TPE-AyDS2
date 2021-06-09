@@ -42,7 +42,9 @@ public class ControladorRegistro implements ActionListener {
 		this.vistaConfirmacion = vistaConfirmacion;
 		this.vistaConfirmacion.setControlador(this);
 		this.numTotem = numTotem;
-		this.avisoActivacion();
+		boolean avisado = false;
+		while (!avisado)
+			avisado = this.avisoActivacion();
 		// por defecto las ventanas permanecen ocultas, por eso no 'cerramos' esta
 		
 		// POR AHORA QUEDA EN VEREMOS LO DEL NUMERO DE TOTEM *
@@ -150,7 +152,8 @@ public class ControladorRegistro implements ActionListener {
 		
 	}
 	
-	private void avisoActivacion() {
+	private boolean avisoActivacion() {
+		boolean avisado = false;
 		try {
 			Socket socket = new Socket(this.ipMonitor, PORT_3);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -158,10 +161,12 @@ public class ControladorRegistro implements ActionListener {
 			out.println("totem#"+this.numTotem);
 			out.close();
 			socket.close();
+			avisado = true;
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			avisado = false;
 		}
+		return avisado;
 	}
 	
 	public int getNumTotem() {

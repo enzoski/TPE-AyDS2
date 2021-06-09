@@ -52,7 +52,9 @@ public class ControladorAtencion implements ActionListener {
 			try {
 				int numBox = Integer.parseInt(box);
 				this.habilitarBox(numBox);
-				this.avisoActivacion();
+				boolean avisado = false;
+				while(!avisado)
+					avisado = this.avisoActivacion();
 			}
 			catch (NumberFormatException e) {
 				this.vistaInicio.errorBox();
@@ -160,7 +162,8 @@ public class ControladorAtencion implements ActionListener {
 		
 	}
 	
-	private void avisoActivacion() {
+	private boolean avisoActivacion() {
+		boolean aviso=false;
 		try {
 			Socket socket = new Socket(this.ipMonitor, PORT_3);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -168,11 +171,12 @@ public class ControladorAtencion implements ActionListener {
 			out.println("box#"+this.boxActual);
 			out.close();
 			socket.close();
+			aviso=true;
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-		
+			aviso=false;
 		}
+		return aviso;
 	}
 	
 	public int getNumBox() {

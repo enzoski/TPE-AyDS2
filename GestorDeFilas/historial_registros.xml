@@ -40,5 +40,53 @@
   <void method="add">
    <string>09/06/2021 19:14:44- DNI: 33333333 - Andrew Garfield - Categoria: Normal</string>
   </void>
+  <void method="add">
+   <string>09/06/2021 19:36:34- DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:36:44- DNI: 22222222 - Tobey Maguire - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:36:50- DNI: 33333333 - Andrew Garfield - Categoria: Normal</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:36:56- DNI: 44444444 - Emma Watson - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:37:01- DNI: 55555555 - Chris Evans - Categoria: Normal</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:37:56- DNI: 66666666 - Christian Bale - Categoria: Basico</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:38:01- DNI: 77777777 - Heath Ledger - Categoria: Basico</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:38:07- DNI: 88888888 - Elizabeth Olsen - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:38:13- DNI: 99999999 - Gary Oldman - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:38:20- DNI: 12345678 - David Thewlis - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:39:04- DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:39:10- DNI: 22222222 - Tobey Maguire - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:39:17- DNI: 33333333 - Andrew Garfield - Categoria: Normal</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:39:22- DNI: 44444444 - Emma Watson - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:40:31- DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:41:01- DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
  </object>
 </java>

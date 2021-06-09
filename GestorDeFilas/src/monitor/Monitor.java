@@ -45,10 +45,12 @@ public class Monitor {
 	
 	public void agregarBoxActivo(int num) {
 		this.box_activos.add(num);
+		System.out.println("se agrego el box activo: "+num);
 	}
 	
 	public void agregarTotemActivo(int num) {
 		this.totem_activos.add(num);
+		System.out.println("se agrego el totem activo: "+num);
 	}
 	
 	// PARA MI ESTE PING NO SERÍA NECESARIO.
