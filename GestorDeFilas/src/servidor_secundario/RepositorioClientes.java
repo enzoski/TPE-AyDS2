@@ -5,57 +5,85 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class RepositorioClientes {
-	
-	public static final String NOMBRE_ARCHIVO_REPOSITORIO = "repositorio_clientes.xml";
+public class RepositorioClientes implements I_RepositorioClientes {
 	
 	public RepositorioClientes() {
 		
 	}
 	
-	// SI AL BUSCAR EN EL XML NO ENCUENTRA EL DNI, PODRIAMOS DEVOLVER UNA CATEGORIA 'TEMPORAL' QUE SEA LA MENOR CATEGORIA.
+	@Override
 	public String buscarNombreCliente(String dni) {
-		Cliente cliente = null;
+		String cliente = null;
 		try {
 			XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(NOMBRE_ARCHIVO_REPOSITORIO)));
 			String dniActual = "";
 			while(!dni.equals(dniActual)) {
-				cliente = (Cliente) decoder.readObject();
-				dniActual = cliente.getDni();
+				cliente = (String) decoder.readObject();
+				//dniActual = cliente.getDni();
+				dniActual = cliente.split("-")[0]; // parseo del dni del cliente
 			}
 				
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (ArrayIndexOutOfBoundsException e2) {
-			// por el momento vamos a asumir que todos los clientes estan registrados -> PREGUNTAR
-			cliente = new Cliente(dni, dni, "Basico"); // pero igualmente por las dudas dejamos esta forma de solucionar el error.
+			// Se asume que todos los clientes estan registrados, por lo cual no deberíamos entrar a este catch.
 			e2.printStackTrace();
 		}
 		
-		return cliente.getNombre();
+		//return cliente.getNombre();
+		return cliente.split("-")[1]; // parseo del nombre del cliente
 	}
 	
+	@Override
 	public String buscarCategoriaCliente(String dni) {
-		Cliente cliente = null;
+		String cliente = null;
 		try {
 			XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(NOMBRE_ARCHIVO_REPOSITORIO)));
 			String dniActual = "";
 			while(!dni.equals(dniActual)) {
-				cliente = (Cliente) decoder.readObject();
-				dniActual = cliente.getDni();
+				cliente = (String) decoder.readObject();
+				//dniActual = cliente.getDni();
+				dniActual = cliente.split("-")[0]; // parseo del dni del cliente
 			}
 				
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (ArrayIndexOutOfBoundsException e2) {
-			// por el momento vamos a asumir que todos los clientes estan registrados -> PREGUNTAR
-			cliente = new Cliente(dni, dni, "Basico"); // pero igualmente por las dudas dejamos esta forma de solucionar el error.
+			// Se asume que todos los clientes estan registrados, por lo cual no deberíamos entrar a este catch.
 			e2.printStackTrace();
 		}
 		
-		return cliente.getCategoria();
+		//return cliente.getCategoria();
+		return cliente.split("-")[2]; // parseo de la categoria del cliente
 	}
+
+	@Override
+	public boolean existeCliente(String dni) {
+		boolean existe = true;
+		try {
+			XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(NOMBRE_ARCHIVO_REPOSITORIO)));
+			String cliente;
+			String dniActual = "";
+			while(!dni.equals(dniActual)) {
+				cliente = (String) decoder.readObject();
+				//dniActual = cliente.getDni();
+				dniActual = cliente.split("-")[0]; // parseo del dni del cliente
+			}
+				
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ArrayIndexOutOfBoundsException e2) {
+			// El cliente no existirá si llegamos a fin de archivo y no encontramos el dni.
+			// e2.printStackTrace();
+			existe = false;
+		}		
+		//return cliente.getNombre();
+		return existe;
+	}
+	
+	
 
 }

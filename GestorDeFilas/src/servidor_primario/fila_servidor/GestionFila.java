@@ -5,9 +5,12 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import servidor_primario.I_RepositorioClientes;
 import servidor_primario.RepositorioClientes;
 import servidor_primario.persistencia_primaria.I_Persistencia;
 import servidor_primario.sincronizacion.Sincronizador;
@@ -31,12 +34,12 @@ public class GestionFila {
 	private I_OrdenLlamado algoritmoLlamado;
 	
 	//repositorio clientes
-	private RepositorioClientes repositorioClientes;
+	private I_RepositorioClientes repositorioClientes;
 	
 	//persistencia (logs de llamados y registros de clientes)
 	private I_Persistencia persistencia;
 	
-	public GestionFila(String ipServ2, String tipoOrdenLlamado, RepositorioClientes repositorioClientes, I_Persistencia persistencia) { // IP del servidor secundario
+	public GestionFila(String ipServ2, String tipoOrdenLlamado, I_RepositorioClientes repositorioClientes, I_Persistencia persistencia) { // IP del servidor secundario
 		// instanciamos y activamos el hilo del 'server socket'
 		this.hilo = new RegistradorDNI(this);
 		this.hilo.start();
@@ -66,10 +69,21 @@ public class GestionFila {
 				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				String dni = in.readLine();
-				this.clientes.add(dni);
-				this.sincronizador.agregar(dni); //disponibilidad
-				String fecha = ""; // PEDIRLE AL SISTEMA QUE NOS DE LA FECHA Y HORA ACTUAL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-				this.persistencia.persistirRegistro(fecha, dni);
+				// Verificamos que el DNI que se quiere registrar, esté en el repositorio de clientes, y le respondemos a 'registro' si se registró bien o no.
+				if(this.repositorioClientes.existeCliente(dni)) {
+					this.clientes.add(dni);
+					//disponibilidad
+					this.sincronizador.agregar(dni);
+					//persistencia
+					DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); // para darle formato a una fecha y hora
+					LocalDateTime now = LocalDateTime.now(); // instancia de la fecha y hora actual del sistema
+					String fecha = dtf.format(now);
+					this.persistencia.persistirRegistro(fecha, dni);
+					out.println("existe");
+				}
+				else
+					out.println("no existe");
+				out.close();
 				socket.close();
 			}
 		}

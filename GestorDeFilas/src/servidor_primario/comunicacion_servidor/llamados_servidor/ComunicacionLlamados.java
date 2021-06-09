@@ -5,7 +5,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+import servidor_primario.I_RepositorioClientes;
 import servidor_primario.RepositorioClientes;
 import servidor_primario.fila_servidor.GestionFila;
 import servidor_primario.persistencia_primaria.I_Persistencia;
@@ -31,12 +34,12 @@ public class ComunicacionLlamados {
 	private boolean flag = true;
 	
 	// repositorio
-	private RepositorioClientes repositorioClientes;
+	private I_RepositorioClientes repositorioClientes;
 	
 	//persistencia (logs de llamados y registros de clientes)
 	private I_Persistencia persistencia;
 	
-	public ComunicacionLlamados(GestionFila gestorFila, String ipLlamado, RepositorioClientes repositorioClientes, I_Persistencia persistencia) {
+	public ComunicacionLlamados(GestionFila gestorFila, String ipLlamado, I_RepositorioClientes repositorioClientes, I_Persistencia persistencia) {
 		this.ipLlamado = ipLlamado;
 		this.gestorFila = gestorFila;
 		
@@ -63,8 +66,12 @@ public class ComunicacionLlamados {
 				}
 				if(this.flag) { // si hay conexión con la mini-pc de la TV de llamados
 					out.println(dni); // le respondemos al componente 'atencion', mandandole el próximo DNI, y él decidirá qué hacer si es null
-					String fecha = ""; // PEDIRLE AL SISTEMA QUE NOS DE LA FECHA Y HORA ACTUAL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-					this.persistencia.persistirLlamado(fecha, box, dni);
+					if(dni != null) { // si no hay mas clientes por llamar, no se persiste esa petición de llamado
+						DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); // para darle formato a una fecha y hora
+						LocalDateTime now = LocalDateTime.now(); // instancia de la fecha y hora actual del sistema
+						String fecha = dtf.format(now);
+						this.persistencia.persistirLlamado(fecha, box, dni);
+					}
 				}
 					else {
 					out.println("errorTV"); // le respondemos al componente 'atencion' que hubo un error al intentar comunicarse con la TV

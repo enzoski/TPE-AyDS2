@@ -22,18 +22,20 @@ public class PruebaCreacionRepositorioXML { // AL FINAL, BORRAR ESTA CLASE
 		
 		// HAY PROBLEMAS SI QUEREMOS LEER EL REPOSITORIO DESDE EL SERVER SECUNDARIO, YA QUE LOS CLIENTES GRABADOS
 		// SON DE TIPO "servidor_primario.Cliente", o sea, otro paquete.
+		
 		abrirArchivoEscritura(NOMBRE_ARCHIVO_REPOSITORIO);
-		escrituraXML(new Cliente("11111111", "Johnny Depp", "Premium"));
-		escrituraXML(new Cliente("22222222", "Tobey Maguire", "Plus"));
-		escrituraXML(new Cliente("33333333", "Andrew Garfield", "Normal"));
-		escrituraXML(new Cliente("44444444", "Emma Watson", "Premium"));
-		escrituraXML(new Cliente("55555555", "Chris Evans", "Normal"));
-		escrituraXML(new Cliente("66666666", "Christian Bale", "Basico"));
-		escrituraXML(new Cliente("77777777", "Heath Ledger", "Basico"));
-		escrituraXML(new Cliente("88888888", "Elizabeth Olsen", "Plus"));
-		escrituraXML(new Cliente("99999999", "Gary Oldman", "Premium"));
-		escrituraXML(new Cliente("12345678", "David Thewlis", "Premium"));
+		escrituraXML("11111111-Johnny Depp-Premium");
+		escrituraXML("22222222-Tobey Maguire-Plus");
+		escrituraXML("33333333-Andrew Garfield-Normal");
+		escrituraXML("44444444-Emma Watson-Premium");
+		escrituraXML("55555555-Chris Evans-Normal");
+		escrituraXML("66666666-Christian Bale-Basico");
+		escrituraXML("77777777-Heath Ledger-Basico");
+		escrituraXML("88888888-Elizabeth Olsen-Plus");
+		escrituraXML("99999999-Gary Oldman-Premium");
+		escrituraXML("12345678-David Thewlis-Premium");
 		cerrarArchivoEscritura();
+		
 		// Estuve probando que si no hacemos el .close() del archivo, si quisieramos abrir el XML no veriamos nada.
 		// Entonces mientras el servidor este funcionando, no podriamos abrir los archivos de los logs (persistencia)
 		// para ver qué se está escribiendo.
@@ -80,12 +82,12 @@ public class PruebaCreacionRepositorioXML { // AL FINAL, BORRAR ESTA CLASE
 		}
 	}
 	
-	public static void escrituraXML(Cliente cliente) {
+	public static void escrituraXML(String cliente) {
 		encoder.writeObject(cliente);
 	}
 	
 	public static void lecturaXML() {
-		Cliente cliente = (Cliente) decoder.readObject();
+		String cliente = (String) decoder.readObject();
 		System.out.println(cliente);
 	}
 	

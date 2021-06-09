@@ -93,7 +93,7 @@ public class ControladorRegistro implements ActionListener {
 			this.vistaRegistro.limpiarCampoDNI();
 		}
 		else
-			this.vistaRegistro.errorDNI();
+			this.vistaRegistro.errorDNI(); // dni no valido
 	}
 	
 	private void registrarDNI(String dni) { // va el mensaje a GestionFila (servidor)
@@ -102,12 +102,16 @@ public class ControladorRegistro implements ActionListener {
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out.println(dni);
+			String respuesta = in.readLine();
+			if(respuesta.equals("existe"))
+				this.vistaRegistro.registroExitoso();
+			else
+				this.vistaRegistro.errorCliente(); // dni no existente (en el repositorio de clientes)
+			
+			this.intentosRegistro = 2;
+			
 			out.close();
 			socket.close();
-			// si llegamos hasta acá, la comunicación (sockets) salió bien, por lo que se agregó bien el dni a la fila
-			// ya que por el momento no hay algun caso particular en que GestionFila no agregue un dni
-			this.vistaRegistro.registroExitoso();
-			this.intentosRegistro = 2;
 		}
 		catch (Exception e) {
 			//e.printStackTrace();

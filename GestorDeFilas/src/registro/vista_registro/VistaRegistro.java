@@ -255,6 +255,12 @@ public class VistaRegistro extends JFrame implements I_VistaRegistro {
 				"Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
+	public void errorCliente() {
+		JOptionPane.showMessageDialog(this, "El DNI ingresado no pertenece a ningun cliente.",
+				"Error de Cliente", JOptionPane.WARNING_MESSAGE);
+		
+	}
+	
 	public void errorDNI() {
 		JOptionPane.showMessageDialog(this, "El DNI ingresado no es válido. Por favor, modifíquelo.",
 				"Error en el DNI", JOptionPane.WARNING_MESSAGE); // o bien JOptionPane.ERROR_MESSAGE

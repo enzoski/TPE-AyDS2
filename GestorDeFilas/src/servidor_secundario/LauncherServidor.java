@@ -41,7 +41,7 @@ public class LauncherServidor {
 		
 		// El servidor consta de 2 sub-componentes:
 		// uno que gestiona la fila de clientes, y otro que gestiona la comunicación entre todo el sistema.
-		RepositorioClientes repositorioClientes = new RepositorioClientes();
+		I_RepositorioClientes repositorioClientes = new RepositorioClientes();
 		I_Persistencia persistencia = new PersistenciaXML(repositorioClientes);
 		GestionFila gestionFila = new GestionFila("llegada", repositorioClientes, persistencia);
 		ComunicacionDeshabilitacion comunicacionD = new ComunicacionDeshabilitacion(ipLlamado);
@@ -54,16 +54,6 @@ public class LauncherServidor {
 		ResincronizadorServ2 resincronizador = new ResincronizadorServ2(comunicacionL,comunicacionD,gestionFila,ipServ1);
 		
 		System.out.println("Servidor secundario escuchando...");
-		
-		System.out.println("Presione 'e' cuando quiera apagar el servidor.");
-		Scanner sc = new Scanner(System.in);
-		String exit = sc.nextLine();
-		sc.close();
-		if(exit.equals("e")) {
-			if(gestionFila.isServidorActivo()) // para que no persista si ya va a persistir el servidor primario por estar activo.
-				persistencia.persistirDatos(); // se crean los archivos de historial de llamados y registros.
-			System.exit(0);
-		}
 		
 	}
 

@@ -7,6 +7,5 @@ public interface I_Persistencia { // persistencia de 'logs' (clientes registrado
 	
 	public void persistirLlamado(String fecha, String box, String dni);
 	public void persistirRegistro(String fecha, String dni);
-	public void persistirDatos(); // genera los 2 archivos
 
 }
