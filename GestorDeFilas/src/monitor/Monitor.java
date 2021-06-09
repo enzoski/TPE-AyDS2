@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 // disponibilidad
 public class Monitor {
@@ -11,11 +13,14 @@ public class Monitor {
 	private static final int PORT_1 = 3200; // puerto para hacer ping al componente Llamado
 	private static final int PORT_2 = 3210; // puerto para hacer ping al servidor primario
 	private static final int PORT_3 = 3220; // puerto para hacer ping al servidor secundario
-	private static final int PORT_4 = 3230; // puerto para informar errores al componente Atencion
+	private int PORT_4 = 4000; // puerto para informar errores al componente Atencion
 	private static final int PORT_5 = 3240; // puerto para informar errores al servidor primario
 	private static final int PORT_6 = 3250; // puerto para informar errores al servidor secundario
-	private static final int PORT_7 = 3260; // puerto para informar errores al componente Registro
+	private int PORT_7 = 4100; // puerto para informar errores al componente Registro
 	private static final int PORT_9 = 3280; // puerto para avisar al servidor 2 que haga la resinronizacion.
+	
+	private ArrayList<Integer> box_activos = new ArrayList<Integer>();
+	private ArrayList<Integer> totem_activos = new ArrayList<Integer>();
 	
 	private String ipLlamado;
 	private String ipServ1;
@@ -36,6 +41,14 @@ public class Monitor {
 		this.hilo = new HiloMonitor(this);
 		this.hilo.start();
 		
+	}
+	
+	public void agregarBoxActivo(int num) {
+		this.box_activos.add(num);
+	}
+	
+	public void agregarTotemActivo(int num) {
+		this.totem_activos.add(num);
 	}
 	
 	// PARA MI ESTE PING NO SERÍA NECESARIO.
@@ -140,35 +153,44 @@ public class Monitor {
 	}
 	
 	private void avisoaAAtencion(String componente, String ip) { // informar errores al componente 'atencion'
-		try {
-			Socket socket = new Socket(ipAtencion, PORT_4);
-			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			String msg = componente + "#" + ip; // para despues saber como parsear el mensaje.
-			out.println(msg);
-			out.close();
-			socket.close();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
+		int port = this.PORT_4;
+		Iterator<Integer> i = this.box_activos.iterator();
+		while (i.hasNext()) {
+			try {
+				port += i.next();
+				Socket socket = new Socket(ipAtencion, port);
+				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				String msg = componente + "#" + ip; // para despues saber como parsear el mensaje.
+				out.println(msg);
+				out.close();
+				socket.close();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}
 	
 	private void avisoaARegistro(String componente, String ip) { // informar errores al componente 'registro'
-		try {
-			Socket socket = new Socket(this.ipRegistro, PORT_7);
-			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			String msg = componente + "#" + ip; // para despues saber como parsear el mensaje.
-			out.println(msg);
-			out.close();
-			socket.close();
+		int port = this.PORT_7;
+		Iterator<Integer> i = this.totem_activos.iterator();
+		while (i.hasNext()) {
+			try {
+				port += i.next();
+				Socket socket = new Socket(this.ipRegistro, port);
+				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				String msg = componente + "#" + ip; // para despues saber como parsear el mensaje.
+				out.println(msg);
+				out.close();
+				socket.close();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		
 	}
 	
 	private void avisoaAServ1(String componente) { // informar errores al servidor primario

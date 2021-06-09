@@ -20,8 +20,10 @@ public class ControladorAtencion implements ActionListener {
 	
 	private int PORT_1 = 2090; // puerto para deshabilitar box
 	private int PORT_2 = 2100; // puerto para llamar prox cliente
+	private int PORT_3 = 3700; // puerto para avisar al monitor que se activo un box
 	
 	private String ipServidor; // IP del servidor
+	private String ipMonitor;
 	private VistaAtencionInicio vistaInicio;
 	private VistaAtencionLlamarCliente vistaLlamarCliente;
 	private int boxActual = -1;
@@ -30,10 +32,10 @@ public class ControladorAtencion implements ActionListener {
 	private int intentosLlamado = 2; //maxima cantidad de intentos para comunicarse con el servidor para hacer un llamado.
 	private int intentosDeshabilitacion = 2; //maxima cantidad de intentos para comunicarse con el servidor para deshabilitar un box.
 	
-	public ControladorAtencion(VistaAtencionInicio vistaInicio, VistaAtencionLlamarCliente vistaLlamarCliente, String ipServidor) {
+	public ControladorAtencion(VistaAtencionInicio vistaInicio, VistaAtencionLlamarCliente vistaLlamarCliente, String ipServidor, String ipMonitor) {
 		
 		this.ipServidor = ipServidor;
-		
+		this.ipMonitor = ipMonitor;
 		this.vistaInicio = vistaInicio;
 		this.vistaInicio.setControlador(this);
 		this.vistaInicio.abrirVentana();
@@ -50,6 +52,7 @@ public class ControladorAtencion implements ActionListener {
 			try {
 				int numBox = Integer.parseInt(box);
 				this.habilitarBox(numBox);
+				this.avisoActivacion();
 			}
 			catch (NumberFormatException e) {
 				this.vistaInicio.errorBox();
@@ -156,5 +159,25 @@ public class ControladorAtencion implements ActionListener {
 		}
 		
 	}
+	
+	private void avisoActivacion() {
+		try {
+			Socket socket = new Socket(this.ipMonitor, PORT_3);
+			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			out.println("box#"+this.boxActual);
+			out.close();
+			socket.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		
+		}
+	}
+	
+	public int getNumBox() {
+		return this.boxActual;
+	}
+	
 	
 }

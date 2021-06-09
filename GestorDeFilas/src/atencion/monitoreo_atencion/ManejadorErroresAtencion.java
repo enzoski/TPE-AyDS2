@@ -10,8 +10,7 @@ import atencion.controlador_atencion.ControladorAtencion;
 
 public class ManejadorErroresAtencion {
 	
-	private static final int PORT_4 = 3230; // puerto para recibir informes de errores por parte del Monitor
-	
+	private int PORT_4 = 4000; // puerto para recibir informes de errores por parte del Monitor
 	private ControladorAtencion controladorAtencion;
 	private HiloErroresAtencion hilo;
 	
@@ -19,7 +18,7 @@ public class ManejadorErroresAtencion {
 		this.controladorAtencion = controladorAtencion;
 		this.hilo = new HiloErroresAtencion(this);
 		this.hilo.start();
-		
+		this.PORT_4 += this.controladorAtencion.getNumBox();
 	}
 	
 	public synchronized void recibirError() {

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_251" class="java.beans.XMLDecoder">
+ <object class="java.util.ArrayList">
+  <void method="add">
+   <string>09/06/2021 19:10:48 - Box: 1- DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:10:49 - Box: 1- DNI: 22222222 - Tobey Maguire - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:11:19 - Box: 2- DNI: 33333333 - Andrew Garfield - Categoria: Normal</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:11:23 - Box: 1- DNI: 44444444 - Emma Watson - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:11:42 - Box: 2- DNI: 55555555 - Chris Evans - Categoria: Normal</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:11:44 - Box: 1- DNI: 66666666 - Christian Bale - Categoria: Basico</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:14:01 - Box: 1- DNI: 77777777 - Heath Ledger - Categoria: Basico</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:14:04 - Box: 1- DNI: 88888888 - Elizabeth Olsen - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:14:07 - Box: 2- DNI: 99999999 - Gary Oldman - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:14:11 - Box: 2- DNI: 12345678 - David Thewlis - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:14:13 - Box: 2- DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:14:35 - Box: 2- DNI: 22222222 - Tobey Maguire - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>09/06/2021 19:14:47 - Box: 2- DNI: 33333333 - Andrew Garfield - Categoria: Normal</string>
+  </void>
+ </object>
+</java>

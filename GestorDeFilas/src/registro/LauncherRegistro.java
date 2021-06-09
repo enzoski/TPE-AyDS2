@@ -22,17 +22,23 @@ public class LauncherRegistro {
 			e.printStackTrace();
 		}
 		String ipServidor = ipLocal;
-		
+		String ipMonitor = ipLocal;
 		/*
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Ingrese la dirección IP del servidor: ");
 		String ipServidor = sc.nextLine();
 		sc.close();
 		*/
+		int numTotem; 
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Ingrese el numero de totem: ");
+		String totem = sc.nextLine();
+		sc.close();
+		numTotem = Integer.valueOf(totem);
 		
 		VistaRegistro vistaRegistro = new VistaRegistro();
 		VistaRegistroConfirmacion vistaConfirmacion = new VistaRegistroConfirmacion();
-		ControladorRegistro controlador = new ControladorRegistro(vistaRegistro, vistaConfirmacion, ipServidor);
+		ControladorRegistro controlador = new ControladorRegistro(vistaRegistro, vistaConfirmacion, ipServidor,ipMonitor, numTotem);
 		// disponibilidad
 		ManejadorErroresRegistro manejadorErroresRegistro = new ManejadorErroresRegistro(controlador);
 		

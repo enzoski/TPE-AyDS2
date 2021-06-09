@@ -19,8 +19,11 @@ import registro.vista_registro.VistaRegistroConfirmacion;
  */
 public class ControladorRegistro implements ActionListener {
 	
+	private int numTotem=0;
 	private int PORT = 2080; // puerto para realizar el registro de clientes (DNIs)
+	private static int PORT_3 = 3700;
 	private String ipServidor; // IP del servidor
+	private String ipMonitor;
 	
 	// el controlador tiene la referencia de todas las ventanas que "controla"
 	private VistaRegistro vistaRegistro;
@@ -28,16 +31,18 @@ public class ControladorRegistro implements ActionListener {
 	private int intentosRegistro = 2;
 	//private static int numTotem = 0; *
 	
-	public ControladorRegistro(VistaRegistro vistaRegistro, VistaRegistroConfirmacion vistaConfirmacion, String ipServidor) {
+	public ControladorRegistro(VistaRegistro vistaRegistro, VistaRegistroConfirmacion vistaConfirmacion, String ipServidor,String ipMonitor, int numTotem) {
 		
 		this.ipServidor = ipServidor;
-		
+		this.ipMonitor = ipMonitor;
 		this.vistaRegistro = vistaRegistro;
 		this.vistaRegistro.setControlador(this); //le indicamos a la vista que el controlador será su action listener
 		this.vistaRegistro.abrirVentana();
 		
 		this.vistaConfirmacion = vistaConfirmacion;
 		this.vistaConfirmacion.setControlador(this);
+		this.numTotem = numTotem;
+		this.avisoActivacion();
 		// por defecto las ventanas permanecen ocultas, por eso no 'cerramos' esta
 		
 		// POR AHORA QUEDA EN VEREMOS LO DEL NUMERO DE TOTEM *
@@ -143,6 +148,24 @@ public class ControladorRegistro implements ActionListener {
 		else 
 			this.PORT = 2080;
 		
+	}
+	
+	private void avisoActivacion() {
+		try {
+			Socket socket = new Socket(this.ipMonitor, PORT_3);
+			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			out.println("totem#"+this.numTotem);
+			out.close();
+			socket.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public int getNumTotem() {
+		return this.numTotem;
 	}
 
 	

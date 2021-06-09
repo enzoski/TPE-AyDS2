@@ -10,7 +10,7 @@ import registro.controlador_registro.ControladorRegistro;
 
 public class ManejadorErroresRegistro {
 	
-	private static final int PORT_7 = 3260; // puerto para...
+	private int PORT_7 = 4100; 
 	
 	private ControladorRegistro controladorRegistro;
 	private HiloErroresRegistro hilo;
@@ -19,6 +19,7 @@ public class ManejadorErroresRegistro {
 		this.controladorRegistro = controladorRegistro;
 		this.hilo = new HiloErroresRegistro(this);
 		this.hilo.start();
+		this.PORT_7 += this.controladorRegistro.getNumTotem(); 
 	}
 	
 	public synchronized void recibirError() {

@@ -22,7 +22,7 @@ public class LauncherAtencion {
 			e.printStackTrace();
 		}
 		String ipServidor = ipLocal;
-		
+		String ipMonitor = ipLocal;
 		/*
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Ingrese la dirección IP del servidor: ");
@@ -32,7 +32,7 @@ public class LauncherAtencion {
 		
 		VistaAtencionInicio vistaInicio = new VistaAtencionInicio();
 		VistaAtencionLlamarCliente vistaLlamarCliente = new VistaAtencionLlamarCliente();
-		ControladorAtencion controlador = new ControladorAtencion(vistaInicio, vistaLlamarCliente, ipServidor);
+		ControladorAtencion controlador = new ControladorAtencion(vistaInicio, vistaLlamarCliente, ipServidor, ipMonitor);
 		// disponibilidad
 		ManejadorErroresAtencion manejadorErroresAtencion = new ManejadorErroresAtencion(controlador);
 
