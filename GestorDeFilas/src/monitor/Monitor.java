@@ -48,6 +48,12 @@ public class Monitor {
 		System.out.println("se agrego el box activo: "+num);
 	}
 	
+	public void eliminarBoxActivo(int num) {
+		int indice = this.box_activos.indexOf(num);
+		this.box_activos.remove(indice);
+		System.out.println("se eliminó el box activo: "+num);
+	}
+	
 	public void agregarTotemActivo(int num) {
 		this.totem_activos.add(num);
 		System.out.println("se agrego el totem activo: "+num);
@@ -167,6 +173,7 @@ public class Monitor {
 				out.println(msg);
 				out.close();
 				socket.close();
+				port = this.PORT_4; // para que siempre se vaya sumando a partir del puerto base, y no acumulando.
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -188,6 +195,7 @@ public class Monitor {
 				out.println(msg);
 				out.close();
 				socket.close();
+				port = this.PORT_7; // para que siempre se vaya sumando a partir del puerto base, y no acumulando.
 			}
 			catch (Exception e) {
 				e.printStackTrace();

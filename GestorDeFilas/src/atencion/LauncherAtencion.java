@@ -34,7 +34,8 @@ public class LauncherAtencion {
 		VistaAtencionLlamarCliente vistaLlamarCliente = new VistaAtencionLlamarCliente();
 		ControladorAtencion controlador = new ControladorAtencion(vistaInicio, vistaLlamarCliente, ipServidor, ipMonitor);
 		// disponibilidad
-		ManejadorErroresAtencion manejadorErroresAtencion = new ManejadorErroresAtencion(controlador);
+		//ManejadorErroresAtencion manejadorErroresAtencion = new ManejadorErroresAtencion(controlador);
+		// DEBEMOS INSTANCIAR EL MANEJADOR DE ERRORES RECIEN CUANDO SE HABILITA EL BOX, SINO NO SABREMOS SU N° DE BOX Y LOS PUERTOS SE REPETIRÁN.
 
 	}
 

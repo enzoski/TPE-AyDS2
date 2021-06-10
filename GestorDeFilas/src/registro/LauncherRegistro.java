@@ -41,6 +41,7 @@ public class LauncherRegistro {
 		ControladorRegistro controlador = new ControladorRegistro(vistaRegistro, vistaConfirmacion, ipServidor,ipMonitor, numTotem);
 		// disponibilidad
 		ManejadorErroresRegistro manejadorErroresRegistro = new ManejadorErroresRegistro(controlador);
+		// ACA NO HAY PROBLEMA DE INSTANCIAR EL MANEJADOR DE ERRORES, YA QUE EL CONTROLADOR OBTIENE DE UNA EL N° DE TOTEM.
 		
 	}
 

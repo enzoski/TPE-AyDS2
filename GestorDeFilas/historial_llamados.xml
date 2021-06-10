@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="1.8.0_251" class="java.beans.XMLDecoder">
+<java version="14.0.2" class="java.beans.XMLDecoder">
  <object class="java.util.ArrayList">
   <void method="add">
    <string>09/06/2021 19:10:48 - Box: 1- DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
@@ -75,6 +75,60 @@
   </void>
   <void method="add">
    <string>09/06/2021 19:39:26 - Box: 2- DNI: 22222222 - Tobey Maguire - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 01:41:30 - Box: 1- DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 01:41:31 - Box: 2- DNI: 22222222 - Tobey Maguire - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 01:43:12 - Box: 1- DNI: 33333333 - Andrew Garfield - Categoria: Normal</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 01:43:15 - Box: 2- DNI: 44444444 - Emma Watson - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 01:43:53 - Box: 1- DNI: 55555555 - Chris Evans - Categoria: Normal</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 01:43:56 - Box: 2- DNI: 77777777 - Heath Ledger - Categoria: Basico</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 15:11:32 - Box: 1- DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 15:11:33 - Box: 2- DNI: 22222222 - Tobey Maguire - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 15:13:05 - Box: 1- DNI: 33333333 - Andrew Garfield - Categoria: Normal</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 15:13:09 - Box: 2- DNI: 44444444 - Emma Watson - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 15:14:25 - Box: 1- DNI: 55555555 - Chris Evans - Categoria: Normal</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 15:46:08 - Box: 1- DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 15:46:09 - Box: 2- DNI: 22222222 - Tobey Maguire - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 15:50:11 - Box: 1- DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 15:50:11 - Box: 2- DNI: 22222222 - Tobey Maguire - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 15:58:06 - Box: 1- DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 16:01:57 - Box: 1- DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 16:07:30 - Box: 1- DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
   </void>
  </object>
 </java>

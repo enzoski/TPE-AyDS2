@@ -1,6 +1,7 @@
 package atencion.monitoreo_atencion;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -14,17 +15,19 @@ public class ManejadorErroresAtencion {
 	private ControladorAtencion controladorAtencion;
 	private HiloErroresAtencion hilo;
 	
+	private boolean flag = true;
+	
 	public ManejadorErroresAtencion(ControladorAtencion controladorAtencion) {
 		this.controladorAtencion = controladorAtencion;
 		this.hilo = new HiloErroresAtencion(this);
 		this.hilo.start();
-		this.PORT_4 += this.controladorAtencion.getNumBox();
+		this.PORT_4 += this.controladorAtencion.getNumBox(); // ESTO DEBE HACERSE SOLO CUANDO EL BOX SE HABILITA, SINO DEVOLVERÁ SIEMPRE -1.
 	}
 	
 	public synchronized void recibirError() {
 		try {
 			ServerSocket serverSocket = new ServerSocket(PORT_4);
-			while (true) {
+			while (this.flag) {
 				Socket socket = serverSocket.accept();
 				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -44,6 +47,11 @@ public class ManejadorErroresAtencion {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void desactivarManejador() {
+		this.flag = false;
+		this.hilo.stop();
 	}
 	
 	

@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import atencion.monitoreo_atencion.ManejadorErroresAtencion;
 import atencion.vista_atencion.VistaAtencionInicio;
 import atencion.vista_atencion.VistaAtencionLlamarCliente;
 
@@ -32,6 +33,8 @@ public class ControladorAtencion implements ActionListener {
 	private int intentosLlamado = 2; //maxima cantidad de intentos para comunicarse con el servidor para hacer un llamado.
 	private int intentosDeshabilitacion = 2; //maxima cantidad de intentos para comunicarse con el servidor para deshabilitar un box.
 	
+	ManejadorErroresAtencion manejadorErroresAtencion;
+	
 	public ControladorAtencion(VistaAtencionInicio vistaInicio, VistaAtencionLlamarCliente vistaLlamarCliente, String ipServidor, String ipMonitor) {
 		
 		this.ipServidor = ipServidor;
@@ -52,9 +55,6 @@ public class ControladorAtencion implements ActionListener {
 			try {
 				int numBox = Integer.parseInt(box);
 				this.habilitarBox(numBox);
-				boolean avisado = false;
-				while(!avisado)
-					avisado = this.avisoActivacion();
 			}
 			catch (NumberFormatException e) {
 				this.vistaInicio.errorBox();
@@ -76,6 +76,12 @@ public class ControladorAtencion implements ActionListener {
 			this.vistaInicio.cerrarVentana();
 			this.vistaLlamarCliente.mostrarNumBoxHabilitado(String.valueOf(num));
 			this.vistaLlamarCliente.abrirVentana();
+			//RECIEN ACA DEBERIAMOS ACTIVAR EL MANEJADOR DE ERRORES, VER BIEN SI DEJARLO ASI O CÓMO.
+			this.manejadorErroresAtencion = new ManejadorErroresAtencion(this);
+			//PODRIAMOS HACERLO ATRIBUTO, PORQUE CUANDO DESCONECTEMOS EL BOX DEBERIAMOS PARAR SU HILO Y PONER LA REFERENCIA EN NULL.
+			boolean avisado = false;
+			while(!avisado)
+				avisado = this.avisoActivacion();
 		}
 		else {
 			this.vistaInicio.errorBox();
@@ -86,6 +92,9 @@ public class ControladorAtencion implements ActionListener {
 	private void deshabilitarBox() {//agregar al diagrama de secuencia lo del socket.
 		// avisar al server el nro de box
 		this.avisoDeshabilitacion(this.boxActual);
+		this.manejadorErroresAtencion.desactivarManejador();
+		this.manejadorErroresAtencion = null;
+		this.avisoDesactivacion();
 		this.boxActual = -1;
 		this.vistaLlamarCliente.limpiarCampoProxDNI();
 		this.vistaLlamarCliente.cerrarVentana();
@@ -177,6 +186,20 @@ public class ControladorAtencion implements ActionListener {
 			aviso=false;
 		}
 		return aviso;
+	}
+	
+	private void avisoDesactivacion() {
+		try {
+			Socket socket = new Socket(this.ipMonitor, PORT_3);
+			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			out.println("box_desactivado#"+this.boxActual);
+			out.close();
+			socket.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public int getNumBox() {

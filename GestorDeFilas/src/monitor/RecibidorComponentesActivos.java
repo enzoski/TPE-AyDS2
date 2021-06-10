@@ -37,6 +37,9 @@ public class RecibidorComponentesActivos {
 				else
 					if(componente.equals("totem"))
 						this.monitor.agregarTotemActivo(numero);
+					else
+						if(componente.equals("box_desactivado"))
+							this.monitor.eliminarBoxActivo(numero);
 				socket.close();
 			}
 		}

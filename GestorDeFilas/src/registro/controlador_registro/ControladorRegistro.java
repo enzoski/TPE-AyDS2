@@ -42,6 +42,11 @@ public class ControladorRegistro implements ActionListener {
 		this.vistaConfirmacion = vistaConfirmacion;
 		this.vistaConfirmacion.setControlador(this);
 		this.numTotem = numTotem;
+		// Creo que para evitar este eventual 'while(true)' [si nunca ejecutaramos el monitor], el monitor deberia hacer ping a todos los posibles totems y box*
+		// que pueda haber (nosotros poner el limite), y cuando respondan los agregamos a la lista de activos, y cuando no, los sacamos.
+		// En el caso de cambiar esto, tambien cambiarlo en ControladorAtencion.
+		// [*en el caso de los box's, habria que hacerles ping, y que nos devuelvan el num de box. Si es -1 quiere decir que todavia no se habilitó]
+		// a parte, tendriamos que ver como gestionar la desconexion de los boxes, onda ver como sacarlos de la lista de activos cuando pase.
 		boolean avisado = false;
 		while (!avisado)
 			avisado = this.avisoActivacion();
