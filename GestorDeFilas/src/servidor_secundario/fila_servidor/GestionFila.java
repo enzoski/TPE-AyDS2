@@ -11,7 +11,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import servidor_secundario.I_RepositorioClientes;
-import servidor_secundario.persistencia_secundaria.I_Persistencia;
+import servidor_secundario.persistencia_secundaria.PersistenciaTemplate;
+
 
 /**
  * Clase que gestiona el agregar o eliminar DNIs de la fila de clientes.
@@ -32,12 +33,12 @@ public class GestionFila {
 	private I_RepositorioClientes repositorioClientes;
 		
 	//persistencia (logs de llamados y registros de clientes)
-	private I_Persistencia persistencia;
+	private PersistenciaTemplate persistencia;
 	
 	// para saber si el servidor secundario debe o no persistir el historial de llamados y registros [PERSISTENCIA]
 	private boolean servidorActivo = false;
 	
-	public GestionFila(String tipoOrdenLlamado, I_RepositorioClientes repositorioClientes, I_Persistencia persistencia) {
+	public GestionFila(String tipoOrdenLlamado, I_RepositorioClientes repositorioClientes, PersistenciaTemplate persistencia) {
 		
 		this.repositorioClientes = repositorioClientes;
 		this.persistencia = persistencia;

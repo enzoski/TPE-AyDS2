@@ -9,9 +9,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import servidor_secundario.I_RepositorioClientes;
-import servidor_secundario.RepositorioClientes;
 import servidor_secundario.fila_servidor.GestionFila;
-import servidor_secundario.persistencia_secundaria.I_Persistencia;
+import servidor_secundario.persistencia_secundaria.PersistenciaTemplate;
 
 /**
  * Clase que gestiona los pedidos de llamar al próximo cliente (por parte del componente de atención),
@@ -37,9 +36,9 @@ public class ComunicacionLlamados {
 	private I_RepositorioClientes repositorioClientes;
 		
 	//persistencia (logs de llamados y registros de clientes)
-	private I_Persistencia persistencia;
+	private PersistenciaTemplate persistencia;
 	
-	public ComunicacionLlamados(GestionFila gestorFila, String ipLlamado, I_RepositorioClientes repositorioClientes, I_Persistencia persistencia) {
+	public ComunicacionLlamados(GestionFila gestorFila, String ipLlamado, I_RepositorioClientes repositorioClientes, PersistenciaTemplate persistencia) {
 		this.ipLlamado = ipLlamado;
 		this.gestorFila = gestorFila;
 		

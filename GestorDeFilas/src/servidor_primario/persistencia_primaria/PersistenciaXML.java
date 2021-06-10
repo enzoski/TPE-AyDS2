@@ -11,30 +11,17 @@ import java.util.ArrayList;
 
 import servidor_primario.I_RepositorioClientes;
 
-public class PersistenciaXML implements I_Persistencia {
+public class PersistenciaXML extends PersistenciaTemplate{
 
-	private I_RepositorioClientes repositorioClientes;
+	
 	
 	public PersistenciaXML(I_RepositorioClientes repositorioClientes) {
-		this.repositorioClientes = repositorioClientes;
+		super(repositorioClientes);
 		
 	}
 	
 	@Override
-	public void persistirLlamado(String fecha, String box, String dni) { // tendriamos un gran archivo de llamados.
-	
-		String llamado = fecha + " - Box: " + box + " - "+ this.repositorioClientes.getCliente(dni).toString();
-		this.persistirDatosLlamado(llamado);
-		
-	}
-
-	@Override
-	public void persistirRegistro(String fecha, String dni) { // tendriamos un gran archivo de registro de clientes.
-		String registro = fecha + " - " +this.repositorioClientes.getCliente(dni).toString();
-		this.persistirDatosRegistro(registro);
-	}
-	
-	private void persistirDatosLlamado(String llamado) {
+	public void persistirDatosLlamado(String llamado) {
 		try {
 			XMLDecoder decoderLlamado = new XMLDecoder(new BufferedInputStream(new FileInputStream(NOMBRE_ARCHIVO_LLAMADOS)));
 			ArrayList<String> listaLlamados = (ArrayList<String>) decoderLlamado.readObject();
@@ -60,7 +47,8 @@ public class PersistenciaXML implements I_Persistencia {
 		}
 	}
 	
-	private void persistirDatosRegistro(String registro) {
+	@Override
+	public void persistirDatosRegistro(String registro) {
 		try {
 			XMLDecoder decoderRegistro = new XMLDecoder(new BufferedInputStream(new FileInputStream(NOMBRE_ARCHIVO_REGISTROS)));
 			ArrayList<String> listaRegistros = (ArrayList<String>) decoderRegistro.readObject();

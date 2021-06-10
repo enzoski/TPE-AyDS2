@@ -11,8 +11,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import servidor_primario.I_RepositorioClientes;
-import servidor_primario.RepositorioClientes;
-import servidor_primario.persistencia_primaria.I_Persistencia;
+import servidor_primario.persistencia_primaria.PersistenciaTemplate;
 import servidor_primario.sincronizacion.Sincronizador;
 
 /**
@@ -37,9 +36,9 @@ public class GestionFila {
 	private I_RepositorioClientes repositorioClientes;
 	
 	//persistencia (logs de llamados y registros de clientes)
-	private I_Persistencia persistencia;
+	private PersistenciaTemplate persistencia;
 	
-	public GestionFila(String ipServ2, String tipoOrdenLlamado, I_RepositorioClientes repositorioClientes, I_Persistencia persistencia) { // IP del servidor secundario
+	public GestionFila(String ipServ2, String tipoOrdenLlamado, I_RepositorioClientes repositorioClientes, PersistenciaTemplate persistencia) { // IP del servidor secundario
 		// instanciamos y activamos el hilo del 'server socket'
 		this.hilo = new RegistradorDNI(this);
 		this.hilo.start();
