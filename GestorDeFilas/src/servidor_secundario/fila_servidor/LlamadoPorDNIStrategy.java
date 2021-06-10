@@ -1,13 +1,13 @@
-package servidor_primario.fila_servidor;
+package servidor_secundario.fila_servidor;
 
 import java.util.Iterator;
 import java.util.Queue;
 
-public class OrdenLlamadoPorDNI implements I_OrdenLlamado {
+public class LlamadoPorDNIStrategy implements I_LlamadoStrategy {
 	
 	private Queue<String> clientes;
 	
-	public OrdenLlamadoPorDNI(Queue<String> clientes) { // de forma ascendente (primero los DNI menores, o sea, la gente mas grande)
+	public LlamadoPorDNIStrategy(Queue<String> clientes) { // de forma ascendente (primero los DNI menores, o sea, la gente mas grande)
 		this.clientes = clientes;
 	}
 

@@ -1,12 +1,12 @@
-package servidor_primario.fila_servidor;
+package servidor_secundario.fila_servidor;
 
 import java.util.Queue;
 
-public class OrdenLlamadoPorLlegada implements I_OrdenLlamado {
+public class LlamadoPorLlegadaStrategy implements I_LlamadoStrategy {
 
 	private Queue<String> clientes; // SI NO ANDA ESTA REFERENCIA, QUE VENGA POR PARAMETRO DEL METODO proximoCliente()
 	
-	public OrdenLlamadoPorLlegada(Queue<String> clientes) {
+	public LlamadoPorLlegadaStrategy(Queue<String> clientes) {
 		this.clientes = clientes;
 	}
 	

@@ -6,12 +6,12 @@ import java.util.Queue;
 import servidor_secundario.I_RepositorioClientes;
 import servidor_secundario.RepositorioClientes;
 
-public class OrdenLlamadoPorCategoria implements I_OrdenLlamado {
+public class LlamadoPorCategoriaStrategy implements I_LlamadoStrategy {
 	
 	private Queue<String> clientes;
 	private I_RepositorioClientes repositorioClientes;
 	
-	public OrdenLlamadoPorCategoria(Queue<String> clientes, I_RepositorioClientes repositorioClientes) {
+	public LlamadoPorCategoriaStrategy(Queue<String> clientes, I_RepositorioClientes repositorioClientes) {
 		this.clientes = clientes;
 		this.repositorioClientes = repositorioClientes;
 	}

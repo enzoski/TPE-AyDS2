@@ -31,7 +31,7 @@ public class GestionFila {
 	private Sincronizador sincronizador;
 	
 	// aca pondriamos un atributo con la interfaz que gestiona el orden de llamados.
-	private I_OrdenLlamado algoritmoLlamado;
+	private I_LlamadoStrategy algoritmoLlamado;
 	
 	//repositorio clientes
 	private I_RepositorioClientes repositorioClientes;
@@ -49,15 +49,15 @@ public class GestionFila {
 		this.repositorioClientes = repositorioClientes;
 		this.persistencia = persistencia;
 		
-		// quizas aca se podria aplicar algun patron
+		// aca se podria aplicar el patron factory
 		if(tipoOrdenLlamado.equals("llegada"))
-			this.algoritmoLlamado = new OrdenLlamadoPorLlegada(this.clientes);
+			this.algoritmoLlamado = new LlamadoPorLlegadaStrategy(this.clientes);
 		else
 			if(tipoOrdenLlamado.equals("categoria"))
-				this.algoritmoLlamado = new OrdenLlamadoPorCategoria(this.clientes, this.repositorioClientes);
+				this.algoritmoLlamado = new LlamadoPorCategoriaStrategy(this.clientes, this.repositorioClientes);
 			else
 				if(tipoOrdenLlamado.equals("DNI"))
-					this.algoritmoLlamado = new OrdenLlamadoPorDNI(this.clientes);
+					this.algoritmoLlamado = new LlamadoPorDNIStrategy(this.clientes);
 				
 	}
 	
