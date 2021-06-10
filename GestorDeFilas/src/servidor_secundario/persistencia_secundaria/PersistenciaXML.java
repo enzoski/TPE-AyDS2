@@ -22,18 +22,14 @@ public class PersistenciaXML implements I_Persistencia {
 	
 	@Override
 	public void persistirLlamado(String fecha, String box, String dni) { // tendriamos un gran archivo de llamados.
-		String nombre = this.repositorioClientes.buscarNombreCliente(dni);
-		String categoria = this.repositorioClientes.buscarCategoriaCliente(dni);
-		String llamado = fecha + " - Box: " + box + "- DNI: " + dni + " - " + nombre + " - Categoria: " + categoria;
+		String llamado = fecha + " - Box: " + box + " - "+ this.repositorioClientes.getCliente(dni).toString();
 		this.persistirDatosLlamado(llamado);
 		
 	}
 
 	@Override
 	public void persistirRegistro(String fecha, String dni) { // tendriamos un gran archivo de registro de clientes.
-		String nombre = this.repositorioClientes.buscarNombreCliente(dni);
-		String categoria = this.repositorioClientes.buscarCategoriaCliente(dni);
-		String registro = fecha + "- DNI: " + dni + " - " + nombre + " - Categoria: " + categoria;
+		String registro = fecha + " - " +this.repositorioClientes.getCliente(dni).toString();
 		this.persistirDatosRegistro(registro);
 		
 	}

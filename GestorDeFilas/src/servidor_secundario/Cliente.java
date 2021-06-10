@@ -44,7 +44,7 @@ public class Cliente {
 	
 	@Override
 	public String toString() {
-		return this.dni + "-" + this.nombre + "-" + this.categoria;
+		return "DNI: " + this.dni + " - " + this.nombre + " - Categoria: " + this.categoria;
 	}
 
 	/*

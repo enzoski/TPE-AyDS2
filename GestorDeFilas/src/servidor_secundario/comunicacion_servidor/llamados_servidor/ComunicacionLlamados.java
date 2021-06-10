@@ -58,7 +58,7 @@ public class ComunicacionLlamados {
 				String box = in.readLine();
 				String dni = this.gestorFila.proximoCliente();
 				if(dni != null) { // si fuera null, no haríamos la comunicacion con el componente 'llamado' y listo
-					String nombre = this.repositorioClientes.buscarNombreCliente(dni);
+					String nombre = this.repositorioClientes.getCliente(dni).getNombre();
 					this.realizarLlamado(box, nombre);
 				}
 				if(this.flag) { // si hay conexión con la mini-pc de la TV de llamados

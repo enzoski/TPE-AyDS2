@@ -38,7 +38,7 @@ public class LlamadoPorCategoriaStrategy implements I_LlamadoStrategy {
 		Iterator<String> it = this.clientes.iterator();
 		while(it.hasNext() && dniProxCliente.equals("")) {
 			String dniActual = it.next();
-			String categoriaActual = this.repositorioClientes.buscarCategoriaCliente(dniActual);
+			String categoriaActual = this.repositorioClientes.getCliente(dniActual).getCategoria();
 			if(categoriaActual.equals(categoria))
 				dniProxCliente = dniActual;
 		}
