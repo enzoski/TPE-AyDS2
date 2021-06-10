@@ -46,6 +46,12 @@ public class ControladorAtencion implements ActionListener {
 		this.vistaLlamarCliente = vistaLlamarCliente;
 		this.vistaLlamarCliente.setControlador(this);
 		
+		boolean avisado = false;
+		while(!avisado) {
+			avisado = this.avisoActivacion();
+			//System.out.println(avisado);
+		}
+		
 	}
 	
 	@Override
@@ -55,6 +61,7 @@ public class ControladorAtencion implements ActionListener {
 			try {
 				int numBox = Integer.parseInt(box);
 				this.habilitarBox(numBox);
+				
 			}
 			catch (NumberFormatException e) {
 				this.vistaInicio.errorBox();
@@ -79,9 +86,7 @@ public class ControladorAtencion implements ActionListener {
 			//RECIEN ACA DEBERIAMOS ACTIVAR EL MANEJADOR DE ERRORES, VER BIEN SI DEJARLO ASI O CÓMO.
 			this.manejadorErroresAtencion = new ManejadorErroresAtencion(this);
 			//PODRIAMOS HACERLO ATRIBUTO, PORQUE CUANDO DESCONECTEMOS EL BOX DEBERIAMOS PARAR SU HILO Y PONER LA REFERENCIA EN NULL.
-			boolean avisado = false;
-			while(!avisado)
-				avisado = this.avisoActivacion();
+			
 		}
 		else {
 			this.vistaInicio.errorBox();
@@ -173,17 +178,19 @@ public class ControladorAtencion implements ActionListener {
 	
 	private boolean avisoActivacion() {
 		boolean aviso=false;
-		try {
-			Socket socket = new Socket(this.ipMonitor, PORT_3);
-			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			out.println("box#"+this.boxActual);
-			out.close();
-			socket.close();
-			aviso=true;
-		}
-		catch (Exception e) {
-			aviso=false;
+		if(this.boxActual > 0) {
+			try {
+				Socket socket = new Socket(this.ipMonitor, PORT_3);
+				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				out.println("box#"+this.boxActual);
+				out.close();
+				socket.close();
+				aviso=true;
+			}
+			catch (Exception e) {
+				aviso=false;
+			}
 		}
 		return aviso;
 	}

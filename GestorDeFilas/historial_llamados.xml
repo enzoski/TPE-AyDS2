@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="14.0.2" class="java.beans.XMLDecoder">
+<java version="1.8.0_251" class="java.beans.XMLDecoder">
  <object class="java.util.ArrayList">
   <void method="add">
    <string>09/06/2021 19:10:48 - Box: 1- DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
@@ -129,6 +129,18 @@
   </void>
   <void method="add">
    <string>10/06/2021 16:07:30 - Box: 1- DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 16:18:37 - Box: 5- DNI: 88888888 - Elizabeth Olsen - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 16:18:38 - Box: 5- DNI: 99999999 - Gary Oldman - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 16:18:38 - Box: 5- DNI: 12345678 - David Thewlis - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>10/06/2021 16:30:16 - Box: 1- DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
   </void>
  </object>
 </java>
