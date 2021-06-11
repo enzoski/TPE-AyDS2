@@ -10,6 +10,8 @@ import java.util.Iterator;
 // disponibilidad
 public class Monitor {
 	
+	private static Monitor monitor = null;
+	
 	private static final int PORT_1 = 3200; // puerto para hacer ping al componente Llamado
 	private static final int PORT_2 = 3210; // puerto para hacer ping al servidor primario
 	private static final int PORT_3 = 3220; // puerto para hacer ping al servidor secundario
@@ -31,7 +33,7 @@ public class Monitor {
 	private boolean llamadoEnLinea = true;
 	private HiloMonitor hilo;
 	
-	public Monitor(String ipLlamado, String ipAtencion, String ipRegistro, String ipServ1, String ipServ2) {
+	private Monitor(String ipLlamado, String ipAtencion, String ipRegistro, String ipServ1, String ipServ2) {
 		this.ipLlamado = ipLlamado;
 		this.ipServ1 = ipServ1;
 		this.ipServ2 = ipServ2;
@@ -42,6 +44,13 @@ public class Monitor {
 		this.hilo.start();
 		
 	}
+	
+	public static Monitor getMonitor(String ipLlamado, String ipAtencion, String ipRegistro, String ipServ1, String ipServ2) {
+		if(monitor==null) 
+			monitor = new Monitor(ipLlamado, ipAtencion, ipRegistro, ipServ1, ipServ2);
+		return monitor;
+	}
+	
 	
 	public void agregarBoxActivo(int num) {
 		this.box_activos.add(num);

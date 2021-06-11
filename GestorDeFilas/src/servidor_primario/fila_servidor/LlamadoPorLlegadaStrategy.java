@@ -4,7 +4,7 @@ import java.util.Queue;
 
 public class LlamadoPorLlegadaStrategy implements I_LlamadoStrategy {
 
-	private Queue<String> clientes; // SI NO ANDA ESTA REFERENCIA, QUE VENGA POR PARAMETRO DEL METODO proximoCliente()
+	private Queue<String> clientes; 
 	
 	public LlamadoPorLlegadaStrategy(Queue<String> clientes) {
 		this.clientes = clientes;

@@ -38,11 +38,17 @@ public class LauncherServidor {
 		sc.close();
 		*/
 		
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Ingrese el algoritmo de llamado de clientes (DNI|llegada|categoria) : ");
+		String algoritmo = sc.nextLine();
+		sc.close();
+		
+		sc.close();
 		// El servidor consta de 2 sub-componentes:
 		// uno que gestiona la fila de clientes, y otro que gestiona la comunicación entre todo el sistema.
 		I_RepositorioClientes repositorioClientes = new RepositorioClientes();
 		PersistenciaTemplate persistencia = new PersistenciaXML(repositorioClientes);
-		GestionFila gestionFila = new GestionFila(ipServ2, "llegada", repositorioClientes, persistencia); // IP DEL SERVIDOR SECUNDARIO PARA QUE SE VAYA SINCRONIZANDO
+		GestionFila gestionFila = new GestionFila(ipServ2, algoritmo, repositorioClientes, persistencia); // IP DEL SERVIDOR SECUNDARIO PARA QUE SE VAYA SINCRONIZANDO
 		ComunicacionDeshabilitacion comunicacionD = new ComunicacionDeshabilitacion(ipLlamado);
 		ComunicacionLlamados comunicacionL = new ComunicacionLlamados(gestionFila, ipLlamado, repositorioClientes, persistencia);
 		// disponibilidad

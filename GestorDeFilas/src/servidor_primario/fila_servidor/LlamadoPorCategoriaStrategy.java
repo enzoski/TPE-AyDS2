@@ -30,6 +30,9 @@ public class LlamadoPorCategoriaStrategy implements I_LlamadoStrategy {
 		}
 		if(dniProx.equals(""))
 			dniProx = null;
+		else{
+			this.clientes.remove(dniProx);
+		}
 		return dniProx;
 	}
 	

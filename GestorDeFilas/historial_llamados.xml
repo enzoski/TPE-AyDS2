@@ -238,5 +238,98 @@
   <void method="add">
    <string>11/06/2021 17:06:44 - Box: 2 - DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
   </void>
+  <void method="add">
+   <string>11/06/2021 17:29:36 - Box: 3 - DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:29:54 - Box: 3 - DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:30:00 - Box: 3 - DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:30:02 - Box: 3 - DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:30:03 - Box: 3 - DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:30:03 - Box: 3 - DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:30:03 - Box: 3 - DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:30:03 - Box: 3 - DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:30:03 - Box: 3 - DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:30:04 - Box: 3 - DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:30:04 - Box: 3 - DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:38:26 - Box: 2 - DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:38:40 - Box: 2 - DNI: 44444444 - Emma Watson - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:38:49 - Box: 2 - DNI: 99999999 - Gary Oldman - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:38:57 - Box: 2 - DNI: 12345678 - David Thewlis - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:39:16 - Box: 2 - DNI: 22222222 - Tobey Maguire - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:39:23 - Box: 2 - DNI: 88888888 - Elizabeth Olsen - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:39:40 - Box: 2 - DNI: 33333333 - Andrew Garfield - Categoria: Normal</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:39:44 - Box: 2 - DNI: 55555555 - Chris Evans - Categoria: Normal</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:39:54 - Box: 2 - DNI: 66666666 - Christian Bale - Categoria: Basico</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:40:06 - Box: 2 - DNI: 77777777 - Heath Ledger - Categoria: Basico</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:42:47 - Box: 1 - DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:42:52 - Box: 1 - DNI: 12345678 - David Thewlis - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:42:54 - Box: 1 - DNI: 22222222 - Tobey Maguire - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:42:55 - Box: 1 - DNI: 33333333 - Andrew Garfield - Categoria: Normal</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:42:56 - Box: 1 - DNI: 44444444 - Emma Watson - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:42:57 - Box: 1 - DNI: 55555555 - Chris Evans - Categoria: Normal</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:42:58 - Box: 1 - DNI: 66666666 - Christian Bale - Categoria: Basico</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:42:58 - Box: 1 - DNI: 77777777 - Heath Ledger - Categoria: Basico</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:42:59 - Box: 1 - DNI: 88888888 - Elizabeth Olsen - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:43:00 - Box: 1 - DNI: 99999999 - Gary Oldman - Categoria: Premium</string>
+  </void>
  </object>
 </java>

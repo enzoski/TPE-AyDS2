@@ -30,6 +30,9 @@ public class LlamadoPorDNIStrategy implements I_LlamadoStrategy {
         }
         if(minDNI.equals("zzzzzzzzz"))
         	minDNI = null;
+        else{
+			this.clientes.remove(minDNI);
+		}
         return minDNI;
     }
 

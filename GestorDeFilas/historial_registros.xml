@@ -304,5 +304,95 @@
   <void method="add">
    <string>11/06/2021 17:06:38 - DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
   </void>
+  <void method="add">
+   <string>11/06/2021 17:28:48 - DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:28:53 - DNI: 22222222 - Tobey Maguire - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:28:58 - DNI: 33333333 - Andrew Garfield - Categoria: Normal</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:29:02 - DNI: 44444444 - Emma Watson - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:29:07 - DNI: 55555555 - Chris Evans - Categoria: Normal</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:29:13 - DNI: 66666666 - Christian Bale - Categoria: Basico</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:29:17 - DNI: 77777777 - Heath Ledger - Categoria: Basico</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:29:22 - DNI: 88888888 - Elizabeth Olsen - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:29:27 - DNI: 99999999 - Gary Oldman - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:29:33 - DNI: 12345678 - David Thewlis - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:37:35 - DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:37:43 - DNI: 22222222 - Tobey Maguire - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:37:48 - DNI: 33333333 - Andrew Garfield - Categoria: Normal</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:37:53 - DNI: 44444444 - Emma Watson - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:37:58 - DNI: 55555555 - Chris Evans - Categoria: Normal</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:38:03 - DNI: 66666666 - Christian Bale - Categoria: Basico</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:38:07 - DNI: 77777777 - Heath Ledger - Categoria: Basico</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:38:12 - DNI: 88888888 - Elizabeth Olsen - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:38:18 - DNI: 99999999 - Gary Oldman - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:38:24 - DNI: 12345678 - David Thewlis - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:41:56 - DNI: 88888888 - Elizabeth Olsen - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:42:03 - DNI: 11111111 - Johnny Depp - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:42:08 - DNI: 33333333 - Andrew Garfield - Categoria: Normal</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:42:14 - DNI: 99999999 - Gary Oldman - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:42:19 - DNI: 44444444 - Emma Watson - Categoria: Premium</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:42:24 - DNI: 22222222 - Tobey Maguire - Categoria: Plus</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:42:29 - DNI: 66666666 - Christian Bale - Categoria: Basico</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:42:33 - DNI: 77777777 - Heath Ledger - Categoria: Basico</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:42:38 - DNI: 55555555 - Chris Evans - Categoria: Normal</string>
+  </void>
+  <void method="add">
+   <string>11/06/2021 17:42:43 - DNI: 12345678 - David Thewlis - Categoria: Premium</string>
+  </void>
  </object>
 </java>
