@@ -48,16 +48,17 @@ public class GestionFila {
 		this.repositorioClientes = repositorioClientes;
 		this.persistencia = persistencia;
 		
-		// aca se podria aplicar el patron factory
-		if(tipoOrdenLlamado.equals("llegada"))
-			this.algoritmoLlamado = new LlamadoPorLlegadaStrategy(this.clientes);
+		
+		CreadorAlgoritmoLlamado creador = null;
+		if(tipoOrdenLlamado.equals("llegada")) 
+			creador = new CreadorLlamadoPorLlegada(this.clientes);
 		else
 			if(tipoOrdenLlamado.equals("categoria"))
-				this.algoritmoLlamado = new LlamadoPorCategoriaStrategy(this.clientes, this.repositorioClientes);
+				creador = new CreadorLlamadoPorCategoria(this.clientes, this.repositorioClientes);
 			else
 				if(tipoOrdenLlamado.equals("DNI"))
-					this.algoritmoLlamado = new LlamadoPorDNIStrategy(this.clientes);
-				
+					creador = new CreadorLlamadoPorDNI(this.clientes);
+		this.algoritmoLlamado = creador.crearAlgoritmoLlamado();
 	}
 	
 	public synchronized void registro() { // viene el mensaje desde ControladorRegistro
