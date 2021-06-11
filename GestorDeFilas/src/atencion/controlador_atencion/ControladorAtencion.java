@@ -28,7 +28,7 @@ public class ControladorAtencion implements ActionListener {
 	private VistaAtencionInicio vistaInicio;
 	private VistaAtencionLlamarCliente vistaLlamarCliente;
 	private int boxActual = -1;
-	
+	private boolean avisoHabilitadoAMonitor = false;	
 	// disponibilidad
 	private int intentosLlamado = 2; //maxima cantidad de intentos para comunicarse con el servidor para hacer un llamado.
 	private int intentosDeshabilitacion = 2; //maxima cantidad de intentos para comunicarse con el servidor para deshabilitar un box.
@@ -46,10 +46,10 @@ public class ControladorAtencion implements ActionListener {
 		this.vistaLlamarCliente = vistaLlamarCliente;
 		this.vistaLlamarCliente.setControlador(this);
 		
-		boolean avisado = false;
-		while(!avisado) {
-			avisado = this.avisoActivacion();
-			//System.out.println(avisado);
+		
+		while(!this.avisoHabilitadoAMonitor) {
+			this.avisoHabilitadoAMonitor = this.avisoActivacion();
+			//System.out.println(this.avisoHabilitadoAMonitor);
 		}
 		
 	}
@@ -86,7 +86,10 @@ public class ControladorAtencion implements ActionListener {
 			//RECIEN ACA DEBERIAMOS ACTIVAR EL MANEJADOR DE ERRORES, VER BIEN SI DEJARLO ASI O CÓMO.
 			this.manejadorErroresAtencion = new ManejadorErroresAtencion(this);
 			//PODRIAMOS HACERLO ATRIBUTO, PORQUE CUANDO DESCONECTEMOS EL BOX DEBERIAMOS PARAR SU HILO Y PONER LA REFERENCIA EN NULL.
-			
+			if(!this.avisoHabilitadoAMonitor) {
+				this.avisoHabilitadoAMonitor = this.avisoActivacion();
+				//System.out.println(this.avisoHabilitadoAMonitor);
+			}
 		}
 		else {
 			this.vistaInicio.errorBox();
@@ -95,11 +98,10 @@ public class ControladorAtencion implements ActionListener {
 	}
 	
 	private void deshabilitarBox() {//agregar al diagrama de secuencia lo del socket.
-		// avisar al server el nro de box
-		this.avisoDeshabilitacion(this.boxActual);
-		this.manejadorErroresAtencion.desactivarManejador();
-		this.manejadorErroresAtencion = null;
-		this.avisoDesactivacion();
+		
+		this.avisoDeshabilitacion(this.boxActual); // avisar al server el nro de box que se desactiva
+		this.avisoDesactivacion();//avisa al monitor
+		this.avisoHabilitadoAMonitor = false;
 		this.boxActual = -1;
 		this.vistaLlamarCliente.limpiarCampoProxDNI();
 		this.vistaLlamarCliente.cerrarVentana();

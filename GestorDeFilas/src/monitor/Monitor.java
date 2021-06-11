@@ -52,6 +52,19 @@ public class Monitor {
 		int indice = this.box_activos.indexOf(num);
 		this.box_activos.remove(indice);
 		System.out.println("se eliminó el box activo: "+num);
+		try { // aviso al manejador de errores de atencion que se tiene que cerrar 
+			Socket socket = new Socket(ipAtencion, PORT_4 + num);
+			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			String msg = "desactivar" + "#"+ "ip" ; 
+			out.println(msg);
+			out.close();
+			socket.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void agregarTotemActivo(int num) {

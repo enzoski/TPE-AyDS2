@@ -41,19 +41,18 @@ public class ManejadorErroresAtencion {
 				else
 					if(componente.equals("serv2"))
 						this.controladorAtencion.cambiarServidor(ip,1); //empiezo a usar el server 1
+					else 
+						if(componente.equals("desactivar"))
+							this.flag = false;
 				socket.close();
 			}
+			serverSocket.close();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void desactivarManejador() {
-		this.flag = false;
-		this.hilo.stop();
-	}
-	
+
 	
 
 }
