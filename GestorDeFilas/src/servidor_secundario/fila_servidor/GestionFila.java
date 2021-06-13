@@ -13,7 +13,6 @@ import java.util.Queue;
 import servidor_secundario.I_RepositorioClientes;
 import servidor_secundario.persistencia_secundaria.PersistenciaTemplate;
 
-
 /**
  * Clase que gestiona el agregar o eliminar DNIs de la fila de clientes.
  * 
@@ -26,23 +25,22 @@ public class GestionFila {
 	private Queue<String> clientes = new LinkedList<String>(); // lista doblemente enlazada
 	private RegistradorDNI hilo; // hilo para registrar los DNIs
 	
-	// aca pondriamos un atributo con la interfaz que gestiona el orden de llamados.
+	// atributo del tipo de la interfaz que gestiona el orden de llamados [Patrón de diseño GoF: Strategy]
 	private I_LlamadoStrategy algoritmoLlamado;
 		
 	//repositorio clientes
 	private I_RepositorioClientes repositorioClientes;
 		
-	//persistencia (logs de llamados y registros de clientes)
+	//persistencia (logs de llamados y registros de clientes) [Patrón de diseño GoF: Template Method]
 	private PersistenciaTemplate persistencia;
-	
-	// para saber si el servidor secundario debe o no persistir el historial de llamados y registros [PERSISTENCIA]
-	private boolean servidorActivo = false;
 	
 	public GestionFila(String tipoOrdenLlamado, I_RepositorioClientes repositorioClientes, PersistenciaTemplate persistencia) {
 		
 		this.repositorioClientes = repositorioClientes;
 		this.persistencia = persistencia;
 		
+		// Instanciamos al Factory del algoritmo de llamados correspondiente, para luego pedirle una instancia.
+		// Factory Method + Strategy
 		CreadorAlgoritmoLlamado creador = null;
 		if(tipoOrdenLlamado.equals("llegada"))
 			creador = new CreadorLlamadoPorLlegada(this.clientes);
@@ -93,8 +91,9 @@ public class GestionFila {
 		this.clientes.add(dni);
 	}
 	
-	public void eliminarCliente() {
-		this.clientes.poll();
+	public void eliminarCliente(String dni) {
+		//this.clientes.poll(); AHORA COMO HAY DISTINTOS ALGORITMOS DE LLAMADOS, HAY QUE ELIMINAR UN DNI CONCRETO AL SINCRONIZAR.
+		this.clientes.remove(dni);
 	}
 	
 	public Queue<String> getClientes() {
@@ -110,16 +109,10 @@ public class GestionFila {
 	public void activarServer() {
 		this.hilo = new RegistradorDNI(this); // si lo inicializabamos en el constructor, no andaba
 		this.hilo.start();
-		this.servidorActivo = true;
 	}
 			
 	public void desactivarServer() {
 		this.hilo.stop();
-		this.servidorActivo = false;
-	}
-	
-	public boolean isServidorActivo() {
-		return servidorActivo;
 	}
 	
 	

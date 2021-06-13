@@ -17,7 +17,6 @@ import javax.swing.border.EtchedBorder;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
-import java.awt.FlowLayout;
 
 public class VistaRegistro extends JFrame implements I_VistaRegistro {
 	
@@ -55,6 +54,9 @@ public class VistaRegistro extends JFrame implements I_VistaRegistro {
 	private JButton btnBorrar;
 	private JPanel panelBienvenida;
 	private JLabel lblBienvenida;
+	private JPanel panelNumTotem;
+	private JLabel lblTotem;
+	private JTextField textFieldTotem;
 
 	/**
 	 * Launch the application.
@@ -90,12 +92,25 @@ public class VistaRegistro extends JFrame implements I_VistaRegistro {
 		this.panelNorte = new JPanel();
 		this.panelNorte.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		this.contentPane.add(this.panelNorte, BorderLayout.NORTH);
-		this.panelNorte.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		this.panelNorte.setLayout(new GridLayout(0, 3, 0, 0));
+		
+		this.panelNumTotem = new JPanel();
+		this.panelNorte.add(this.panelNumTotem);
+		
+		this.lblTotem = new JLabel("Totem:");
+		this.panelNumTotem.add(this.lblTotem);
+		
+		this.textFieldTotem = new JTextField();
+		this.textFieldTotem.setHorizontalAlignment(SwingConstants.CENTER);
+		this.textFieldTotem.setEditable(false);
+		this.panelNumTotem.add(this.textFieldTotem);
+		this.textFieldTotem.setColumns(2);
 		
 		this.panelBienvenida = new JPanel();
 		this.panelNorte.add(this.panelBienvenida);
 		
 		this.lblBienvenida = new JLabel("\u00A1 BIENVENIDO !");
+		this.lblBienvenida.setHorizontalAlignment(SwingConstants.CENTER);
 		this.lblBienvenida.setFont(new Font("Tahoma", Font.BOLD, 14));
 		this.panelBienvenida.add(this.lblBienvenida);
 		
@@ -222,11 +237,9 @@ public class VistaRegistro extends JFrame implements I_VistaRegistro {
 		this.panelSur.add(this.panelVacio10, BorderLayout.WEST);
 	}
 	
-	/*
 	public void mostrarNumTotem(String num) {
 		this.textFieldTotem.setText(num);
 	}
-	*/
 	
 	public void mostrarDigito(String digito) {
 		String digitos = this.textFieldDNI.getText();

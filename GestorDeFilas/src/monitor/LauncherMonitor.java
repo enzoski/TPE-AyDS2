@@ -34,6 +34,7 @@ public class LauncherMonitor {
 		*/
 		
 		// Por como lo planteamos, podriamos monitorear un solo totem y un solo box.
+		// [ARREGLADO, YA PODEMOS VARIOS, PERO DEBEN TENER LA MISMA IP (arreglamos el tema de puertos)]
 		Monitor monitor = Monitor.getMonitor(ipLlamado, ipAtencion, ipRegistro, ipServ1, ipServ2);
 		RecibidorComponentesActivos recibidor = new RecibidorComponentesActivos(monitor);
 		System.out.println("Monitor monitoreando...");

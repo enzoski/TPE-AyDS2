@@ -15,7 +15,7 @@ public class LlamadoPorDNIStrategy implements I_LlamadoStrategy {
 	public String proximoCliente() {
 		String minDNI = this.minDNI();
 		if(minDNI != null)
-			this.clientes.remove(minDNI); // confiamos en que lo va a sacar bien (despues probarlo bien).
+			this.clientes.remove(minDNI);
 		return minDNI;
 	}
 	
@@ -30,6 +30,9 @@ public class LlamadoPorDNIStrategy implements I_LlamadoStrategy {
         }
         if(minDNI.equals("zzzzzzzzz"))
         	minDNI = null;
+        else{
+			this.clientes.remove(minDNI);
+		}
         return minDNI;
     }
 

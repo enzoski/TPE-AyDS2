@@ -29,13 +29,13 @@ public class GestionFila {
 	// disponibilidad
 	private Sincronizador sincronizador;
 	
-	// aca pondriamos un atributo con la interfaz que gestiona el orden de llamados.
+	// atributo del tipo de la interfaz que gestiona el orden de llamados [Patrón de diseño GoF: Strategy]
 	private I_LlamadoStrategy algoritmoLlamado;
 	
 	//repositorio clientes
 	private I_RepositorioClientes repositorioClientes;
 	
-	//persistencia (logs de llamados y registros de clientes)
+	//persistencia (logs de llamados y registros de clientes) [Patrón de diseño GoF: Template Method]
 	private PersistenciaTemplate persistencia;
 	
 	public GestionFila(String ipServ2, String tipoOrdenLlamado, I_RepositorioClientes repositorioClientes, PersistenciaTemplate persistencia) { // IP del servidor secundario
@@ -48,7 +48,8 @@ public class GestionFila {
 		this.repositorioClientes = repositorioClientes;
 		this.persistencia = persistencia;
 		
-		
+		// Instanciamos al Factory del algoritmo de llamados correspondiente, para luego pedirle una instancia.
+		// Factory Method + Strategy
 		CreadorAlgoritmoLlamado creador = null;
 		if(tipoOrdenLlamado.equals("llegada")) 
 			creador = new CreadorLlamadoPorLlegada(this.clientes);
@@ -59,6 +60,7 @@ public class GestionFila {
 				if(tipoOrdenLlamado.equals("DNI"))
 					creador = new CreadorLlamadoPorDNI(this.clientes);
 		this.algoritmoLlamado = creador.crearAlgoritmoLlamado();
+		
 	}
 	
 	public synchronized void registro() { // viene el mensaje desde ControladorRegistro
@@ -93,12 +95,10 @@ public class GestionFila {
 	}
 	
 	public String proximoCliente() {
-		this.sincronizador.eliminar();
-		// '.poll()' es una forma optimizada de devolver y eliminar la cabeza de la lista (primer elemento).
-		// return this.clientes.poll(); // devuelve null si no hay mas clientes (DNIs)
+		String dni = this.algoritmoLlamado.proximoCliente();
+		this.sincronizador.eliminar(dni); //AHORA COMO HAY DISTINTOS ALGORITMOS DE LLAMADOS, HAY QUE ELIMINAR UN DNI CONCRETO AL SINCRONIZAR.
 		
-		// podriamos retornar Interfaz.proximoCliente()
-		return this.algoritmoLlamado.proximoCliente();
+		return dni; // devuelve null si no hay mas clientes (DNIs)
 	}
 	
 	public void agregarCliente(String dni) {

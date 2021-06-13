@@ -35,7 +35,7 @@ public class ComunicacionLlamados {
 	// repositorio
 	private I_RepositorioClientes repositorioClientes;
 		
-	//persistencia (logs de llamados y registros de clientes)
+	//persistencia (logs de llamados y registros de clientes) [Patrón de diseño GoF: Template Method]
 	private PersistenciaTemplate persistencia;
 	
 	public ComunicacionLlamados(GestionFila gestorFila, String ipLlamado, I_RepositorioClientes repositorioClientes, PersistenciaTemplate persistencia) {
@@ -72,7 +72,7 @@ public class ComunicacionLlamados {
 				else {
 					out.println("errorTV"); // le respondemos al componente 'atencion' que hubo un error al intentar comunicarse con la TV
 					this.gestorFila.reAgregarCliente(dni); // volvemos a colocar el dni al principio de la fila
-					System.out.println("No se alcanzó el TV [DNI: " + dni + "]"); // EN EL FUTURO PODEMOS MANDAR ESTO DEVUELTA A LA COLA.
+					System.out.println("No se alcanzó el TV [DNI: " + dni + "]");
 					// de esta forma, evitamos que 'atencion' realice llamados (sacar dni's de la fila) cuando la mini-pc de la TV no anda
 				}
 				out.close();

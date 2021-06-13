@@ -19,29 +19,37 @@ import registro.vista_registro.VistaRegistroConfirmacion;
  */
 public class ControladorRegistro implements ActionListener {
 	
-	private int numTotem=0;
+	private int numTotem = 0;
+	
 	private int PORT = 2080; // puerto para realizar el registro de clientes (DNIs)
-	private static int PORT_3 = 3700;
+	private int PORT_3 = 3700; // puerto para avisar al monitor que se activo un totem
+	
 	private String ipServidor; // IP del servidor
-	private String ipMonitor;
+	private String ipMonitor; // IP del monitor
 	
 	// el controlador tiene la referencia de todas las ventanas que "controla"
 	private VistaRegistro vistaRegistro;
 	private VistaRegistroConfirmacion vistaConfirmacion;
-	private int intentosRegistro = 2;
-	//private static int numTotem = 0; *
 	
-	public ControladorRegistro(VistaRegistro vistaRegistro, VistaRegistroConfirmacion vistaConfirmacion, String ipServidor,String ipMonitor, int numTotem) {
+	// disponibilidad (táctica reintento)
+	private int intentosRegistro = 2; //maxima cantidad de intentos para comunicarse con el servidor para realizar un registro.
+	
+	public ControladorRegistro(VistaRegistro vistaRegistro, VistaRegistroConfirmacion vistaConfirmacion, String ipServidor, String ipMonitor, int numTotem) {
+		
+		this.numTotem = numTotem;
 		
 		this.ipServidor = ipServidor;
 		this.ipMonitor = ipMonitor;
+		
 		this.vistaRegistro = vistaRegistro;
 		this.vistaRegistro.setControlador(this); //le indicamos a la vista que el controlador será su action listener
+		this.vistaRegistro.mostrarNumTotem(String.valueOf(numTotem));
 		this.vistaRegistro.abrirVentana();
 		
 		this.vistaConfirmacion = vistaConfirmacion;
 		this.vistaConfirmacion.setControlador(this);
-		this.numTotem = numTotem;
+		// por defecto las ventanas permanecen ocultas, por eso no 'cerramos' esta
+		
 		// Creo que para evitar este eventual 'while(true)' [si nunca ejecutaramos el monitor], el monitor deberia hacer ping a todos los posibles totems y box*
 		// que pueda haber (nosotros poner el limite), y cuando respondan los agregamos a la lista de activos, y cuando no, los sacamos.
 		// En el caso de cambiar esto, tambien cambiarlo en ControladorAtencion.
@@ -49,12 +57,7 @@ public class ControladorRegistro implements ActionListener {
 		// a parte, tendriamos que ver como gestionar la desconexion de los boxes, onda ver como sacarlos de la lista de activos cuando pase.
 		boolean avisado = false;
 		while (!avisado)
-			avisado = this.avisoActivacion();
-		// por defecto las ventanas permanecen ocultas, por eso no 'cerramos' esta
-		
-		// POR AHORA QUEDA EN VEREMOS LO DEL NUMERO DE TOTEM *
-		//numTotem++;
-		//this.vistaRegistro.mostrarNumTotem(String.valueOf(numTotem));
+			avisado = this.avisoActivacion(); // avisamos al monitor que hay una nueva instancia de 'registro' (totem)
 		
 	}
 	
@@ -75,7 +78,6 @@ public class ControladorRegistro implements ActionListener {
 		else
 			if(arg0.getActionCommand().equals(I_VistaRegistro.AC_REGISTRAR)) {
 				String dni = this.vistaRegistro.getDniIngresado();
-				//this.vistaRegistro.cerrarVentana();
 				this.vistaRegistro.setEnabled(false);
 				this.vistaConfirmacion.mostrarDni(dni);
 				this.vistaConfirmacion.abrirVentana();
@@ -85,7 +87,6 @@ public class ControladorRegistro implements ActionListener {
 				if(arg0.getActionCommand().equals(I_VistaRegistro.AC_MODIFICAR)) {
 					this.vistaRegistro.setEnabled(true); //si cerramos la ventanita con la 'X', esto nunca se haría. Salvo que deshabilitemos esa 'X'.
 					this.vistaConfirmacion.cerrarVentana();
-					//this.vistaRegistro.abrirVentana();
 				}
 				else
 					if(arg0.getActionCommand().equals(I_VistaRegistro.AC_CONFIRMAR)) {
@@ -114,13 +115,13 @@ public class ControladorRegistro implements ActionListener {
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out.println(dni);
-			String respuesta = in.readLine();
+			String respuesta = in.readLine(); // el servidor nos responderá si el DNI existe o no en el repositorio de clientes.
 			if(respuesta.equals("existe"))
 				this.vistaRegistro.registroExitoso();
 			else
-				this.vistaRegistro.errorCliente(); // dni no existente (en el repositorio de clientes)
+				this.vistaRegistro.errorCliente(); // dni no existente
 			
-			this.intentosRegistro = 2;
+			this.intentosRegistro = 2; // pudimos comunicarnos con el servidor -> reiniciamos el contador de intentos.
 			
 			out.close();
 			socket.close();
@@ -129,18 +130,6 @@ public class ControladorRegistro implements ActionListener {
 			//e.printStackTrace();
 			if(this.intentosRegistro > 0) {
 				this.intentosRegistro--; // quizas estaria bueno poner un sleep que abarque mas de los 30s de ping del monitor.
-				/*
-				try {
-					// lo ideal seria hacer esto en un hilo, pero bueno, aunque se frize toda la ventana, hay que esperar por la confirmación de exito o no.
-					Thread.sleep(17000); // 17s * 2 intentos mas = 34s
-				} catch (InterruptedException e1) { // DE QUEDAR ASÍ, AGREGAR TODo ESTO TAMBIÉN A atencion
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					// A VECES VA MEDIO MAL, MEPA QUE SE FRIZEA TODO ESTE HILO DE EJECUCION, Y CUANDO SE QUIERE HACER
-					// CAMBIO DE SERVER, SE DEMORA TAMBIEN. O SEA, LO ESTUVE PROBANDO AL CERRAR EL SERVER PRIMARIO Y
-					// ANTES DE QUE EL MONITOR AVISE EL CAMBIO DE SERVER, INTENTAR REGISTRAR UN DNI.
-				}
-				*/
 				this.registrarDNI(dni);
 			}else
 				this.vistaRegistro.errorConexion();
@@ -148,7 +137,7 @@ public class ControladorRegistro implements ActionListener {
 
 	}
 	
-	public void cambiarServidor(String nuevaIP, int nuevoServer) {
+	public void cambiarServidor(String nuevaIP, int nuevoServer) { // lo usa ManejadorErroresRegistro
 		this.ipServidor = nuevaIP;
 		if(nuevoServer == 2)
 			this.PORT = 3080;
@@ -157,13 +146,13 @@ public class ControladorRegistro implements ActionListener {
 		
 	}
 	
-	private boolean avisoActivacion() {
+	private boolean avisoActivacion() { // avisamos al manejador de comp. act. del monitor, que hay una nueva instancia (num) de 'registro' (totem)
 		boolean avisado = false;
 		try {
 			Socket socket = new Socket(this.ipMonitor, PORT_3);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			out.println("totem#"+this.numTotem);
+			out.println("totem#" + this.numTotem);
 			out.close();
 			socket.close();
 			avisado = true;

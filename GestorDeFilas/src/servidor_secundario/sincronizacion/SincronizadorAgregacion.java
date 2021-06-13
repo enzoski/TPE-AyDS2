@@ -8,22 +8,27 @@ import java.net.Socket;
 
 import servidor_secundario.fila_servidor.GestionFila;
 
+/**
+ * Clase que actualiza la fila de clientes según el DNI recibido por parte del servidor primario,
+ * al momento de querer sincronizarla (se agrega el DNI debido a un registro).
+ *
+ */
 public class SincronizadorAgregacion {
 	
-	private static final int PORT_SYNC_1 = 2500;
+	private static final int PORT_SYNC_1 = 2500; // puerto para recibir DNIs del sincronizador primario (agregarlos)
 	
 	private GestionFila gestorFila;
-	private Agregador hilo; // hilo para...
+	private Agregador hilo;
 	
 	public SincronizadorAgregacion(GestionFila gestorFila) {
 		this.gestorFila = gestorFila;
-		// instanciamos y activamos los hilos de los 'server socket'
+		// instanciamos y activamos el hilo del 'server socket'
 		this.hilo = new Agregador(this);
 		this.hilo.start();
 		
 	}
 	
-	public synchronized void agregar() { // viene el mensaje desde ControladorAtencion ??
+	public synchronized void agregar() { // viene el mensaje desde Sincronizador (servidor_primario)
 		try {
 			ServerSocket serverSocket = new ServerSocket(PORT_SYNC_1);
 			while (true) {

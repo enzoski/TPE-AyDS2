@@ -11,9 +11,8 @@ import java.util.ArrayList;
 
 import servidor_primario.I_RepositorioClientes;
 
-public class PersistenciaXML extends PersistenciaTemplate{
+public class PersistenciaXML extends PersistenciaTemplate {
 
-	
 	
 	public PersistenciaXML(I_RepositorioClientes repositorioClientes) {
 		super(repositorioClientes);
@@ -24,11 +23,11 @@ public class PersistenciaXML extends PersistenciaTemplate{
 	public void persistirDatosLlamado(String llamado) {
 		try {
 			XMLDecoder decoderLlamado = new XMLDecoder(new BufferedInputStream(new FileInputStream(NOMBRE_ARCHIVO_LLAMADOS)));
-			ArrayList<String> listaLlamados = (ArrayList<String>) decoderLlamado.readObject();
-			listaLlamados.add(llamado);
+			ArrayList<String> listaLlamados = (ArrayList<String>) decoderLlamado.readObject(); // leemos la lista
+			listaLlamados.add(llamado); // le agregamos el llamado
 			decoderLlamado.close();
 			XMLEncoder encoderLlamados = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(NOMBRE_ARCHIVO_LLAMADOS)));
-			encoderLlamados.writeObject(listaLlamados);
+			encoderLlamados.writeObject(listaLlamados); // reescribimos el archivo con la nueva lista
 			encoderLlamados.close();
 		} catch (FileNotFoundException e) { // para el primer llamado que se quiera persistir, primero hay que crear el archivo XML.
 			//e.printStackTrace();
@@ -51,11 +50,11 @@ public class PersistenciaXML extends PersistenciaTemplate{
 	public void persistirDatosRegistro(String registro) {
 		try {
 			XMLDecoder decoderRegistro = new XMLDecoder(new BufferedInputStream(new FileInputStream(NOMBRE_ARCHIVO_REGISTROS)));
-			ArrayList<String> listaRegistros = (ArrayList<String>) decoderRegistro.readObject();
-			listaRegistros.add(registro);
+			ArrayList<String> listaRegistros = (ArrayList<String>) decoderRegistro.readObject(); // leemos la lista
+			listaRegistros.add(registro); // le agregamos el registro
 			decoderRegistro.close();
 			XMLEncoder encoderRegistro = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(NOMBRE_ARCHIVO_REGISTROS)));
-			encoderRegistro.writeObject(listaRegistros);
+			encoderRegistro.writeObject(listaRegistros); // reescribimos el archivo con la nueva lista
 			encoderRegistro.close();
 		} catch (FileNotFoundException e) { // para el primer registro que se quiera persistir, primero hay que crear el archivo XML.
 			//e.printStackTrace();

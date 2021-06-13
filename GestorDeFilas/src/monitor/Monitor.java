@@ -7,7 +7,14 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-// disponibilidad
+/**
+ * Clase que monitorea a todos los componentes del sistema.
+ * Si detecta que alguno no funciona, da aviso a los demás para que tomen la acción que corresponda.
+ * Para esto, sabe la IP de las máquinas donde se ejecuta cada componente, y los puertos que escuchan.
+ * El Monitor es una táctica (Detección de fallas) para implementar el atributo de calidad 'Disponibilidad'.
+ * Hace uso de otra táctica llamada Ping/Echo, para justamente comunicarse con los componentes y esperar una respuesta (sockets).
+ *
+ */
 public class Monitor {
 	
 	private static Monitor monitor = null;
@@ -15,57 +22,59 @@ public class Monitor {
 	private static final int PORT_1 = 3200; // puerto para hacer ping al componente Llamado
 	private static final int PORT_2 = 3210; // puerto para hacer ping al servidor primario
 	private static final int PORT_3 = 3220; // puerto para hacer ping al servidor secundario
-	private int PORT_4 = 4000; // puerto para informar errores al componente Atencion
+	private int PORT_4 = 4000; // puerto base para informar errores a todos los componentes Atencion activos (box's)
 	private static final int PORT_5 = 3240; // puerto para informar errores al servidor primario
 	private static final int PORT_6 = 3250; // puerto para informar errores al servidor secundario
-	private int PORT_7 = 4100; // puerto para informar errores al componente Registro
-	private static final int PORT_9 = 3280; // puerto para avisar al servidor 2 que haga la resinronizacion.
-	
-	private ArrayList<Integer> box_activos = new ArrayList<Integer>();
-	private ArrayList<Integer> totem_activos = new ArrayList<Integer>();
+	private int PORT_7 = 4100; // puerto base para informar errores a todos los componentes Registro activos (totems)
+	private static final int PORT_9 = 3280; // puerto para avisar al servidor 2 que haga la resincronizacion.
 	
 	private String ipLlamado;
 	private String ipServ1;
 	private String ipServ2;
 	private String ipAtencion;
 	private String ipRegistro;
-	private int servidorActivo = 1;
-	private boolean llamadoEnLinea = true;
+	
+	private int servidorActivo = 1; // siempre por defecto el servidor activo es el primario (1).
+	private ArrayList<Integer> box_activos = new ArrayList<Integer>();
+	private ArrayList<Integer> totem_activos = new ArrayList<Integer>();
+	private boolean llamadoEnLinea = true; // si hay conexion con la TV o no.
+	
 	private HiloMonitor hilo;
 	
 	private Monitor(String ipLlamado, String ipAtencion, String ipRegistro, String ipServ1, String ipServ2) {
 		this.ipLlamado = ipLlamado;
-		this.ipServ1 = ipServ1;
-		this.ipServ2 = ipServ2;
 		this.ipAtencion = ipAtencion;
 		this.ipRegistro = ipRegistro;
-		
+		this.ipServ1 = ipServ1;
+		this.ipServ2 = ipServ2;
+		// instanciamos y activamos el hilo que hará ping's cada cierto tiempo.
 		this.hilo = new HiloMonitor(this);
 		this.hilo.start();
-		
 	}
 	
+	// Patron de Diseño GoF: SINGLETON
 	public static Monitor getMonitor(String ipLlamado, String ipAtencion, String ipRegistro, String ipServ1, String ipServ2) {
-		if(monitor==null) 
+		if(monitor == null) 
 			monitor = new Monitor(ipLlamado, ipAtencion, ipRegistro, ipServ1, ipServ2);
 		return monitor;
 	}
 	
-	
 	public void agregarBoxActivo(int num) {
 		this.box_activos.add(num);
-		System.out.println("se agrego el box activo: "+num);
+		System.out.println("Se agregó el box activo: " + num);
 	}
 	
 	public void eliminarBoxActivo(int num) {
 		int indice = this.box_activos.indexOf(num);
 		this.box_activos.remove(indice);
-		System.out.println("se eliminó el box activo: "+num);
-		try { // aviso al manejador de errores de atencion que se tiene que cerrar 
+		System.out.println("Se eliminó el box activo: " + num);
+		// aviso al manejador de errores de atencion de ese box, que se tiene que cerrar (dejar de escuchar)
+		// [es un pequeño hack para evitar un problema de puertos]
+		try {
 			Socket socket = new Socket(ipAtencion, PORT_4 + num);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			String msg = "desactivar" + "#"+ "ip" ; 
+			String msg = "desactivar" + "#" + "ip_no_usada"; // "reaprovechamos" ese server socket
 			out.println(msg);
 			out.close();
 			socket.close();
@@ -76,9 +85,10 @@ public class Monitor {
 		
 	}
 	
+	// quizas podriamos hacer tambien un 'eliminarTotemActivo', pero habria que ver como asociar el evento de cerrar la ventana con la 'X'.
 	public void agregarTotemActivo(int num) {
 		this.totem_activos.add(num);
-		System.out.println("se agrego el totem activo: "+num);
+		System.out.println("Se agregó el totem activo: " + num);
 	}
 	
 	// PARA MI ESTE PING NO SERÍA NECESARIO.
@@ -87,7 +97,8 @@ public class Monitor {
 	// todos las posibles IP y puerto de todos los totem y puestos de atencion que haya)
 	// CON ESTO ULTIMO ME DI CUENTA QUE LOS 'avisos' PARA HACER EL CAMBIO DE SERVER, TENDRIA QUE SER A TODAS LAS POSIBLES IP-PUERTO
 	// COSA QUE NOSOTROS LOCALMENTE COMO ES LA MISMA IP, DA ERROR AL POR EJEMPLO ABRIR 2 'atencion' YA QUE ESCUCHAN EL MISMO PUERTO EN LA MISMA IP.
-	public void pingLlamado() { // táctica ping/echo
+	// ---arreglado---
+	public void pingLlamado() { // táctica ping/echo al TV
 		try {
 			Socket socket = new Socket(ipLlamado, PORT_1);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -96,23 +107,23 @@ public class Monitor {
 			String msg = in.readLine();
 			if(!msg.equals("ping")) { // error por recibir un mensaje no esperado
 				this.avisoaAServ1("llamado"); // para que el servidor primario no mande llamados al TV
-				this.avisoaAServ2("llamado"); // para que el servidor primario no mande llamados al TV
+				this.avisoaAServ2("llamado"); // para que el servidor secundario no mande llamados al TV
 				this.llamadoEnLinea = false;
-				System.out.println("No hay conexión con la mini-pc.");
+				System.out.println("No hay conexión con la mini-pc (TV de llamados).");
 			}else {
 				if(!this.llamadoEnLinea) { //antes no andaba y ahora si. 
-					this.llamadoEnLinea = true;
+					this.llamadoEnLinea = true; // si no lo llegamos a usar en ninguna lado, despues sacarlo.
 				}
 			}
 			out.close();
 			socket.close();
 		}
-		catch (Exception e) { // por error de conexión
+		catch (Exception e) { // error de comunicación
 			//e.printStackTrace();
 			this.avisoaAServ1("llamado");
 			this.avisoaAServ2("llamado");
 			this.llamadoEnLinea = false;
-			System.out.println("No hay conexión con la mini-pc.");
+			System.out.println("No hay conexión con la mini-pc (TV de llamados).");
 		}
 	}
 	
@@ -134,9 +145,11 @@ public class Monitor {
 				if(this.servidorActivo == 2) { //antes no andaba
 					this.avisoaAAtencion("serv2", ipServ1);
 					this.avisoaARegistro("serv2", ipServ1);
-					this.resincronizar();
+					// estos 2 avisos realmente los usamos para indicar que volvió a funcionar el servidor primario, y no que falló el secundario.
+					// no es que los componentes quedan conectados al secundario hasta que este se caiga, sino hasta que vuelva el primario.
+					this.resincronizar(); //avisamos al servidor secundario que debe pasarle su fila de DNIs al primario.
 					this.servidorActivo = 1;
-					System.out.println("Volvio la conexion con el servidor primario.");
+					System.out.println("Volvió la conexión con el servidor primario."); //estaría bueno informar si la resincronización fue exitosa o no.
 				}
 				/*
 				 * Puede ser que si las personas se siguen registrando mientras se hace la resincronizacion
@@ -149,10 +162,10 @@ public class Monitor {
 			out.close();
 			socket.close();
 		}
-		catch (Exception e) {
+		catch (Exception e) { // error de comunicación
 			//e.printStackTrace();
 			this.avisoaAServ2("serv1");
-			this.avisoaAAtencion("serv1", this.ipServ2);
+			this.avisoaAAtencion("serv1", this.ipServ2); // - Atencion, no anda el servidor primario, te paso la IP del secundario para que te conectes.
 			this.avisoaARegistro("serv1", this.ipServ2);
 			this.servidorActivo = 2;
 			System.out.println("No hay conexión con el servidor primario.");
@@ -171,23 +184,29 @@ public class Monitor {
 			if(!msg.equals("ping")) { // error por recibir un mensaje no esperado.
 				this.avisoaAServ1("serv2"); // para que el servidor primario sepa que falló el servidor 2 y no le siga mandando dni's.
 				System.out.println("No hay conexión con el servidor secundario.");
+				// NOTA: no damos aviso a los componentes que falló el servidor secundario, porque por como lo implementamos nosotros,
+				// los componentes siempre se conectarán al servidor primario a menos que no esté funcionando. Entonces si los componentes
+				// estaban conectados al secundario, y este falla, quiere decir que el primario tampoco anda, sino ya se hubieran reconectado a él.
+				// Entonces de nada sirve dar aviso que falló el server secundario para que se conecten al primario, si este tampoco anda.
 			}
 			out.close();
 			socket.close();
 		}
-		catch (Exception e) {
+		catch (Exception e) { // error de comunicación
 			//e.printStackTrace();
 			this.avisoaAServ1("serv2");
 			System.out.println("No hay conexión con el servidor secundario.");
 		}
 	}
 	
-	private void avisoaAAtencion(String componente, String ip) { // informar errores al componente 'atencion'
+	// - Atencion, no anda tal componente, conectate a esta IP.
+	private void avisoaAAtencion(String componente, String ip) { // informar errores a todos los componentes 'atencion' activos
 		int port = this.PORT_4;
-		Iterator<Integer> i = this.box_activos.iterator();
-		while (i.hasNext()) {
+		Iterator<Integer> it = this.box_activos.iterator();
+		while (it.hasNext()) {
+			int numBox = it.next();
 			try {
-				port += i.next();
+				port += numBox;
 				Socket socket = new Socket(ipAtencion, port);
 				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -198,18 +217,21 @@ public class Monitor {
 				port = this.PORT_4; // para que siempre se vaya sumando a partir del puerto base, y no acumulando.
 			}
 			catch (Exception e) {
-				e.printStackTrace();
+				//e.printStackTrace();
+				System.out.println("Se perdió la conexión con el box " + numBox + ", por lo que no sabe que hubo algún fallo en el sistema.");
 			}
 		}
 		
 	}
 	
-	private void avisoaARegistro(String componente, String ip) { // informar errores al componente 'registro'
+	// - Registro, no anda tal componente, conectate a esta IP.
+	private void avisoaARegistro(String componente, String ip) { // informar errores a todos los componentes 'registro' activos
 		int port = this.PORT_7;
-		Iterator<Integer> i = this.totem_activos.iterator();
-		while (i.hasNext()) {
+		Iterator<Integer> it = this.totem_activos.iterator();
+		while (it.hasNext()) {
+			int numTotem = it.next();
 			try {
-				port += i.next();
+				port += numTotem;
 				Socket socket = new Socket(this.ipRegistro, port);
 				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -220,11 +242,13 @@ public class Monitor {
 				port = this.PORT_7; // para que siempre se vaya sumando a partir del puerto base, y no acumulando.
 			}
 			catch (Exception e) {
-				e.printStackTrace();
+				//e.printStackTrace();
+				System.out.println("Se perdió la conexión con el totem " + numTotem + ", por lo que no sabe que hubo algún fallo en el sistema.");
 			}
 		}
 	}
 	
+	// - Servidor 1, no anda tal componente.
 	private void avisoaAServ1(String componente) { // informar errores al servidor primario
 		try {
 			Socket socket = new Socket(this.ipServ1, PORT_5);
@@ -235,11 +259,14 @@ public class Monitor {
 			socket.close();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			//si hubiera un error de conexion con el servidor primario, el monitor nos lo informaría al hacerle ping.
+			//despues ver si en todo caso aca informamos que no se pudo dar tal aviso al servidor 1.
 		}
 		
 	}
 	
+	// - Servidor 2, no anda tal componente.
 	private void avisoaAServ2(String componente) { // informar errores al servidor secundario
 		try {
 			Socket socket = new Socket(this.ipServ2, PORT_6);
@@ -250,12 +277,14 @@ public class Monitor {
 			socket.close();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			//si hubiera un error de conexion con el servidor secundario, el monitor nos lo informaría al hacerle ping.
+			//despues ver si en todo caso aca informamos que no se pudo dar tal aviso al servidor 2.
 		}
 		
 	}
 	
-	private void resincronizar() {
+	private void resincronizar() { // Avisamos al servidor secundario que debe pasarle su fila de DNIs al primario.
 		try {
 			Socket socket = new Socket(ipServ2, PORT_9);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -266,7 +295,7 @@ public class Monitor {
 		}
 		catch (Exception e) {
 			//e.printStackTrace();
-			this.avisoaAServ1("serv2");
+			this.avisoaAServ1("serv2"); // si no hay conexion con el secundario, se lo avisamos al primario (quizas podriamos obviarlo)
 		}
 	}
 	

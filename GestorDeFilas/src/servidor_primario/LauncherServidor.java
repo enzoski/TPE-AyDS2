@@ -12,7 +12,6 @@ import servidor_primario.monitoreo.ManejadorErroresServ1;
 import servidor_primario.monitoreo.MonitoreoServPri;
 import servidor_primario.persistencia_primaria.PersistenciaTemplate;
 import servidor_primario.persistencia_primaria.PersistenciaXML;
-import servidor_primario.sincronizacion.Sincronizador;
 
 public class LauncherServidor {
 
@@ -29,21 +28,15 @@ public class LauncherServidor {
 		String ipLlamado = ipLocal;
 		String ipServ2 = ipLocal;
 		
-		/*
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Ingrese la dirección IP de la mini-PC que mostrará los llamados: ");
-		String ipLlamado = sc.nextLine();
-		System.out.print("Ingrese la dirección IP del servidor secundario que estará sincronizado: ");
-		String ipServ2 = sc.nextLine();
-		sc.close();
-		*/
-		
-		Scanner sc = new Scanner(System.in);
-		System.out.print("Ingrese el algoritmo de llamado de clientes (DNI|llegada|categoria) : ");
+		//System.out.print("Ingrese la dirección IP de la mini-PC que mostrará los llamados: ");
+		//String ipLlamado = sc.nextLine();
+		//System.out.print("Ingrese la dirección IP del servidor secundario que estará sincronizado: ");
+		//String ipServ2 = sc.nextLine();
+		System.out.print("Ingrese el algoritmo de llamado de clientes (llegada|categoria|DNI): ");
 		String algoritmo = sc.nextLine();
 		sc.close();
 		
-		sc.close();
 		// El servidor consta de 2 sub-componentes:
 		// uno que gestiona la fila de clientes, y otro que gestiona la comunicación entre todo el sistema.
 		I_RepositorioClientes repositorioClientes = new RepositorioClientes();
@@ -57,7 +50,6 @@ public class LauncherServidor {
 		ResincronizaFila resincronizdor = new ResincronizaFila(gestionFila);
 		
 		System.out.println("Servidor primario escuchando...");
-		
 		
 	}
 

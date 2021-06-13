@@ -1,6 +1,5 @@
 package servidor_primario.fila_servidor;
 
-
 public class HiloResincronizador extends Thread{
 	private ResincronizaFila resincronizaFila;
 	 

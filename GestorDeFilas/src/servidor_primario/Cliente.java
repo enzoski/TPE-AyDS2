@@ -10,7 +10,7 @@ public class Cliente {
 		// Es necesario declarar un constructor vacio para que se realice bien la serializacion XML.
 	}
 	
-	public Cliente(String dni, String nombre, String categoria) { // despues ver si sacamos estos parametros.
+	public Cliente(String dni, String nombre, String categoria) {
 		this.dni = dni;
 		this.nombre = nombre;
 		this.categoria = categoria;
@@ -44,7 +44,6 @@ public class Cliente {
 	
 	@Override
 	public String toString() {
-		
 		return "DNI: " + this.dni + " - " + this.nombre + " - Categoria: " + this.categoria;
 	}
 

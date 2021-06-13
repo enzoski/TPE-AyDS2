@@ -5,7 +5,10 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-
+/**
+ * Clase que implementa operaciones de lectura de un archivo XML que contiene datos de clientes.
+ *
+ */
 public class RepositorioClientes implements I_RepositorioClientes {
 	
 	public RepositorioClientes() {
@@ -24,8 +27,8 @@ public class RepositorioClientes implements I_RepositorioClientes {
 				//dniActual = cliente.getDni();
 				dniActual = cliente.split("-")[0]; // parseo del dni del cliente
 			}
-			String nombre = cliente.split("-")[1];
-			String categoria = cliente.split("-")[2];
+			String nombre = cliente.split("-")[1]; // parseo del nombre del cliente
+			String categoria = cliente.split("-")[2]; // parseo de la categoria del cliente
 			objetoCliente = new Cliente(dni,nombre,categoria);
 				
 		} catch (FileNotFoundException e1) {
@@ -36,8 +39,7 @@ public class RepositorioClientes implements I_RepositorioClientes {
 			e2.printStackTrace();
 		}
 		
-		//return cliente.getNombre();
-		return objetoCliente; // parseo del nombre del cliente
+		return objetoCliente;
 	}
 
 	@Override
@@ -60,11 +62,10 @@ public class RepositorioClientes implements I_RepositorioClientes {
 			// El cliente no existirá si llegamos a fin de archivo y no encontramos el dni.
 			// e2.printStackTrace();
 			existe = false;
-		}		
-		//return cliente.getNombre();
+		}
+		
 		return existe;
 	}
-	
 	
 
 }

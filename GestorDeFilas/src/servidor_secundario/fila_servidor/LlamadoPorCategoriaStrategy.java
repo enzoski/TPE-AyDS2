@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.Queue;
 
 import servidor_secundario.I_RepositorioClientes;
-import servidor_secundario.RepositorioClientes;
 
 public class LlamadoPorCategoriaStrategy implements I_LlamadoStrategy {
 	
@@ -30,10 +29,13 @@ public class LlamadoPorCategoriaStrategy implements I_LlamadoStrategy {
 		}
 		if(dniProx.equals(""))
 			dniProx = null;
+		else{
+			this.clientes.remove(dniProx);
+		}
 		return dniProx;
 	}
 	
-	public String buscarClienteCategoria(String categoria) {
+	private String buscarClienteCategoria(String categoria) {
 		String dniProxCliente = "";
 		Iterator<String> it = this.clientes.iterator();
 		while(it.hasNext() && dniProxCliente.equals("")) {

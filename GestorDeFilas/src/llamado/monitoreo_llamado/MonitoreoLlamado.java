@@ -6,9 +6,13 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * Clase que espera recibir 'ping' por parte del Monitor del Sistema, y le responde con un 'echo'.
+ *
+ */
 public class MonitoreoLlamado {
 	
-	private static final int PORT_1 = 3200; // puerto para hacer echo al componente Llamado (responderle)
+	private static final int PORT_1 = 3200; // puerto para hacer Echo al Monitor (responderle)
 	
 	private HiloMonitorLlamado hilo;
 	
@@ -26,7 +30,7 @@ public class MonitoreoLlamado {
 				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				String msg = in.readLine();
-				// le respondemos al componente 'llamado'
+				// le respondemos al componente 'monitor' lo mismo que nos mandó
 				out.println(msg);
 				out.close();
 				socket.close();

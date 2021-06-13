@@ -4,13 +4,11 @@ import java.util.Queue;
 
 import servidor_secundario.I_RepositorioClientes;
 
-
-
 public class CreadorLlamadoPorCategoria extends CreadorAlgoritmoLlamado{
 	
-	I_RepositorioClientes repositorioClientes;
+	private I_RepositorioClientes repositorioClientes;
 	
-	public CreadorLlamadoPorCategoria(Queue<String> clientes,I_RepositorioClientes repositorioClientes) {
+	public CreadorLlamadoPorCategoria(Queue<String> clientes, I_RepositorioClientes repositorioClientes) {
 		super(clientes);
 		this.repositorioClientes = repositorioClientes;
 	}
@@ -18,9 +16,8 @@ public class CreadorLlamadoPorCategoria extends CreadorAlgoritmoLlamado{
 	@Override
 	public I_LlamadoStrategy crearAlgoritmoLlamado() {
 		// TODO Auto-generated method stub
-		return new LlamadoPorCategoriaStrategy(this.getClientes(),this.repositorioClientes);
+		return new LlamadoPorCategoriaStrategy(this.getClientes(), this.repositorioClientes);
 	}
-
 
 
 }

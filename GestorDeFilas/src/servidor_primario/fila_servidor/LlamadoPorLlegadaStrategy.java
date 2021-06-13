@@ -13,7 +13,8 @@ public class LlamadoPorLlegadaStrategy implements I_LlamadoStrategy {
 	@Override
 	public String proximoCliente() {
 		// TODO Auto-generated method stub
-		return this.clientes.poll();
+		return this.clientes.poll(); // devuelve null si no hay mas clientes (DNIs)
+		// '.poll()' es una forma optimizada de devolver y eliminar la cabeza de la lista (primer elemento).
 	}
 
 }

@@ -19,26 +19,30 @@ import atencion.vista_atencion.VistaAtencionLlamarCliente;
  */
 public class ControladorAtencion implements ActionListener {
 	
+	private int boxActual = -1;
+	
 	private int PORT_1 = 2090; // puerto para deshabilitar box
 	private int PORT_2 = 2100; // puerto para llamar prox cliente
 	private int PORT_3 = 3700; // puerto para avisar al monitor que se activo un box
 	
 	private String ipServidor; // IP del servidor
-	private String ipMonitor;
+	private String ipMonitor; // IP del monitor
+	
 	private VistaAtencionInicio vistaInicio;
 	private VistaAtencionLlamarCliente vistaLlamarCliente;
-	private int boxActual = -1;
-	private boolean avisoHabilitadoAMonitor = false;	
-	// disponibilidad
+	
+	// disponibilidad (táctica reintento)
 	private int intentosLlamado = 2; //maxima cantidad de intentos para comunicarse con el servidor para hacer un llamado.
 	private int intentosDeshabilitacion = 2; //maxima cantidad de intentos para comunicarse con el servidor para deshabilitar un box.
 	
-	ManejadorErroresAtencion manejadorErroresAtencion;
+	ManejadorErroresAtencion manejadorErroresAtencion; // lo instanciaremos al activar el box, o lo 'pararemos' al desactivar el box.
+	private boolean avisoHabilitadoAMonitor = false;
 	
 	public ControladorAtencion(VistaAtencionInicio vistaInicio, VistaAtencionLlamarCliente vistaLlamarCliente, String ipServidor, String ipMonitor) {
 		
 		this.ipServidor = ipServidor;
 		this.ipMonitor = ipMonitor;
+		
 		this.vistaInicio = vistaInicio;
 		this.vistaInicio.setControlador(this);
 		this.vistaInicio.abrirVentana();
@@ -46,9 +50,8 @@ public class ControladorAtencion implements ActionListener {
 		this.vistaLlamarCliente = vistaLlamarCliente;
 		this.vistaLlamarCliente.setControlador(this);
 		
-		
 		while(!this.avisoHabilitadoAMonitor) {
-			this.avisoHabilitadoAMonitor = this.avisoActivacion();
+			this.avisoHabilitadoAMonitor = this.avisoActivacion(); // avisamos al monitor que hay una nueva instancia de 'atencion' (box)
 			//System.out.println(this.avisoHabilitadoAMonitor);
 		}
 		
@@ -83,10 +86,9 @@ public class ControladorAtencion implements ActionListener {
 			this.vistaInicio.cerrarVentana();
 			this.vistaLlamarCliente.mostrarNumBoxHabilitado(String.valueOf(num));
 			this.vistaLlamarCliente.abrirVentana();
-			//RECIEN ACA DEBERIAMOS ACTIVAR EL MANEJADOR DE ERRORES, VER BIEN SI DEJARLO ASI O CÓMO.
+			//recien aca deberiamos activar el manejador de errores.
 			this.manejadorErroresAtencion = new ManejadorErroresAtencion(this);
-			//PODRIAMOS HACERLO ATRIBUTO, PORQUE CUANDO DESCONECTEMOS EL BOX DEBERIAMOS PARAR SU HILO Y PONER LA REFERENCIA EN NULL.
-			if(!this.avisoHabilitadoAMonitor) {
+			if(!this.avisoHabilitadoAMonitor) { // por si desactivamos el box, y luego volvemos a activarlo, hay que reavisar al monitor
 				this.avisoHabilitadoAMonitor = this.avisoActivacion();
 				//System.out.println(this.avisoHabilitadoAMonitor);
 			}
@@ -98,9 +100,8 @@ public class ControladorAtencion implements ActionListener {
 	}
 	
 	private void deshabilitarBox() {//agregar al diagrama de secuencia lo del socket.
-		
-		this.avisoDeshabilitacion(this.boxActual); // avisar al server el nro de box que se desactiva
-		this.avisoDesactivacion();//avisa al monitor
+		this.avisoDeshabilitacion(this.boxActual); // avisa al server el nro de box que se desactiva para borrar sus llamados de la TV
+		this.avisoDesactivacion(); // avisa al monitor que deje de monitorearnos
 		this.avisoHabilitadoAMonitor = false;
 		this.boxActual = -1;
 		this.vistaLlamarCliente.limpiarCampoProxDNI();
@@ -116,7 +117,7 @@ public class ControladorAtencion implements ActionListener {
 			out.println(box);
 			out.close();
 			socket.close();
-			this.intentosDeshabilitacion = 2;
+			this.intentosDeshabilitacion = 2; // pudimos comunicarnos con el servidor -> reiniciamos el contador de intentos.
 		}
 		catch (Exception e) {
 			//e.printStackTrace();
@@ -150,7 +151,7 @@ public class ControladorAtencion implements ActionListener {
 					this.vistaLlamarCliente.mostrarDNIProximoCliente(dni);
 			out.close();
 			socket.close();
-			this.intentosLlamado = 2;
+			this.intentosLlamado = 2; // pudimos comunicarnos con el servidor -> reiniciamos el contador de intentos.
 		}
 		catch (Exception e) {
 			//e.printStackTrace();
@@ -165,7 +166,7 @@ public class ControladorAtencion implements ActionListener {
 	
 	// disponibilidad
 	
-	public void cambiarServidor(String nuevaIP,int numServerNuevo) {
+	public void cambiarServidor(String nuevaIP, int numServerNuevo) { // lo usa ManejadorErroresAtencion
 		this.ipServidor = nuevaIP;
 		if(numServerNuevo == 2) {
 			this.PORT_1 = 3090; // nuevoPuertoElim
@@ -178,14 +179,14 @@ public class ControladorAtencion implements ActionListener {
 		
 	}
 	
-	private boolean avisoActivacion() {
+	private boolean avisoActivacion() { // avisamos al manejador de comp. act. del monitor, que hay una nueva instancia (num) de 'atencion' (box)
 		boolean aviso=false;
 		if(this.boxActual > 0) {
 			try {
 				Socket socket = new Socket(this.ipMonitor, PORT_3);
 				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-				out.println("box#"+this.boxActual);
+				out.println("box#" + this.boxActual);
 				out.close();
 				socket.close();
 				aviso=true;
@@ -197,17 +198,18 @@ public class ControladorAtencion implements ActionListener {
 		return aviso;
 	}
 	
-	private void avisoDesactivacion() {
+	private void avisoDesactivacion() { // avisamos al manejador de comp. act. del monitor, que desactivamos el box
 		try {
 			Socket socket = new Socket(this.ipMonitor, PORT_3);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			out.println("box_desactivado#"+this.boxActual);
+			out.println("box_desactivado#" + this.boxActual);
 			out.close();
 			socket.close();
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("No se pudo avisar al monitor que se desactivó el box, debido a un error de conexión.");
 		}
 	}
 	

@@ -30,16 +30,12 @@ public class LauncherServidor {
 		String ipLlamado = ipLocal;
 		String ipServ1 = ipLocal;
 		
-		/*
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Ingrese la dirección IP de la mini-PC que mostrará los llamados: ");
-		String ipLlamado = sc.nextLine();
-		System.out.print("Ingrese la dirección IP del servidor primario que será resincronizado cuando corresponda: ");
-		String ipServ1 = sc.nextLine();
-		sc.close();
-		*/
-		Scanner sc = new Scanner(System.in);
-		System.out.print("Ingrese el algoritmo de llamado de clientes (DNI|llegada|categoria) : ");
+		//System.out.print("Ingrese la dirección IP de la mini-PC que mostrará los llamados: ");
+		//String ipLlamado = sc.nextLine();
+		//System.out.print("Ingrese la dirección IP del servidor primario que será resincronizado cuando corresponda: ");
+		//String ipServ1 = sc.nextLine();
+		System.out.print("Ingrese el algoritmo de llamado de clientes (llegada|categoria|DNI): ");
 		String algoritmo = sc.nextLine();
 		sc.close();
 		

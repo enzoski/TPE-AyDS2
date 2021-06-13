@@ -23,25 +23,22 @@ public class LauncherRegistro {
 		}
 		String ipServidor = ipLocal;
 		String ipMonitor = ipLocal;
-		/*
+		
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Ingrese la dirección IP del servidor: ");
-		String ipServidor = sc.nextLine();
+		System.out.print("Ingrese el número de totem: ");
+		int numTotem = sc.nextInt();
+		//System.out.print("Ingrese la dirección IP del servidor: ");
+		//String ipServidor = sc.nextLine();
+		//System.out.print("Ingrese la dirección IP del monitor: ");
+		//String ipMonitor = sc.nextLine();
 		sc.close();
-		*/
-		int numTotem; 
-		Scanner sc = new Scanner(System.in);
-		System.out.print("Ingrese el numero de totem: ");
-		String totem = sc.nextLine();
-		sc.close();
-		numTotem = Integer.valueOf(totem);
 		
 		VistaRegistro vistaRegistro = new VistaRegistro();
 		VistaRegistroConfirmacion vistaConfirmacion = new VistaRegistroConfirmacion();
-		ControladorRegistro controlador = new ControladorRegistro(vistaRegistro, vistaConfirmacion, ipServidor,ipMonitor, numTotem);
+		ControladorRegistro controlador = new ControladorRegistro(vistaRegistro, vistaConfirmacion, ipServidor, ipMonitor, numTotem);
 		// disponibilidad
 		ManejadorErroresRegistro manejadorErroresRegistro = new ManejadorErroresRegistro(controlador);
-		// ACA NO HAY PROBLEMA DE INSTANCIAR EL MANEJADOR DE ERRORES, YA QUE EL CONTROLADOR OBTIENE DE UNA EL N° DE TOTEM.
+		// a diferencia de 'atencion', no hay problema de instanciar el manejador de errores acá, ya que el controlador asigna directamente el n° de totem.
 		
 	}
 
