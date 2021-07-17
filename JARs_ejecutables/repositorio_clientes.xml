@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_251" class="java.beans.XMLDecoder">
+ <string>11111111-Johnny Depp-Premium</string>
+ <string>22222222-Tobey Maguire-Plus</string>
+ <string>33333333-Andrew Garfield-Normal</string>
+ <string>44444444-Emma Watson-Premium</string>
+ <string>55555555-Chris Evans-Normal</string>
+ <string>66666666-Christian Bale-Basico</string>
+ <string>77777777-Heath Ledger-Basico</string>
+ <string>88888888-Elizabeth Olsen-Plus</string>
+ <string>99999999-Gary Oldman-Premium</string>
+ <string>12345678-David Thewlis-Premium</string>
+</java>
