@@ -9,6 +9,7 @@ public class LauncherMonitor {
 	public static void main(String[] args) {
 		
 		// PARA PRUEBAS LOCALES
+		/*
 		String ipLocal = "";
 		try {
 			ipLocal = InetAddress.getLocalHost().getHostAddress();
@@ -21,8 +22,8 @@ public class LauncherMonitor {
 		String ipRegistro = ipLocal;
 		String ipServ1    = ipLocal;
 		String ipServ2    = ipLocal;
+		*/
 		
-		/*
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Ingrese la dirección IP de las máquinas que serán monitoreadas.");
 		System.out.print("Mini-PC de llamados por TV: "); String ipLlamado = sc.nextLine();
@@ -31,7 +32,6 @@ public class LauncherMonitor {
 		System.out.print("Servidor primario: ");          String ipServ1 = sc.nextLine();
 		System.out.print("Servidor secundario: ");        String ipServ2 = sc.nextLine();
 		sc.close();
-		*/
 		
 		// Por como lo planteamos, podriamos monitorear un solo totem y un solo box.
 		// [ARREGLADO, YA PODEMOS VARIOS, PERO DEBEN TENER LA MISMA IP (arreglamos el tema de puertos)]
