@@ -18,6 +18,7 @@ public class LauncherServidor {
 	public static void main(String[] args) {
 		
 		// PARA PRUEBAS LOCALES
+		/*
 		String ipLocal = "";
 		try {
 			ipLocal = InetAddress.getLocalHost().getHostAddress();
@@ -27,14 +28,19 @@ public class LauncherServidor {
 		}
 		String ipLlamado = ipLocal;
 		String ipServ2 = ipLocal;
+		*/
 		
 		Scanner sc = new Scanner(System.in);
-		//System.out.print("Ingrese la dirección IP de la mini-PC que mostrará los llamados: ");
-		//String ipLlamado = sc.nextLine();
-		//System.out.print("Ingrese la dirección IP del servidor secundario que estará sincronizado: ");
-		//String ipServ2 = sc.nextLine();
+		System.out.print("Ingrese la dirección IP de la mini-PC que mostrará los llamados: ");
+		String ipLlamado = sc.nextLine();
+		System.out.print("Ingrese la dirección IP del servidor secundario que estará sincronizado: ");
+		String ipServ2 = sc.nextLine();
 		System.out.print("Ingrese el algoritmo de llamado de clientes (llegada|categoria|DNI): ");
 		String algoritmo = sc.nextLine();
+		while( !( algoritmo.equals("llegada") || algoritmo.equals("DNI") || algoritmo.equals("categoria") ) ) {
+			System.out.print("Por favor ingrese un algoritmo de llamado de clientes valido (llegada|categoria|DNI): ");
+			algoritmo = sc.nextLine();
+		}
 		sc.close();
 		
 		// El servidor consta de 2 sub-componentes:

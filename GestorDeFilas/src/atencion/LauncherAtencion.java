@@ -13,6 +13,7 @@ public class LauncherAtencion {
 	public static void main(String[] args) {
 		
 		// PARA PRUEBAS LOCALES
+		/*
 		String ipLocal = "";
 		try {
 			ipLocal = InetAddress.getLocalHost().getHostAddress();
@@ -22,15 +23,14 @@ public class LauncherAtencion {
 		}
 		String ipServidor = ipLocal;
 		String ipMonitor = ipLocal;
+		*/
 		
-		/*
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Ingrese la dirección IP del servidor: ");
 		String ipServidor = sc.nextLine();
 		System.out.print("Ingrese la dirección IP del monitor: ");
 		String ipMonitor = sc.nextLine();
 		sc.close();
-		*/
 		
 		VistaAtencionInicio vistaInicio = new VistaAtencionInicio();
 		VistaAtencionLlamarCliente vistaLlamarCliente = new VistaAtencionLlamarCliente();
